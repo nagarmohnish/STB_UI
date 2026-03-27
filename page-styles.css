@@ -1,0 +1,637 @@
+/* ======================================
+   Shark Tank Blog - Page-Specific Styles
+   ====================================== */
+
+/* ==================
+   PAGE HERO BANNER
+   ================== */
+.page-hero {
+    background: linear-gradient(135deg, #0a2a4a 0%, #0d3b66 40%, #145a8a 70%, #0a2a4a 100%);
+    position: relative;
+    padding: 60px 0;
+    text-align: center;
+    overflow: hidden;
+}
+
+.page-hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: url('assets/images/hero-bg.svg') center/cover no-repeat;
+    opacity: 0.15;
+    pointer-events: none;
+}
+
+.page-hero h1 {
+    font-family: var(--font-heading);
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--text-white);
+    position: relative;
+    z-index: 1;
+}
+
+/* ==================
+   FILTER ROW
+   ================== */
+.filter-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 0;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 30px;
+}
+
+.filter-row h2 {
+    font-family: var(--font-heading);
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.filter-select {
+    padding: 8px 35px 8px 14px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 14px;
+    font-family: var(--font-body);
+    color: var(--text-primary);
+    background: #fff;
+    cursor: pointer;
+    outline: none;
+    appearance: auto;
+}
+
+.filter-select:focus {
+    border-color: var(--cyan);
+}
+
+/* ==================
+   PRODUCT LISTING CARDS
+   ================== */
+.section-product-listing {
+    padding: 30px 0 50px;
+    background: var(--bg-white);
+}
+
+.product-listing-list {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.product-listing-card {
+    display: flex;
+    gap: 0;
+    border: 1px solid #e8e8e8;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    transition: box-shadow 0.2s, border-color 0.2s;
+    background: #fff;
+}
+
+.product-listing-card:hover {
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+    border-color: #ccc;
+}
+
+.product-listing-card .card-image {
+    flex-shrink: 0;
+    width: 260px;
+}
+
+.product-listing-card .card-image a {
+    display: block;
+    height: 100%;
+}
+
+.product-listing-card .card-image img {
+    width: 100%;
+    height: 100%;
+    min-height: 200px;
+    object-fit: cover;
+}
+
+.product-listing-card .card-content {
+    flex: 1;
+    min-width: 0;
+    padding: 22px 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.product-listing-card .card-content h3 {
+    font-family: var(--font-heading);
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.35;
+    margin-bottom: 10px;
+}
+
+.product-listing-card .card-content h3 a {
+    color: var(--text-primary);
+    transition: color 0.2s;
+}
+
+.product-listing-card .card-content h3 a:hover {
+    color: var(--cyan);
+}
+
+.product-listing-card .card-meta {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: var(--text-light);
+    margin-bottom: 12px;
+}
+
+.product-listing-card .card-meta i {
+    font-size: 12px;
+    color: #aaa;
+    margin-right: 2px;
+}
+
+.product-listing-card .card-meta .author-name {
+    color: var(--cyan);
+    font-weight: 600;
+}
+
+.product-listing-card .card-excerpt {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.65;
+    margin-bottom: 16px;
+}
+
+.btn-read-more {
+    display: inline-block;
+    background: var(--cyan);
+    color: var(--text-white) !important;
+    padding: 9px 22px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    transition: background 0.2s;
+    align-self: flex-start;
+}
+
+.btn-read-more:hover {
+    background: var(--cyan-hover);
+}
+
+/* ==================
+   PAGINATION
+   ================== */
+.pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 40px 0 20px;
+}
+
+.pagination a,
+.pagination span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 38px;
+    height: 38px;
+    padding: 0 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    background: #fff;
+    transition: all 0.2s;
+}
+
+.pagination a:hover {
+    background: var(--cyan);
+    color: #fff;
+    border-color: var(--cyan);
+}
+
+.pagination .active {
+    background: var(--cyan);
+    color: #fff;
+    border-color: var(--cyan);
+}
+
+.pagination .dots {
+    border: none;
+    background: transparent;
+    color: var(--text-light);
+    min-width: auto;
+    padding: 0 4px;
+}
+
+.pagination .next {
+    padding: 0 16px;
+}
+
+/* ==================
+   BLOG PAGE - CARD GRID
+   ================== */
+.blog-grid-section {
+    padding: 50px 0 60px;
+    background: var(--bg-white);
+}
+
+.blog-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+.blog-grid-card {
+    background: var(--bg-white);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.07);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.blog-grid-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+}
+
+.blog-grid-card .card-thumb {
+    display: block;
+    width: 100%;
+    overflow: hidden;
+}
+
+.blog-grid-card .card-thumb img {
+    width: 100%;
+    aspect-ratio: 16/10;
+    object-fit: cover;
+    transition: transform 0.3s;
+}
+
+.blog-grid-card:hover .card-thumb img {
+    transform: scale(1.03);
+}
+
+.blog-grid-card .card-content {
+    padding: 20px;
+}
+
+.blog-grid-card .card-content h3 {
+    font-family: var(--font-heading);
+    font-size: 17px;
+    font-weight: 700;
+    line-height: 1.35;
+    margin-bottom: 10px;
+    color: var(--text-primary);
+}
+
+.blog-grid-card .card-content h3 a {
+    color: var(--text-primary);
+    transition: color 0.2s;
+}
+
+.blog-grid-card .card-content h3 a:hover {
+    color: var(--cyan);
+}
+
+.blog-grid-card .card-date-author {
+    font-size: 13px;
+    color: var(--text-light);
+    margin-bottom: 12px;
+}
+
+.blog-grid-card .card-date-author .author-name {
+    color: var(--cyan);
+    font-weight: 600;
+}
+
+.blog-grid-card .card-content p {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 16px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.blog-grid-card .btn-read-more {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 20px;
+    border: 2px solid var(--cyan);
+    border-radius: 25px;
+    color: var(--cyan);
+    font-size: 13px;
+    font-weight: 600;
+    transition: background 0.2s, color 0.2s;
+    background: transparent;
+}
+
+.blog-grid-card .btn-read-more:hover {
+    background: var(--cyan);
+    color: var(--text-white) !important;
+}
+
+.blog-grid-card .btn-read-more .arrow-icon {
+    font-size: 12px;
+    transition: transform 0.2s;
+}
+
+.blog-grid-card .btn-read-more:hover .arrow-icon {
+    transform: translateX(3px);
+}
+
+/* ==================
+   FOOTER BOTTOM BAR
+   ================== */
+.footer-bottom {
+    text-align: center;
+    padding: 20px 0;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    background: var(--nav-bg);
+    color: #777;
+    font-size: 13px;
+}
+
+.footer-bottom a {
+    color: #999;
+    transition: color 0.2s;
+}
+
+.footer-bottom a:hover {
+    color: var(--cyan);
+}
+
+.footer-bottom .raptive {
+    display: block;
+    margin-top: 6px;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #666;
+}
+
+/* ==================
+   EPISODES PAGE - INTRO & SEASONS GRID
+   ================== */
+.page-intro {
+    padding: 30px 0;
+    text-align: center;
+}
+
+.page-intro p {
+    font-size: 15px;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.section-seasons {
+    padding: 10px 0 40px;
+}
+
+.seasons-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.season-card {
+    text-align: center;
+}
+
+.season-card a {
+    display: block;
+    transition: transform 0.2s;
+}
+
+.season-card a:hover {
+    transform: translateY(-3px);
+}
+
+.season-card .season-img {
+    width: 100%;
+    aspect-ratio: 4/3;
+    object-fit: cover;
+    border-radius: 6px;
+    margin-bottom: 10px;
+}
+
+.season-card .season-name {
+    display: block;
+    font-family: var(--font-heading);
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--cyan);
+    margin-bottom: 5px;
+}
+
+/* Article Content */
+.article-content {
+    padding: 30px 0 50px;
+}
+
+.article-content .container {
+    max-width: 750px;
+}
+
+.article-content p {
+    font-size: 15px;
+    color: var(--text-secondary);
+    line-height: 1.75;
+    margin-bottom: 20px;
+}
+
+.article-content h2 {
+    font-family: var(--font-heading);
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 35px 0 15px;
+}
+
+.article-image {
+    text-align: center;
+    margin: 30px 0;
+}
+
+.article-image img {
+    max-width: 100%;
+    border-radius: 6px;
+    margin: 0 auto;
+}
+
+/* ==================
+   STARTUP LIST - BUSINESS LISTINGS
+   ================== */
+.page-title-section {
+    padding: 35px 0 25px;
+    text-align: center;
+    border-bottom: 1px solid #eee;
+}
+
+.page-title-section h1 {
+    font-family: var(--font-heading);
+    font-size: 30px;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.listings-section {
+    padding: 10px 0 40px;
+}
+
+.listings-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.listing-card {
+    display: flex;
+    gap: 25px;
+    padding: 25px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.listing-card:last-child {
+    border-bottom: none;
+}
+
+.listing-img {
+    flex-shrink: 0;
+    width: 250px;
+}
+
+.listing-img img {
+    width: 100%;
+    height: 170px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.listing-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.listing-info h3 {
+    font-family: var(--font-heading);
+    font-size: 19px;
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 4px;
+}
+
+.listing-info h3 a {
+    color: var(--text-primary);
+    transition: color 0.2s;
+}
+
+.listing-info h3 a:hover {
+    color: var(--cyan);
+}
+
+.listing-info .card-meta {
+    margin-bottom: 8px;
+}
+
+.listing-info .card-meta span:first-child,
+.listing-info .card-meta span:last-child {
+    color: var(--cyan);
+}
+
+.listing-info p {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+/* ==================
+   RESPONSIVE - PAGE STYLES
+   ================== */
+@media (max-width: 768px) {
+    .page-hero h1 {
+        font-size: 28px;
+    }
+
+    .filter-row {
+        flex-direction: column;
+        gap: 12px;
+        align-items: flex-start;
+    }
+
+    .product-listing-card {
+        flex-direction: column;
+    }
+
+    .product-listing-card .card-image {
+        width: 100%;
+    }
+
+    .product-listing-card .card-image img {
+        height: 220px;
+        min-height: auto;
+    }
+
+    .product-listing-card .card-content {
+        padding: 18px 20px;
+    }
+
+    .blog-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 25px;
+    }
+
+    .seasons-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+
+    .listing-card {
+        flex-direction: column;
+    }
+
+    .listing-img {
+        width: 100%;
+    }
+
+    .listing-img img {
+        height: 220px;
+    }
+}
+
+@media (max-width: 480px) {
+    .page-hero h1 {
+        font-size: 24px;
+    }
+
+    .product-listing-card .card-content h3 {
+        font-size: 17px;
+    }
+
+    .pagination {
+        flex-wrap: wrap;
+    }
+
+    .blog-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .seasons-grid {
+        grid-template-columns: 1fr;
+    }
+}

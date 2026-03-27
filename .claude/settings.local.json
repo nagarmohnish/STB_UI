@@ -1,0 +1,24 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:www.sharktankblog.com)",
+      "Bash(node generate-placeholders.js)",
+      "Bash(npx -y http-server -p 8080 -c-1 --cors)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:8080/)",
+      "Bash(\"c:/Library/Projects/STB_UI/page-styles.css\":*)",
+      "Bash(ls \"c:/Library/Projects/STB_UI/\"*.html \"c:/Library/Projects/STB_UI/\"*.css)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:8080/episodes.html)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:8080/products.html)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:8080/blog.html)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:8080/startup-list.html)",
+      "Bash(for f:*)",
+      "Bash(do echo:*)",
+      "Read(//c/Library/Projects/STB_UI/**)",
+      "Bash(done)",
+      "Bash(ls C:/Library/Projects/STB_UI/*.html)",
+      "Bash(do curl:*)",
+      "Bash(curl -s http://localhost:8080/login.html)",
+      "Bash(curl -s http://localhost:8080/subscription.html)"
+    ]
+  }
+}

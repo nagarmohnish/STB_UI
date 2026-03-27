@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Subscription - Shark Tank Blog</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&family=Roboto+Slab:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="page-styles.css">
+    <link rel="stylesheet" href="auth-styles.css">
+    <style>
+        /* Subscription Page Styles */
+        .subscription-section {
+            padding: 40px 0 60px;
+            background: var(--bg-light);
+            min-height: 60vh;
+        }
+
+        .subscription-page-title {
+            font-family: var(--font-heading);
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--text-primary);
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .subscription-card {
+            background: var(--bg-white);
+            border-radius: 10px;
+            box-shadow: 0 2px 16px rgba(0, 0, 0, 0.08);
+            max-width: 700px;
+            margin: 0 auto 40px;
+            overflow: hidden;
+        }
+
+        .subscription-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 28px;
+            background: linear-gradient(135deg, #0a2a4a 0%, #0d3b66 100%);
+            color: var(--text-white);
+        }
+
+        .subscription-header .plan-name {
+            font-family: var(--font-heading);
+            font-size: 22px;
+            font-weight: 700;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+        }
+
+        .status-badge.active {
+            background: #27ae60;
+            color: #fff;
+        }
+
+        .status-badge.free {
+            background: #95a5a6;
+            color: #fff;
+        }
+
+        .subscription-details {
+            padding: 28px;
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px 30px;
+        }
+
+        .detail-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .detail-item .detail-label {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-light);
+            margin-bottom: 4px;
+        }
+
+        .detail-item .detail-value {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .subscription-actions {
+            display: flex;
+            gap: 12px;
+            padding: 0 28px 28px;
+            flex-wrap: wrap;
+        }
+
+        .btn-outlined {
+            padding: 10px 22px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            font-family: var(--font-body);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background: transparent;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-outlined.cyan {
+            border: 2px solid var(--cyan);
+            color: var(--cyan);
+        }
+
+        .btn-outlined.cyan:hover {
+            background: var(--cyan);
+            color: #fff;
+        }
+
+        .btn-outlined.danger {
+            border: 2px solid #e74c3c;
+            color: #e74c3c;
+        }
+
+        .btn-outlined.danger:hover {
+            background: #e74c3c;
+            color: #fff;
+        }
+
+        /* Billing History */
+        .billing-history {
+            max-width: 700px;
+            margin: 0 auto 40px;
+        }
+
+        .billing-history h2 {
+            font-family: var(--font-heading);
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+        }
+
+        .billing-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--bg-white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 16px rgba(0, 0, 0, 0.08);
+        }
+
+        .billing-table thead th {
+            background: #f0f2f5;
+            padding: 12px 18px;
+            text-align: left;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-secondary);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .billing-table tbody td {
+            padding: 14px 18px;
+            font-size: 14px;
+            color: var(--text-primary);
+            border-bottom: 1px solid #f0f2f5;
+        }
+
+        .billing-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .billing-status {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .billing-status.paid {
+            background: #e8f8ef;
+            color: #27ae60;
+        }
+
+        /* Cancel Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.55);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-overlay.show {
+            display: flex;
+        }
+
+        .modal-card {
+            background: var(--bg-white);
+            border-radius: 12px;
+            padding: 36px 32px;
+            max-width: 440px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            animation: modalFadeIn 0.25s ease;
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .modal-card .warning-icon {
+            font-size: 48px;
+            color: #e74c3c;
+            margin-bottom: 16px;
+        }
+
+        .modal-card h3 {
+            font-family: var(--font-heading);
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+        }
+
+        .modal-card p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-solid {
+            padding: 10px 24px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            font-family: var(--font-body);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 2px solid transparent;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-solid.cyan {
+            background: var(--cyan);
+            color: #fff;
+            border-color: var(--cyan);
+        }
+
+        .btn-solid.cyan:hover {
+            background: var(--cyan-hover);
+            border-color: var(--cyan-hover);
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .details-grid {
+                grid-template-columns: 1fr;
+                gap: 14px;
+            }
+
+            .subscription-actions {
+                flex-direction: column;
+            }
+
+            .subscription-header {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+
+            .billing-table thead th,
+            .billing-table tbody td {
+                padding: 10px 12px;
+                font-size: 12px;
+            }
+
+            .modal-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="main-nav" id="mainNav">
+        <div class="container nav-inner">
+            <div class="nav-left">
+                <a href="index.html" class="logo">
+                    <img src="assets/images/logo.svg" alt="The Shark Tank Blog" width="60" height="50">
+                </a>
+                <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu">
+                    <span></span><span></span><span></span>
+                </button>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="episodes.html">Shark Tank Episodes</a></li>
+                    <li><a href="products.html">Shark Tank Products</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="startup-list.html">Shark Tank Startup List</a></li>
+                </ul>
+            </div>
+            <div class="nav-right">
+                <button class="search-toggle" id="searchToggle" aria-label="Search">
+                    <i class="fa fa-search"></i>
+                </button>
+                <a href="#" class="btn-contact">Contact Us</a>
+                <div class="social-icons">
+                    <a href="#" aria-label="Pinterest"><i class="fab fa-pinterest-p"></i></a>
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="X"><i class="fab fa-x-twitter"></i></a>
+                    <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <!-- Search Box -->
+            <div class="search-box" id="searchBox">
+                <input type="text" placeholder="Search...">
+                <button type="submit"><i class="fa fa-search"></i></button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <div class="container">
+            <h1>My Subscription</h1>
+        </div>
+    </section>
+
+    <!-- Subscription Section -->
+    <section class="subscription-section">
+        <div class="container">
+
+            <!-- Subscription Details Card -->
+            <div class="subscription-card">
+                <div class="subscription-header">
+                    <span class="plan-name" id="planNameHeader">Pro Plan</span>
+                    <span class="status-badge active" id="statusBadge">Active</span>
+                </div>
+                <div class="subscription-details">
+                    <div class="details-grid">
+                        <div class="detail-item">
+                            <span class="detail-label">Plan</span>
+                            <span class="detail-value" id="detailPlan">Pro</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Price</span>
+                            <span class="detail-value" id="detailPrice">$9.99/month</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Billing Cycle</span>
+                            <span class="detail-value" id="detailCycle">Monthly</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Next Billing Date</span>
+                            <span class="detail-value" id="detailNextBilling">April 27, 2026</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Member Since</span>
+                            <span class="detail-value" id="detailMemberSince">March 1, 2026</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Payment Method</span>
+                            <span class="detail-value" id="detailPayment"><i class="fab fa-cc-visa" style="color: #1a1f71; margin-right: 6px;"></i>Visa ending in 4242</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="subscription-actions">
+                    <a href="subscribe.html" class="btn-outlined cyan">Change Plan</a>
+                    <button class="btn-outlined cyan" id="btnUpdatePayment">Update Payment</button>
+                    <button class="btn-outlined danger" id="btnCancelSub">Cancel Subscription</button>
+                </div>
+            </div>
+
+            <!-- Billing History -->
+            <div class="billing-history">
+                <h2>Billing History</h2>
+                <table class="billing-table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Description</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>March 27, 2026</td>
+                            <td>Pro Monthly Subscription</td>
+                            <td>$9.99</td>
+                            <td><span class="billing-status paid">Paid</span></td>
+                        </tr>
+                        <tr>
+                            <td>February 27, 2026</td>
+                            <td>Pro Monthly Subscription</td>
+                            <td>$9.99</td>
+                            <td><span class="billing-status paid">Paid</span></td>
+                        </tr>
+                        <tr>
+                            <td>January 27, 2026</td>
+                            <td>Pro Monthly Subscription</td>
+                            <td>$9.99</td>
+                            <td><span class="billing-status paid">Paid</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Cancel Subscription Modal -->
+    <div class="modal-overlay" id="cancelModal">
+        <div class="modal-card">
+            <div class="warning-icon">
+                <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            <h3>Cancel Subscription?</h3>
+            <p>Are you sure you want to cancel? You'll lose access to premium features at the end of your current billing period.</p>
+            <div class="modal-actions">
+                <button class="btn-solid cyan" id="btnKeepSub">Keep Subscription</button>
+                <button class="btn-outlined danger" id="btnConfirmCancel">Yes, Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container footer-inner">
+            <div class="footer-grid">
+                <div class="footer-about">
+                    <div class="footer-logo">
+                        <img src="assets/images/footer-logo.svg" alt="The Shark Tank Blog" width="80" height="70">
+                        <span class="footer-logo-text">The Shark Tank Blog</span>
+                    </div>
+                    <p>Shark Tank Blog is independent of and not affiliated or endorsed by ABC, Sony, the producers or any other company associated with the television show, Shark Tank. Shark Tank Blog is an opinion blog. Views expressed on this blog are solely owned by the author individually and not that of Shark Tank Blog or principles of Shark Tank Blog.</p>
+                    <div class="social-icons footer-social">
+                        <a href="#"><i class="fab fa-pinterest-p"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-x-twitter"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-menu">
+                    <h4>Menu</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="episodes.html">Shark Tank Episodes</a></li>
+                        <li><a href="products.html">Shark Tank Products</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="startup-list.html">Shark Tank Businesses</a></li>
+                    </ul>
+                </div>
+                <div class="footer-newsletter">
+                    <h4>Subscribe to our Newsletter</h4>
+                    <div class="newsletter-form">
+                        <input type="email" placeholder="Enter your email">
+                        <button type="submit">Subscribe</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Footer Bottom Bar -->
+    <div class="footer-bottom">
+        <a href="#">Terms and Conditions</a> &nbsp;|&nbsp; <a href="#">Privacy Policy</a>
+        <span class="raptive">A Raptive Partner Site</span>
+    </div>
+
+    <!-- Scroll to Top -->
+    <button class="scroll-top" id="scrollTop" aria-label="Scroll to top">
+        <i class="fa fa-chevron-up"></i>
+    </button>
+
+    <script src="script.js"></script>
+    <script src="auth.js"></script>
+    <script>
+        // Auth check - redirect if not logged in
+        (function() {
+            var user = localStorage.getItem('stb_user');
+            if (!user) {
+                window.location.href = 'login.html?redirect=subscription.html';
+                return;
+            }
+
+            // Try to populate subscription details from localStorage
+            try {
+                var userData = JSON.parse(user);
+
+                if (userData.plan) {
+                    var plan = userData.plan;
+                    var planNameHeader = document.getElementById('planNameHeader');
+                    var detailPlan = document.getElementById('detailPlan');
+                    var detailPrice = document.getElementById('detailPrice');
+                    var statusBadge = document.getElementById('statusBadge');
+
+                    planNameHeader.textContent = plan + ' Plan';
+                    detailPlan.textContent = plan;
+
+                    if (plan === 'Free') {
+                        detailPrice.textContent = '$0';
+                        statusBadge.textContent = 'Free';
+                        statusBadge.className = 'status-badge free';
+                    } else if (plan === 'Enterprise') {
+                        detailPrice.textContent = '$29.99/month';
+                    } else {
+                        detailPrice.textContent = '$9.99/month';
+                    }
+                }
+
+                if (userData.billingCycle) {
+                    document.getElementById('detailCycle').textContent = userData.billingCycle;
+                }
+
+                if (userData.nextBillingDate) {
+                    document.getElementById('detailNextBilling').textContent = userData.nextBillingDate;
+                }
+
+                if (userData.memberSince) {
+                    document.getElementById('detailMemberSince').textContent = userData.memberSince;
+                }
+
+                if (userData.paymentMethod) {
+                    document.getElementById('detailPayment').innerHTML =
+                        '<i class="fab fa-cc-visa" style="color: #1a1f71; margin-right: 6px;"></i>' +
+                        userData.paymentMethod;
+                }
+            } catch (e) {
+                // User data is not JSON or incomplete; keep defaults
+            }
+        })();
+
+        // Cancel modal show/hide
+        var cancelModal = document.getElementById('cancelModal');
+        var btnCancelSub = document.getElementById('btnCancelSub');
+        var btnKeepSub = document.getElementById('btnKeepSub');
+        var btnConfirmCancel = document.getElementById('btnConfirmCancel');
+
+        btnCancelSub.addEventListener('click', function() {
+            cancelModal.classList.add('show');
+        });
+
+        btnKeepSub.addEventListener('click', function() {
+            cancelModal.classList.remove('show');
+        });
+
+        btnConfirmCancel.addEventListener('click', function() {
+            cancelModal.classList.remove('show');
+            // Update UI to reflect cancelled state
+            var statusBadge = document.getElementById('statusBadge');
+            statusBadge.textContent = 'Cancelled';
+            statusBadge.className = 'status-badge free';
+            btnCancelSub.disabled = true;
+            btnCancelSub.style.opacity = '0.5';
+            btnCancelSub.style.cursor = 'not-allowed';
+        });
+
+        // Close modal on overlay click
+        cancelModal.addEventListener('click', function(e) {
+            if (e.target === cancelModal) {
+                cancelModal.classList.remove('show');
+            }
+        });
+
+        // Close modal on Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && cancelModal.classList.contains('show')) {
+                cancelModal.classList.remove('show');
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shark Tank Blog - Episode Recaps, Products & Business Updates</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&family=Roboto+Slab:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="auth-styles.css">
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="main-nav" id="mainNav">
+        <div class="container nav-inner">
+            <div class="nav-left">
+                <a href="index.html" class="logo">
+                    <img src="assets/images/logo.svg" alt="The Shark Tank Blog" width="60" height="50">
+                </a>
+                <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu">
+                    <span></span><span></span><span></span>
+                </button>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="index.html" class="active">Home</a></li>
+                    <li><a href="episodes.html">Shark Tank Episodes</a></li>
+                    <li><a href="products.html">Shark Tank Products</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="startup-list.html">Shark Tank Startup List</a></li>
+                </ul>
+            </div>
+            <div class="nav-right">
+                <button class="search-toggle" id="searchToggle" aria-label="Search">
+                    <i class="fa fa-search"></i>
+                </button>
+                <a href="#" class="btn-contact">Contact Us</a>
+                <div class="social-icons">
+                    <a href="#" aria-label="Pinterest"><i class="fab fa-pinterest-p"></i></a>
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="X"><i class="fab fa-x-twitter"></i></a>
+                    <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <!-- Search Box -->
+            <div class="search-box" id="searchBox">
+                <input type="text" placeholder="Search...">
+                <button type="submit"><i class="fa fa-search"></i></button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container hero-inner">
+            <div class="hero-text">
+                <h1>Dive into the World of <span class="cyan">Shark Tank</span></h1>
+                <p>Stay updated with all Shark Tank episodes and the businesses featured on the show. Get easy-to-read stories about pitches, deals, and what happens after the tank.</p>
+            </div>
+            <div class="hero-image">
+                <img src="assets/images/hero-cast.svg" alt="Shark Tank Cast" width="560" height="300">
+            </div>
+        </div>
+    </section>
+
+    <!-- Latest Episodes Section -->
+    <section class="section-episodes">
+        <div class="container">
+            <h2 class="section-title">Latest Episodes</h2>
+            <div class="episodes-grid">
+                <div class="episode-main">
+                    <div class="episode-card">
+                        <a href="#" class="card-img">
+                            <img src="assets/images/episode-s17e14.svg" alt="Shark Tank Season 17 Episode 14">
+                        </a>
+                        <div class="card-body">
+                            <h3><a href="#">Shark Tank Season 17 Episode 14</a></h3>
+                            <div class="card-meta">
+                                <span>By Liya Shanawas</span>
+                                <span>&bull;</span>
+                                <span>March 25, 2026</span>
+                            </div>
+                            <p>Back-to-back episodes kept going with Shark Tank, Season 17, Episode 14. It had another mix of ideas and good stories. The Sharks started the day...</p>
+                            <a href="#" class="read-more">Read More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="episode-side">
+                    <div class="episode-card">
+                        <a href="#" class="card-img">
+                            <img src="assets/images/episode-s17e13.svg" alt="Shark Tank Season 17 Episode 13">
+                        </a>
+                        <div class="card-body">
+                            <h3><a href="#">Shark Tank Season 17 Episode 13</a></h3>
+                            <div class="card-meta">
+                                <span>By Liya Shanawas</span>
+                                <span>&bull;</span>
+                                <span>March 16, 2026</span>
+                            </div>
+                            <p>Shark Tank Season 17 Episode 13 aired on March 11, 2026, and featured four entrepreneurs...</p>
+                            <a href="#" class="read-more">Read More</a>
+                        </div>
+                    </div>
+                    <div class="episode-card">
+                        <a href="#" class="card-img">
+                            <img src="assets/images/episode-s17e12.svg" alt="Shark Tank Season 17 Episode 12">
+                        </a>
+                        <div class="card-body">
+                            <h3><a href="#">Shark Tank Season 17 Episode 12</a></h3>
+                            <div class="card-meta">
+                                <span>By Liya Shanawas</span>
+                                <span>&bull;</span>
+                                <span>March 12, 2026</span>
+                            </div>
+                            <p>Shark Tank is back with new episodes in March 2026 after a short break in...</p>
+                            <a href="#" class="read-more">Read More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Shark Tank Products Section -->
+    <section class="section-products">
+        <div class="shark-watermark">
+            <svg viewBox="0 0 400 500" fill="none" xmlns="http://www.w3.org/2000/svg" opacity="0.08">
+                <path d="M200 50 C280 50 350 120 370 200 C390 280 360 350 300 400 C240 450 160 450 100 400 C40 350 10 280 30 200 C50 120 120 50 200 50Z M150 150 C130 160 120 180 130 200 C140 220 160 230 180 220 L200 180 Z M250 150 C270 160 280 180 270 200 C260 220 240 230 220 220 L200 180 Z M160 280 C170 310 200 330 230 320 C240 310 240 290 230 280 L200 300 Z" fill="white"/>
+            </svg>
+        </div>
+        <div class="container products-inner">
+            <div class="products-header">
+                <h2>Shark Tank Products:</h2>
+                <a href="#" class="cyan-link">Latest Products</a>
+            </div>
+            <div class="products-list">
+                <div class="product-card">
+                    <a href="#" class="product-img">
+                        <img src="assets/images/product-chompshop.svg" alt="ChompShop">
+                    </a>
+                    <div class="product-info">
+                        <h3><a href="#">How Mark Cuban and Lori Greiner's $250K Bet Turned a Kid-Safe Cutter into a Shark Tank Hit</a></h3>
+                        <p>A simple, cardboard kid-safe cutter, ChompShop became an overnight sensation when it...</p>
+                        <div class="card-meta">
+                            <span class="author-name">Liya Shanawas</span>
+                            <span>&bull;</span>
+                            <span>March 27, 2026</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <a href="#" class="product-img">
+                        <img src="assets/images/product-ring.svg" alt="Ring">
+                    </a>
+                    <div class="product-info">
+                        <h3><a href="#">Rejected on Shark Tank, Built in a Garage: How Jamie Siminoff Turned Ring Into a $1B Amazon Exit</a></h3>
+                        <p>In Shark Tank Season 5 Episode 10, which aired on November 15,...</p>
+                        <div class="card-meta">
+                            <span class="author-name">Harsh Vardhan</span>
+                            <span>&bull;</span>
+                            <span>February 26, 2026</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <a href="#" class="product-img">
+                        <img src="assets/images/product-sheets.svg" alt="Sheets Laundry Club">
+                    </a>
+                    <div class="product-info">
+                        <h3><a href="#">From Tough Shark Tank Critique to Multi-Million Sales: Sheets Laundry Club Story</a></h3>
+                        <p>Chris Videau and Chris Campbell walked into the Tank in Season 13...</p>
+                        <div class="card-meta">
+                            <span class="author-name">Harsh Vardhan</span>
+                            <span>&bull;</span>
+                            <span>February 12, 2026</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SharkTank Videos Section -->
+    <section class="section-videos">
+        <div class="container">
+            <h2 class="section-title">SharkTank Videos</h2>
+            <div class="videos-grid">
+                <div class="video-card">
+                    <div class="video-thumb">
+                        <img src="assets/images/video-1.svg" alt="Shark Tank - The Ultimate Shopping List!">
+                        <div class="video-overlay">
+                            <div class="play-btn"><i class="fab fa-youtube"></i></div>
+                        </div>
+                        <div class="video-info-bar">
+                            <span class="channel-name">READEREST</span>
+                            <span class="video-title-overlay">Shark Tank - The Ultimate Shopping List!</span>
+                        </div>
+                    </div>
+                    <div class="video-actions">
+                        <button><i class="fa fa-share"></i></button>
+                        <button><i class="fa fa-clock"></i></button>
+                        <span class="yt-link">Watch on <i class="fab fa-youtube"></i> YouTube</span>
+                    </div>
+                </div>
+                <div class="video-card">
+                    <div class="video-thumb">
+                        <img src="assets/images/video-2.svg" alt="Daymond John Video: Funny Shark Tank Moments">
+                        <div class="video-overlay">
+                            <div class="play-btn"><i class="fab fa-youtube"></i></div>
+                        </div>
+                        <div class="video-info-bar">
+                            <span class="channel-name">TheHotdogmanChannel</span>
+                            <span class="video-title-overlay">Daymond John Video: Funny Shark Tank Moments</span>
+                        </div>
+                    </div>
+                    <div class="video-actions">
+                        <button><i class="fa fa-share"></i></button>
+                        <button><i class="fa fa-clock"></i></button>
+                        <span class="yt-link">Watch on <i class="fab fa-youtube"></i> YouTube</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Companies Featured Section -->
+    <section class="section-companies">
+        <div class="container">
+            <h2 class="section-title">Companies Featured in the Latest Shark Tank Episodes</h2>
+            <div class="companies-list">
+                <div class="company-card">
+                    <a href="#" class="company-img">
+                        <img src="assets/images/company-nhie.svg" alt="Never Have I Ever">
+                    </a>
+                    <div class="company-info">
+                        <h3><a href="#">Never Have I Ever Shark Tank Update – Shark Tank Season 17</a></h3>
+                        <div class="card-meta">
+                            <span>By Liya Shanawas</span>
+                            <span>&bull;</span>
+                            <span>March 24, 2026</span>
+                        </div>
+                        <p>Getting your nails done can cost a lot of money and take up a lot of time. For many people, it seems hard to make their nails look nice in...</p>
+                    </div>
+                </div>
+                <div class="company-card">
+                    <a href="#" class="company-img">
+                        <img src="assets/images/company-gob.svg" alt="GOB">
+                    </a>
+                    <div class="company-info">
+                        <h3><a href="#">GOB Shark Tank Update – Shark Tank Season 17</a></h3>
+                        <div class="card-meta">
+                            <span>By Liya Shanawas</span>
+                            <span>&bull;</span>
+                            <span>March 24, 2026</span>
+                        </div>
+                        <p>Noise is around us. It is at concerts and on city streets. The sound of a partner snoring is noise. Many people use earplugs to block out this noise. What...</p>
+                    </div>
+                </div>
+                <div class="company-card">
+                    <a href="#" class="company-img">
+                        <img src="assets/images/company-remplenish.svg" alt="REMplenish">
+                    </a>
+                    <div class="company-info">
+                        <h3><a href="#">REMplenish Shark Tank Update – Shark Tank Season 17</a></h3>
+                        <div class="card-meta">
+                            <span>By Liya Shanawas</span>
+                            <span>&bull;</span>
+                            <span>March 24, 2026</span>
+                        </div>
+                        <p>Snoring is a problem. It disrupts sleep, relationships, and health. Anders Olmanson set out to solve this problem when he appeared on Shark Tank Season 17 Episode 14 with REMplenish....</p>
+                    </div>
+                </div>
+                <div class="company-card">
+                    <a href="#" class="company-img">
+                        <img src="assets/images/company-beergirl.svg" alt="Beer Girl">
+                    </a>
+                    <div class="company-info">
+                        <h3><a href="#">Beer Girl Shark Tank Update – Shark Tank Season 17</a></h3>
+                        <div class="card-meta">
+                            <span>By Liya Shanawas</span>
+                            <span>&bull;</span>
+                            <span>March 24, 2026</span>
+                        </div>
+                        <p>For decades, men have been marketing beer, and it seems they have only had men in mind. This meant women were not really considered when it came to beer. On...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Latest Blogs Section -->
+    <section class="section-blogs">
+        <div class="container">
+            <h2 class="section-title">Latest Blogs</h2>
+            <div class="blogs-list">
+                <div class="blog-card">
+                    <a href="#" class="blog-img">
+                        <img src="assets/images/blog-1.svg" alt="ChompShop">
+                        <div class="blog-tags">
+                            <span class="tag">BUSINESS</span>
+                            <span class="tag">SEASON 16</span>
+                            <span class="tag">SHARK TANK INVESTORS</span>
+                            <span class="tag">SHARK TANK MOMENTS</span>
+                            <span class="tag">SUCCESS STORIES</span>
+                        </div>
+                    </a>
+                    <div class="blog-info">
+                        <h3><a href="#">How Mark Cuban and Lori Greiner's $250K Bet Turned a Kid-Safe Cutter into a Shark Tank Hit</a></h3>
+                        <p>A simple, cardboard kid-safe cutter, ChompShop became an overnight sensation when it landed on Shark Tank Season 16, Episode 5. The kid-safe cutter impressed investors with its unique design, safety-first approach, and educational twist. Founders...</p>
+                        <div class="blog-meta">
+                            <div class="author-avatar"></div>
+                            <span class="author-name">Liya Shanawas</span>
+                            <span class="meta-dot">&bull;</span>
+                            <span>March 27, 2026</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="blog-card">
+                    <a href="#" class="blog-img">
+                        <img src="assets/images/blog-2.svg" alt="Shark Tank Statistics">
+                        <div class="blog-tags">
+                            <span class="tag">BUSINESS</span>
+                            <span class="tag">FINANCING</span>
+                            <span class="tag">THE SHARK TANK EFFECT</span>
+                        </div>
+                    </a>
+                    <div class="blog-info">
+                        <h3><a href="#">Shark Tank Statistics: The Ultimate Breakdown</a></h3>
+                        <p>Since its debut in 2009 on ABC, Shark Tank has become one of the most popular entrepreneurship shows on television. The show has aired 16 complete seasons, with Season 17 currently airing. Over the years,...</p>
+                        <div class="blog-meta">
+                            <div class="author-avatar"></div>
+                            <span class="author-name">Hiedi Pratap</span>
+                            <span class="meta-dot">&bull;</span>
+                            <span>March 20, 2026</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="blog-card">
+                    <a href="#" class="blog-img">
+                        <img src="assets/images/blog-3.svg" alt="Guest Shark Whiskey">
+                        <div class="blog-tags">
+                            <span class="tag">BREAKING NEWS</span>
+                            <span class="tag">BUSINESS</span>
+                            <span class="tag">SEASON 17</span>
+                            <span class="tag">SHARK TANK INVESTORS</span>
+                            <span class="tag">SUCCESS STORIES</span>
+                        </div>
+                    </a>
+                    <div class="blog-info">
+                        <h3><a href="#">How This Guest Shark Built a $1B Whiskey Empire from Scratch</a></h3>
+                        <p>On a trip to Singapore, Fawn Weaver came across a headline in The New York Times International Edition that stopped her cold. It referenced a "hidden ingredient" behind Jack Daniel's, an enslaved man whose contributions...</p>
+                        <div class="blog-meta">
+                            <div class="author-avatar"></div>
+                            <span class="author-name">Liya Shanawas</span>
+                            <span class="meta-dot">&bull;</span>
+                            <span>March 18, 2026</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container footer-inner">
+            <div class="footer-grid">
+                <div class="footer-about">
+                    <div class="footer-logo">
+                        <img src="assets/images/footer-logo.svg" alt="The Shark Tank Blog" width="80" height="70">
+                        <span class="footer-logo-text">The Shark Tank Blog</span>
+                    </div>
+                    <p>Shark Tank Blog is independent of and not affiliated or endorsed by ABC, Sony, the producers or any other company associated with the television show, Shark Tank. Shark Tank Blog is an opinion blog. Views expressed on this blog are solely owned by the author individually and not that of Shark Tank Blog or principles of Shark Tank Blog.</p>
+                    <div class="social-icons footer-social">
+                        <a href="#"><i class="fab fa-pinterest-p"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-x-twitter"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-menu">
+                    <h4>Menu</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="episodes.html">Shark Tank Episodes</a></li>
+                        <li><a href="products.html">Shark Tank Products</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="startup-list.html">Shark Tank Businesses</a></li>
+                    </ul>
+                </div>
+                <div class="footer-newsletter">
+                    <h4>Subscribe to our Newsletter</h4>
+                    <div class="newsletter-form">
+                        <input type="email" placeholder="Enter your email">
+                        <button type="submit">Subscribe</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top -->
+    <button class="scroll-top" id="scrollTop" aria-label="Scroll to top">
+        <i class="fa fa-chevron-up"></i>
+    </button>
+
+    <script src="script.js"></script>
+    <script src="auth.js"></script>
+</body>
+</html>

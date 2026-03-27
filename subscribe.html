@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subscribe - Shark Tank Blog</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&family=Roboto+Slab:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="page-styles.css">
+    <link rel="stylesheet" href="auth-styles.css">
+    <style>
+        /* ==================
+           PRICING SECTION
+           ================== */
+        .pricing-section {
+            padding: 60px 0;
+            background: var(--bg-light);
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .pricing-card {
+            background: var(--bg-white);
+            border-radius: 12px;
+            padding: 40px 30px;
+            text-align: center;
+            border: 2px solid var(--border-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .pricing-card.featured {
+            border-color: var(--cyan);
+            transform: translateY(-8px);
+            box-shadow: 0 16px 48px rgba(0, 188, 212, 0.15);
+        }
+
+        .pricing-card.featured:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 20px 56px rgba(0, 188, 212, 0.2);
+        }
+
+        .popular-badge {
+            position: absolute;
+            top: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--cyan);
+            color: #fff;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 5px 18px;
+            border-radius: 20px;
+        }
+
+        .pricing-card h3 {
+            font-family: var(--font-heading);
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 10px;
+        }
+
+        .price {
+            font-size: 42px;
+            font-weight: 700;
+            color: var(--text-primary);
+            line-height: 1.2;
+            margin-bottom: 5px;
+        }
+
+        .price span {
+            font-size: 16px;
+            font-weight: 400;
+            color: var(--text-light);
+        }
+
+        .price-period {
+            font-size: 14px;
+            color: var(--text-light);
+            margin-bottom: 25px;
+        }
+
+        .features-list {
+            text-align: left;
+            margin-bottom: 30px;
+            padding: 0;
+        }
+
+        .features-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 8px 0;
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .features-list li i {
+            color: var(--cyan);
+            margin-top: 3px;
+            flex-shrink: 0;
+        }
+
+        .btn-plan {
+            display: inline-block;
+            width: 100%;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-size: 15px;
+            font-weight: 600;
+            font-family: var(--font-body);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid var(--cyan);
+            text-align: center;
+        }
+
+        .btn-plan-solid {
+            background: var(--cyan);
+            color: #fff;
+        }
+
+        .btn-plan-solid:hover {
+            background: var(--cyan-hover);
+            border-color: var(--cyan-hover);
+        }
+
+        .btn-plan-outline {
+            background: transparent;
+            color: var(--cyan);
+        }
+
+        .btn-plan-outline:hover {
+            background: var(--cyan);
+            color: #fff;
+        }
+
+        .btn-plan-disabled {
+            background: #e0e0e0;
+            color: #999;
+            border-color: #e0e0e0;
+            cursor: default;
+        }
+
+        .btn-plan-disabled:hover {
+            background: #e0e0e0;
+            color: #999;
+            border-color: #e0e0e0;
+        }
+
+        /* ==================
+           HERO SUBSCRIBE
+           ================== */
+        .subscribe-hero {
+            background: linear-gradient(135deg, #0a2a4a 0%, #0d3b66 40%, #145a8a 70%, #0a2a4a 100%);
+            position: relative;
+            padding: 70px 0;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .subscribe-hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: url('assets/images/hero-bg.svg') center/cover no-repeat;
+            opacity: 0.15;
+            pointer-events: none;
+        }
+
+        .subscribe-hero h1 {
+            font-family: var(--font-heading);
+            font-size: 38px;
+            font-weight: 700;
+            color: var(--text-white);
+            position: relative;
+            z-index: 1;
+            margin-bottom: 12px;
+        }
+
+        .subscribe-hero p {
+            font-size: 17px;
+            color: rgba(255, 255, 255, 0.75);
+            position: relative;
+            z-index: 1;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        /* ==================
+           FAQ SECTION
+           ================== */
+        .faq-section {
+            padding: 60px 0;
+            background: var(--bg-white);
+        }
+
+        .faq-section h2 {
+            font-family: var(--font-heading);
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-primary);
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .faq-list {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .faq-question {
+            width: 100%;
+            background: none;
+            border: none;
+            padding: 20px 0;
+            font-family: var(--font-body);
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+            text-align: left;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .faq-question:hover {
+            color: var(--cyan);
+        }
+
+        .faq-question i {
+            font-size: 14px;
+            transition: transform 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 200px;
+        }
+
+        .faq-answer p {
+            padding: 0 0 20px;
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* ==================
+           CONFIRMATION MODAL
+           ================== */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-box {
+            background: var(--bg-white);
+            border-radius: 12px;
+            padding: 40px;
+            max-width: 420px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal-box i.fa-circle-check {
+            font-size: 48px;
+            color: var(--cyan);
+            margin-bottom: 16px;
+        }
+
+        .modal-box h3 {
+            font-family: var(--font-heading);
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 10px;
+        }
+
+        .modal-box p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+            line-height: 1.6;
+        }
+
+        .modal-box .modal-plan-name {
+            font-weight: 700;
+            color: var(--cyan);
+        }
+
+        .modal-actions {
+            margin-top: 24px;
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+        }
+
+        .modal-actions button {
+            padding: 10px 24px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            font-family: var(--font-body);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-modal-confirm {
+            background: var(--cyan);
+            color: #fff;
+            border: 2px solid var(--cyan);
+        }
+
+        .btn-modal-confirm:hover {
+            background: var(--cyan-hover);
+            border-color: var(--cyan-hover);
+        }
+
+        .btn-modal-cancel {
+            background: transparent;
+            color: var(--text-secondary);
+            border: 2px solid var(--border-color);
+        }
+
+        .btn-modal-cancel:hover {
+            border-color: var(--text-secondary);
+            color: var(--text-primary);
+        }
+
+        /* ==================
+           RESPONSIVE
+           ================== */
+        @media (max-width: 768px) {
+            .pricing-grid {
+                grid-template-columns: 1fr;
+                max-width: 400px;
+            }
+
+            .pricing-card.featured {
+                transform: none;
+            }
+
+            .pricing-card.featured:hover {
+                transform: translateY(-4px);
+            }
+
+            .subscribe-hero h1 {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="main-nav" id="mainNav">
+        <div class="container nav-inner">
+            <div class="nav-left">
+                <a href="index.html" class="logo">
+                    <img src="assets/images/logo.svg" alt="The Shark Tank Blog" width="60" height="50">
+                </a>
+                <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu">
+                    <span></span><span></span><span></span>
+                </button>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="episodes.html">Shark Tank Episodes</a></li>
+                    <li><a href="products.html">Shark Tank Products</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="startup-list.html">Shark Tank Startup List</a></li>
+                </ul>
+            </div>
+            <div class="nav-right">
+                <button class="search-toggle" id="searchToggle" aria-label="Search">
+                    <i class="fa fa-search"></i>
+                </button>
+                <a href="#" class="btn-contact">Contact Us</a>
+                <div class="social-icons">
+                    <a href="#" aria-label="Pinterest"><i class="fab fa-pinterest-p"></i></a>
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="X"><i class="fab fa-x-twitter"></i></a>
+                    <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <!-- Search Box -->
+            <div class="search-box" id="searchBox">
+                <input type="text" placeholder="Search...">
+                <button type="submit"><i class="fa fa-search"></i></button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="subscribe-hero">
+        <div class="container">
+            <h1>Choose Your Plan</h1>
+            <p>Get unlimited access to all Shark Tank Blog content</p>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing-section">
+        <div class="container">
+            <div class="pricing-grid">
+
+                <!-- Free Plan -->
+                <div class="pricing-card">
+                    <h3>Free</h3>
+                    <div class="price">$0<span>/month</span></div>
+                    <ul class="features-list">
+                        <li><i class="fa fa-check"></i> Limited article access (5/month)</li>
+                        <li><i class="fa fa-check"></i> Episode recaps</li>
+                        <li><i class="fa fa-check"></i> Basic search</li>
+                    </ul>
+                    <button class="btn-plan btn-plan-outline" id="btnFree">Get Started</button>
+                </div>
+
+                <!-- Pro Plan -->
+                <div class="pricing-card featured">
+                    <span class="popular-badge">Most Popular</span>
+                    <h3>Pro</h3>
+                    <div class="price">$9.99<span>/month</span></div>
+                    <ul class="features-list">
+                        <li><i class="fa fa-check"></i> Unlimited article access</li>
+                        <li><i class="fa fa-check"></i> All episode recaps & analysis</li>
+                        <li><i class="fa fa-check"></i> Product deep dives</li>
+                        <li><i class="fa fa-check"></i> Ad-free experience</li>
+                        <li><i class="fa fa-check"></i> Early access to new content</li>
+                    </ul>
+                    <button class="btn-plan btn-plan-solid" id="btnPro" data-plan="Pro" data-price="$9.99/month">Subscribe Now</button>
+                </div>
+
+                <!-- Enterprise Plan -->
+                <div class="pricing-card">
+                    <h3>Enterprise</h3>
+                    <div class="price">$24.99<span>/month</span></div>
+                    <ul class="features-list">
+                        <li><i class="fa fa-check"></i> Everything in Pro</li>
+                        <li><i class="fa fa-check"></i> Exclusive investor insights</li>
+                        <li><i class="fa fa-check"></i> Startup database access</li>
+                        <li><i class="fa fa-check"></i> Priority support</li>
+                        <li><i class="fa fa-check"></i> Monthly newsletter</li>
+                    </ul>
+                    <button class="btn-plan btn-plan-outline" id="btnEnterprise" data-plan="Enterprise" data-price="$24.99/month">Subscribe Now</button>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="container">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-list">
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Can I cancel anytime?
+                        <i class="fa fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Yes, you can cancel your subscription at any time. Your access will continue until the end of your current billing period, and you will not be charged again.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        What payment methods do you accept?
+                        <i class="fa fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>We accept all major credit cards (Visa, MasterCard, American Express), PayPal, and Apple Pay. All payments are processed securely through our payment provider.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Is there a free trial?
+                        <i class="fa fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Yes, we offer a 7-day free trial for the Pro plan. You can explore all Pro features without being charged. If you decide not to continue, simply cancel before the trial ends.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Can I switch plans?
+                        <i class="fa fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Yes, you can upgrade or downgrade your plan at any time. When upgrading, you will be charged the prorated difference. When downgrading, the change takes effect at the start of your next billing cycle.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Confirmation Modal -->
+    <div class="modal-overlay" id="confirmModal">
+        <div class="modal-box">
+            <i class="fa fa-circle-check"></i>
+            <h3>Confirm Subscription</h3>
+            <p>You are about to subscribe to the <span class="modal-plan-name" id="modalPlanName">Pro</span> plan.</p>
+            <p id="modalPlanPrice">$9.99/month</p>
+            <div class="modal-actions">
+                <button class="btn-modal-cancel" id="modalCancel">Cancel</button>
+                <button class="btn-modal-confirm" id="modalConfirm">Confirm</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container footer-inner">
+            <div class="footer-grid">
+                <div class="footer-about">
+                    <div class="footer-logo">
+                        <img src="assets/images/footer-logo.svg" alt="The Shark Tank Blog" width="80" height="70">
+                        <span class="footer-logo-text">The Shark Tank Blog</span>
+                    </div>
+                    <p>Shark Tank Blog is independent of and not affiliated or endorsed by ABC, Sony, the producers or any other company associated with the television show, Shark Tank. Shark Tank Blog is an opinion blog. Views expressed on this blog are solely owned by the author individually and not that of Shark Tank Blog or principles of Shark Tank Blog.</p>
+                    <div class="social-icons footer-social">
+                        <a href="#"><i class="fab fa-pinterest-p"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-x-twitter"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-menu">
+                    <h4>Menu</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="episodes.html">Shark Tank Episodes</a></li>
+                        <li><a href="products.html">Shark Tank Products</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="startup-list.html">Shark Tank Businesses</a></li>
+                    </ul>
+                </div>
+                <div class="footer-newsletter">
+                    <h4>Subscribe to our Newsletter</h4>
+                    <div class="newsletter-form">
+                        <input type="email" placeholder="Enter your email">
+                        <button type="submit">Subscribe</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Footer Bottom Bar -->
+    <div class="footer-bottom">
+        <a href="#">Terms and Conditions</a> &nbsp;|&nbsp; <a href="#">Privacy Policy</a>
+        <span class="raptive">A Raptive Partner Site</span>
+    </div>
+
+    <!-- Scroll to Top -->
+    <button class="scroll-top" id="scrollTop" aria-label="Scroll to top">
+        <i class="fa fa-chevron-up"></i>
+    </button>
+
+    <script src="script.js"></script>
+    <script src="auth.js"></script>
+    <script>
+        (function() {
+            // Check login state
+            var user = null;
+            try {
+                var stored = localStorage.getItem('stb_user');
+                if (stored) user = JSON.parse(stored);
+            } catch (e) {}
+
+            var isLoggedIn = !!user;
+            var btnFree = document.getElementById('btnFree');
+            var btnPro = document.getElementById('btnPro');
+            var btnEnterprise = document.getElementById('btnEnterprise');
+            var modal = document.getElementById('confirmModal');
+            var modalPlanName = document.getElementById('modalPlanName');
+            var modalPlanPrice = document.getElementById('modalPlanPrice');
+            var modalCancel = document.getElementById('modalCancel');
+            var modalConfirm = document.getElementById('modalConfirm');
+
+            // Update Free button based on login state
+            if (isLoggedIn) {
+                btnFree.textContent = 'Current Plan';
+                btnFree.className = 'btn-plan btn-plan-disabled';
+                btnFree.disabled = true;
+            }
+
+            // Subscribe button handler
+            function handleSubscribe(btn) {
+                var planName = btn.getAttribute('data-plan');
+                var planPrice = btn.getAttribute('data-price');
+
+                if (!isLoggedIn) {
+                    window.location.href = 'login.html?redirect=subscribe.html';
+                    return;
+                }
+
+                // Show confirmation modal
+                modalPlanName.textContent = planName;
+                modalPlanPrice.textContent = planPrice;
+                modal.classList.add('active');
+            }
+
+            btnPro.addEventListener('click', function() {
+                handleSubscribe(this);
+            });
+
+            btnEnterprise.addEventListener('click', function() {
+                handleSubscribe(this);
+            });
+
+            // If not logged in, Free button goes to login
+            if (!isLoggedIn) {
+                btnFree.addEventListener('click', function() {
+                    window.location.href = 'login.html?redirect=subscribe.html';
+                });
+            }
+
+            // Modal close
+            modalCancel.addEventListener('click', function() {
+                modal.classList.remove('active');
+            });
+
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    modal.classList.remove('active');
+                }
+            });
+
+            // Modal confirm
+            modalConfirm.addEventListener('click', function() {
+                var planName = modalPlanName.textContent;
+                modal.classList.remove('active');
+                alert('Thank you! You have subscribed to the ' + planName + ' plan.');
+            });
+
+            // FAQ accordion
+            var faqItems = document.querySelectorAll('.faq-item');
+            faqItems.forEach(function(item) {
+                var question = item.querySelector('.faq-question');
+                question.addEventListener('click', function() {
+                    var isActive = item.classList.contains('active');
+                    // Close all
+                    faqItems.forEach(function(i) { i.classList.remove('active'); });
+                    // Toggle current
+                    if (!isActive) {
+                        item.classList.add('active');
+                    }
+                });
+            });
+        })();
+    </script>
+</body>
+</html>

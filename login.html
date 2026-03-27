@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In - Shark Tank Blog</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&family=Roboto+Slab:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="page-styles.css">
+    <link rel="stylesheet" href="auth-styles.css">
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="main-nav" id="mainNav">
+        <div class="container nav-inner">
+            <div class="nav-left">
+                <a href="index.html" class="logo">
+                    <img src="assets/images/logo.svg" alt="The Shark Tank Blog" width="60" height="50">
+                </a>
+                <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu">
+                    <span></span><span></span><span></span>
+                </button>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="episodes.html">Shark Tank Episodes</a></li>
+                    <li><a href="products.html">Shark Tank Products</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="startup-list.html">Shark Tank Startup List</a></li>
+                </ul>
+            </div>
+            <div class="nav-right">
+                <button class="search-toggle" id="searchToggle" aria-label="Search">
+                    <i class="fa fa-search"></i>
+                </button>
+                <a href="#" class="btn-contact">Contact Us</a>
+                <div class="social-icons">
+                    <a href="#" aria-label="Pinterest"><i class="fab fa-pinterest-p"></i></a>
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="X"><i class="fab fa-x-twitter"></i></a>
+                    <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <!-- Search Box -->
+            <div class="search-box" id="searchBox">
+                <input type="text" placeholder="Search...">
+                <button type="submit"><i class="fa fa-search"></i></button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Login Section -->
+    <section class="auth-section">
+        <div>
+            <div class="auth-card">
+                <h1 class="auth-card-title">Sign In to Shark Tank Blog</h1>
+
+                <!-- SSO Buttons -->
+                <div class="sso-buttons">
+                    <button class="sso-btn sso-btn--google" type="button">
+                        <i class="fab fa-google"></i>
+                        Continue with Google
+                    </button>
+                    <button class="sso-btn sso-btn--facebook" type="button">
+                        <i class="fab fa-facebook-f"></i>
+                        Continue with Facebook
+                    </button>
+                </div>
+
+                <!-- Divider -->
+                <div class="divider-or">
+                    <span>OR</span>
+                </div>
+
+                <!-- Magic Link -->
+                <div class="magic-link-section">
+                    <p class="section-label">Sign in with Magic Link</p>
+                    <form>
+                        <div class="auth-input-group">
+                            <label for="magic-email">Email Address</label>
+                            <input type="email" id="magic-email" class="auth-input" placeholder="you@example.com" required>
+                        </div>
+                        <button type="submit" class="btn-magic-link">Send Magic Link</button>
+                    </form>
+                    <p class="auth-helper-text">We'll send a secure login link to your email. No password needed.</p>
+                </div>
+            </div>
+
+            <!-- Below Card -->
+            <p class="auth-footer-text">Don't have an account? <a href="subscribe.html">Subscribe now</a></p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container footer-inner">
+            <div class="footer-grid">
+                <div class="footer-about">
+                    <div class="footer-logo">
+                        <img src="assets/images/footer-logo.svg" alt="The Shark Tank Blog" width="80" height="70">
+                        <span class="footer-logo-text">The Shark Tank Blog</span>
+                    </div>
+                    <p>Shark Tank Blog is independent of and not affiliated or endorsed by ABC, Sony, the producers or any other company associated with the television show, Shark Tank. Shark Tank Blog is an opinion blog. Views expressed on this blog are solely owned by the author individually and not that of Shark Tank Blog or principles of Shark Tank Blog.</p>
+                    <div class="social-icons footer-social">
+                        <a href="#"><i class="fab fa-pinterest-p"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-x-twitter"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-menu">
+                    <h4>Menu</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="episodes.html">Shark Tank Episodes</a></li>
+                        <li><a href="products.html">Shark Tank Products</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="startup-list.html">Shark Tank Businesses</a></li>
+                    </ul>
+                </div>
+                <div class="footer-newsletter">
+                    <h4>Subscribe to our Newsletter</h4>
+                    <div class="newsletter-form">
+                        <input type="email" placeholder="Enter your email">
+                        <button type="submit">Subscribe</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Footer Bottom -->
+    <div class="footer-bottom">
+        <a href="#">Terms of Content Use</a>
+        <span class="raptive">A RAPTIVE PARTNER SITE</span>
+    </div>
+
+    <!-- Scroll to Top -->
+    <button class="scroll-top" id="scrollTop" aria-label="Scroll to top">
+        <i class="fa fa-chevron-up"></i>
+    </button>
+
+    <script src="script.js"></script>
+    <script src="auth.js"></script>
+    <script>
+        // If already logged in, redirect away from login page
+        (function() {
+            var user = localStorage.getItem('stb_user');
+            if (user) {
+                var params = new URLSearchParams(window.location.search);
+                var redirect = params.get('redirect');
+                window.location.href = redirect || 'index.html';
+                return;
+            }
+        })();
+
+        // SSO button handlers
+        document.querySelector('.sso-btn--google').addEventListener('click', function() {
+            demoLogin('google');
+        });
+
+        document.querySelector('.sso-btn--facebook').addEventListener('click', function() {
+            demoLogin('facebook');
+        });
+
+        // Magic Link form handler
+        document.querySelector('.magic-link-section form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            var email = document.getElementById('magic-email').value;
+            if (email) {
+                // Show sent confirmation
+                var btn = document.querySelector('.btn-magic-link');
+                btn.textContent = 'Magic Link Sent!';
+                btn.style.background = '#27ae60';
+                btn.disabled = true;
+
+                // Simulate magic link login after brief delay
+                setTimeout(function() {
+                    demoLogin('magic_link');
+                }, 1200);
+            }
+        });
+    </script>
+</body>
+</html>

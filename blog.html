@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - Shark Tank Blog</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&family=Roboto+Slab:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="page-styles.css">
+    <link rel="stylesheet" href="auth-styles.css">
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="main-nav" id="mainNav">
+        <div class="container nav-inner">
+            <div class="nav-left">
+                <a href="index.html" class="logo">
+                    <img src="assets/images/logo.svg" alt="The Shark Tank Blog" width="60" height="50">
+                </a>
+                <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu">
+                    <span></span><span></span><span></span>
+                </button>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="episodes.html">Shark Tank Episodes</a></li>
+                    <li><a href="products.html">Shark Tank Products</a></li>
+                    <li><a href="blog.html" class="active">Blog</a></li>
+                    <li><a href="startup-list.html">Shark Tank Startup List</a></li>
+                </ul>
+            </div>
+            <div class="nav-right">
+                <button class="search-toggle" id="searchToggle" aria-label="Search">
+                    <i class="fa fa-search"></i>
+                </button>
+                <a href="#" class="btn-contact">Contact Us</a>
+                <div class="social-icons">
+                    <a href="#" aria-label="Pinterest"><i class="fab fa-pinterest-p"></i></a>
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="X"><i class="fab fa-x-twitter"></i></a>
+                    <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <!-- Search Box -->
+            <div class="search-box" id="searchBox">
+                <input type="text" placeholder="Search...">
+                <button type="submit"><i class="fa fa-search"></i></button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Banner -->
+    <section class="page-hero">
+        <div class="container">
+            <h1>Blogs</h1>
+        </div>
+    </section>
+
+    <!-- Blog Grid Section -->
+    <section class="blog-grid-section">
+        <div class="container">
+            <div class="blog-grid">
+
+                <!-- Card 1 -->
+                <div class="blog-grid-card">
+                    <a href="#" class="card-thumb">
+                        <img src="assets/images/blog-whiskey-empire.svg" alt="How This Guest Shark Built a $1B Whiskey Empire from Scratch" width="400" height="250">
+                    </a>
+                    <div class="card-content">
+                        <h3><a href="#">How This Guest Shark Built a $1B Whiskey Empire from Scratch</a></h3>
+                        <div class="card-date-author">
+                            March 18, 2026 &bull; <span class="author-name">Liya Shanawas</span>
+                        </div>
+                        <p>On a trip to Singapore, Fawn Weaver came across a headline in The New York Times International Edition that stopped her cold. It referenced a "hidden ingredient" behind Jack Daniel's, an enslaved man whose contributions had been largely erased from history.</p>
+                        <a href="#" class="btn-read-more">Read More <span class="arrow-icon"><i class="fa fa-arrow-right"></i></span></a>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="blog-grid-card">
+                    <a href="#" class="card-thumb">
+                        <img src="assets/images/blog-herjavec-millionaires.svg" alt="How Robert Herjavec Spotted Shark Tank's Hidden Millionaires" width="400" height="250">
+                    </a>
+                    <div class="card-content">
+                        <h3><a href="#">How Robert Herjavec Spotted Shark Tank's Hidden Millionaires</a></h3>
+                        <div class="card-date-author">
+                            March 18, 2026 &bull; <span class="author-name">Liya Shanawas</span>
+                        </div>
+                        <p>Robert Herjavec has seen thousands of pitches on Shark Tank. Over the years, he has developed a keen eye for spotting the entrepreneurs who have what it takes to build million-dollar businesses from their humble beginnings.</p>
+                        <a href="#" class="btn-read-more">Read More <span class="arrow-icon"><i class="fa fa-arrow-right"></i></span></a>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="blog-grid-card">
+                    <a href="#" class="card-thumb">
+                        <img src="assets/images/blog-corcoran-passive.svg" alt="Barbara Corcoran Shares 4 Proven Ways to Create Passive Income" width="400" height="250">
+                    </a>
+                    <div class="card-content">
+                        <h3><a href="#">Barbara Corcoran Shares 4 Proven Ways to Create Passive Income</a></h3>
+                        <div class="card-date-author">
+                            February 27, 2026 &bull; <span class="author-name">Harsh Vardhan</span>
+                        </div>
+                        <p>Barbara Corcoran, one of Shark Tank's most beloved investors, recently shared her top strategies for building passive income streams. From real estate to licensing deals, here are her four proven methods.</p>
+                        <a href="#" class="btn-read-more">Read More <span class="arrow-icon"><i class="fa fa-arrow-right"></i></span></a>
+                    </div>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="blog-grid-card">
+                    <a href="#" class="card-thumb">
+                        <img src="assets/images/blog-ring-exit.svg" alt="Rejected on Shark Tank, Built in a Garage: How Jamie Siminoff Turned Ring Into a $1B Amazon Exit" width="400" height="250">
+                    </a>
+                    <div class="card-content">
+                        <h3><a href="#">Rejected on Shark Tank, Built in a Garage: How Jamie Siminoff Turned Ring Into a $1B Amazon Exit</a></h3>
+                        <div class="card-date-author">
+                            February 26, 2026 &bull; <span class="author-name">Harsh Vardhan</span>
+                        </div>
+                        <p>In Shark Tank Season 5, Jamie Siminoff pitched his video doorbell company and was turned down by every Shark. Years later, Amazon acquired Ring for over $1 billion, making it one of the show's biggest misses.</p>
+                        <a href="#" class="btn-read-more">Read More <span class="arrow-icon"><i class="fa fa-arrow-right"></i></span></a>
+                    </div>
+                </div>
+
+                <!-- Card 5 -->
+                <div class="blog-grid-card">
+                    <a href="#" class="card-thumb">
+                        <img src="assets/images/blog-oleary-ai.svg" alt="From $28K Salaries to Six Figures: O'Leary Highlights AI's Creative Economy Surge" width="400" height="250">
+                    </a>
+                    <div class="card-content">
+                        <h3><a href="#">From $28K Salaries to Six Figures: O'Leary Highlights AI's Creative Economy Surge</a></h3>
+                        <div class="card-date-author">
+                            February 24, 2026 &bull; <span class="author-name">Harsh Vardhan</span>
+                        </div>
+                        <p>Kevin O'Leary recently discussed how artificial intelligence is transforming the creative economy, enabling people who once earned modest salaries to now command six-figure incomes through AI-powered tools and platforms.</p>
+                        <a href="#" class="btn-read-more">Read More <span class="arrow-icon"><i class="fa fa-arrow-right"></i></span></a>
+                    </div>
+                </div>
+
+                <!-- Card 6 -->
+                <div class="blog-grid-card">
+                    <a href="#" class="card-thumb">
+                        <img src="assets/images/blog-cuban-berkshire.svg" alt="Mark Cuban Challenges Berkshire's Insurance Strategy After Buffett's CEO Exit" width="400" height="250">
+                    </a>
+                    <div class="card-content">
+                        <h3><a href="#">Mark Cuban Challenges Berkshire's Insurance Strategy After Buffett's CEO Exit</a></h3>
+                        <div class="card-date-author">
+                            February 24, 2026 &bull; <span class="author-name">Harsh Vardhan</span>
+                        </div>
+                        <p>Following Warren Buffett's announcement about stepping down as CEO, Mark Cuban publicly questioned Berkshire Hathaway's insurance strategy, arguing that the traditional model is ripe for disruption in the modern healthcare landscape.</p>
+                        <a href="#" class="btn-read-more">Read More <span class="arrow-icon"><i class="fa fa-arrow-right"></i></span></a>
+                    </div>
+                </div>
+
+                <!-- Card 7 -->
+                <div class="blog-grid-card">
+                    <a href="#" class="card-thumb">
+                        <img src="assets/images/blog-cuban-costplus.svg" alt="Mark Cuban Pushes Cost Plus Approach as a Fix for Rising Employer Healthcare Expenses" width="400" height="250">
+                    </a>
+                    <div class="card-content">
+                        <h3><a href="#">Mark Cuban Pushes Cost Plus Approach as a Fix for Rising Employer Healthcare Expenses</a></h3>
+                        <div class="card-date-author">
+                            February 16, 2026 &bull; <span class="author-name">Harsh Vardhan</span>
+                        </div>
+                        <p>Mark Cuban continues to champion the Cost Plus model as a solution for employers struggling with rising healthcare costs. His approach focuses on transparent pricing and cutting out the middlemen that inflate drug prices.</p>
+                        <a href="#" class="btn-read-more">Read More <span class="arrow-icon"><i class="fa fa-arrow-right"></i></span></a>
+                    </div>
+                </div>
+
+                <!-- Card 8 -->
+                <div class="blog-grid-card">
+                    <a href="#" class="card-thumb">
+                        <img src="assets/images/blog-corcoran-housing.svg" alt="Barbara Corcoran's 2026 Housing Forecast: Lower Rates, Higher Home Prices" width="400" height="250">
+                    </a>
+                    <div class="card-content">
+                        <h3><a href="#">Barbara Corcoran's 2026 Housing Forecast: Lower Rates, Higher Home Prices</a></h3>
+                        <div class="card-date-author">
+                            February 16, 2026 &bull; <span class="author-name">Harsh Vardhan</span>
+                        </div>
+                        <p>Real estate mogul Barbara Corcoran shares her 2026 housing market predictions, forecasting that while interest rates will come down, home prices will continue to climb due to persistent low inventory and strong buyer demand.</p>
+                        <a href="#" class="btn-read-more">Read More <span class="arrow-icon"><i class="fa fa-arrow-right"></i></span></a>
+                    </div>
+                </div>
+
+                <!-- Card 9 -->
+                <div class="blog-grid-card">
+                    <a href="#" class="card-thumb">
+                        <img src="assets/images/blog-cuban-insurance.svg" alt="Mark Cuban Questions Health Insurance Value as Deductibles Price Patients Out" width="400" height="250">
+                    </a>
+                    <div class="card-content">
+                        <h3><a href="#">Mark Cuban Questions Health Insurance Value as Deductibles Price Patients Out</a></h3>
+                        <div class="card-date-author">
+                            February 13, 2026 &bull; <span class="author-name">Harsh Vardhan</span>
+                        </div>
+                        <p>Mark Cuban raises tough questions about the value of health insurance as deductibles continue to rise, effectively pricing many patients out of the care they need. He argues the current system is fundamentally broken.</p>
+                        <a href="#" class="btn-read-more">Read More <span class="arrow-icon"><i class="fa fa-arrow-right"></i></span></a>
+                    </div>
+                </div>
+
+                <!-- Card 10 -->
+                <div class="blog-grid-card">
+                    <a href="#" class="card-thumb">
+                        <img src="assets/images/blog-oleary-couples.svg" alt="Kevin O'Leary Reveals the Worst Financial Outcome for Couples and How to Avoid It" width="400" height="250">
+                    </a>
+                    <div class="card-content">
+                        <h3><a href="#">Kevin O'Leary Reveals the 'Worst Financial Outcome' for Couples and How to Avoid It</a></h3>
+                        <div class="card-date-author">
+                            February 13, 2026 &bull; <span class="author-name">Harsh Vardhan</span>
+                        </div>
+                        <p>Kevin O'Leary, known as Mr. Wonderful on Shark Tank, recently shared what he considers the worst financial outcome for couples and offered practical advice on how to navigate money matters in relationships.</p>
+                        <a href="#" class="btn-read-more">Read More <span class="arrow-icon"><i class="fa fa-arrow-right"></i></span></a>
+                    </div>
+                </div>
+
+                <!-- Card 11 -->
+                <div class="blog-grid-card">
+                    <a href="#" class="card-thumb">
+                        <img src="assets/images/blog-cuban-wealth.svg" alt="Mark Cuban Breaks Down the Practical Path to Wealth" width="400" height="250">
+                    </a>
+                    <div class="card-content">
+                        <h3><a href="#">Mark Cuban Breaks Down the Practical Path to Wealth</a></h3>
+                        <div class="card-date-author">
+                            February 13, 2026 &bull; <span class="author-name">Harsh Vardhan</span>
+                        </div>
+                        <p>Billionaire entrepreneur Mark Cuban shares his straightforward advice on building wealth, emphasizing the importance of living below your means, investing wisely, and treating every dollar as a seed for future growth.</p>
+                        <a href="#" class="btn-read-more">Read More <span class="arrow-icon"><i class="fa fa-arrow-right"></i></span></a>
+                    </div>
+                </div>
+
+                <!-- Card 12 -->
+                <div class="blog-grid-card">
+                    <a href="#" class="card-thumb">
+                        <img src="assets/images/blog-sheets-laundry.svg" alt="From Tough Shark Tank Critique to Multi-Million Sales: Sheets Laundry Club Story" width="400" height="250">
+                    </a>
+                    <div class="card-content">
+                        <h3><a href="#">From Tough Shark Tank Critique to Multi-Million Sales: Sheets Laundry Club Story</a></h3>
+                        <div class="card-date-author">
+                            February 12, 2026 &bull; <span class="author-name">Harsh Vardhan</span>
+                        </div>
+                        <p>Chris Videau and Chris Campbell walked into the Tank in Season 13 with their eco-friendly laundry detergent sheets. Despite facing tough critiques from the Sharks, they went on to build a multi-million dollar business.</p>
+                        <a href="#" class="btn-read-more">Read More <span class="arrow-icon"><i class="fa fa-arrow-right"></i></span></a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container footer-inner">
+            <div class="footer-grid">
+                <div class="footer-about">
+                    <div class="footer-logo">
+                        <img src="assets/images/footer-logo.svg" alt="The Shark Tank Blog" width="80" height="70">
+                        <span class="footer-logo-text">The Shark Tank Blog</span>
+                    </div>
+                    <p>Shark Tank Blog is independent of and not affiliated or endorsed by ABC, Sony, the producers or any other company associated with the television show, Shark Tank. Shark Tank Blog is an opinion blog. Views expressed on this blog are solely owned by the author individually and not that of Shark Tank Blog or principles of Shark Tank Blog.</p>
+                    <div class="social-icons footer-social">
+                        <a href="#"><i class="fab fa-pinterest-p"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-x-twitter"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-menu">
+                    <h4>Menu</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="episodes.html">Shark Tank Episodes</a></li>
+                        <li><a href="products.html">Shark Tank Products</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="startup-list.html">Shark Tank Businesses</a></li>
+                    </ul>
+                </div>
+                <div class="footer-newsletter">
+                    <h4>Subscribe to our Newsletter</h4>
+                    <div class="newsletter-form">
+                        <input type="email" placeholder="Enter your email">
+                        <button type="submit">Subscribe</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Footer Bottom Bar -->
+    <div class="footer-bottom">
+        <a href="#">Terms and Conditions</a> &nbsp;|&nbsp; <a href="#">Privacy Policy</a>
+        <span class="raptive">A Raptive Partner Site</span>
+    </div>
+
+    <!-- Scroll to Top -->
+    <button class="scroll-top" id="scrollTop" aria-label="Scroll to top">
+        <i class="fa fa-chevron-up"></i>
+    </button>
+
+    <script src="script.js"></script>
+    <script src="auth.js"></script>
+</body>
+</html>
