@@ -52,6 +52,11 @@ var styleEl = document.createElement('style');
 styleEl.textContent = `
 @keyframes gaf-fadeIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
 @keyframes gaf-popIn{from{opacity:0;transform:scale(.94) translateY(10px)}to{opacity:1;transform:scale(1) translateY(0)}}
+.gaf-bar{display:flex;align-items:center;justify-content:center;height:32px;padding:0 14px;background:#111;border-radius:6px 6px 0 0;cursor:pointer;animation:gaf-fadeIn .35s ease-out;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
+.gaf-bar-cta{display:inline-flex;align-items:center;gap:5px;padding:5px 18px;background:${P};color:#111;font-size:11.5px;font-weight:800;border-radius:20px;white-space:nowrap;letter-spacing:.3px;transition:transform .15s,box-shadow .15s}
+.gaf-bar:hover .gaf-bar-cta{transform:scale(1.04);box-shadow:0 2px 10px ${PT}}
+.gaf-bar-cta svg{width:12px;height:12px;fill:#111;transition:transform .15s}
+.gaf-bar:hover .gaf-bar-cta svg{transform:translateX(2px)}
 .gaf-overlay{position:fixed;inset:0;z-index:9999999;background:rgba(0,0,0,.45);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;animation:gaf-fadeIn .25s ease-out}
 .gaf-popup{width:440px;max-width:calc(100% - 32px);max-height:90vh;overflow-y:auto;border-radius:20px;background:#fff;box-shadow:0 24px 80px rgba(0,0,0,.2);animation:gaf-popIn .3s ease-out;position:relative;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;box-sizing:border-box}
 .gaf-popup *{box-sizing:border-box}
@@ -144,7 +149,18 @@ function scanAds(){
     var rect = ad.getBoundingClientRect();
     if(rect.width<40||rect.height<20)return;
     ad.setAttribute(MARKER,'1');
+    injectBar(ad, rect.width);
   });
+}
+
+function injectBar(ad, width){
+  var bar = document.createElement('div');
+  bar.className = 'gaf-bar';
+  bar.style.width = width + 'px';
+  bar.style.maxWidth = '100%';
+  bar.innerHTML = '<span class="gaf-bar-cta">Go Ads-Free <svg viewBox="0 0 12 12"><path d="M4.5 2L8.5 6L4.5 10" stroke="#111" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>';
+  bar.addEventListener('click', function(e){e.stopPropagation();openPopup()});
+  ad.parentNode.insertBefore(bar, ad);
 }
 
 // ========== POPUP ==========
