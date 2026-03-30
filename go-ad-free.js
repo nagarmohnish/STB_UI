@@ -13,12 +13,15 @@ var SITE_AUDIENCE = "entrepreneurs and fans worldwide";
 var SITE_TITLE = "Support Shark Tank Blog";
 var SITE_URL = "https://nagarmohnish.github.io/STB_UI/";
 
-var PRESETS = [5, 10, 25, 50];
-var POPULAR = 25;
-var FREQS = ["one-time","monthly","quarterly","yearly"];
-var FREQ_LABELS = {"one-time":"One-time","monthly":"Monthly","quarterly":"Quarterly","yearly":"Yearly"};
-var FREQ_PER = {"one-time":"","monthly":"/ month","quarterly":"/ quarter","yearly":"/ year"};
-var FREQ_DAYS = {"monthly":30,"quarterly":90,"yearly":365};
+var BASE_PRICE = 14.99;
+var TIP_OPTIONS = [0, 5, 10, 25];
+var TIP_LABELS = ["Just the plan","+ $5","+ $10","+ $25"];
+var TIP_TAGLINES = [
+  "All good \u2014 you're already awesome.",
+  "Buys our writer an extra coffee.",
+  "Keeps the servers warm at night.",
+  "Basically a Shark Tank investor now."
+];
 
 // ========== SCRIPT TAG CONFIG ==========
 var scriptTag = document.currentScript || document.querySelector('script[src*="go-ad-free"]');
@@ -45,7 +48,7 @@ var AD_SELECTORS = [
 
 
 // ========== STATE ==========
-var S = {screen:1, freq:"quarterly", preset:POPULAR, custom:0, isCustom:false, method:"", name:"", email:""};
+var S = {screen:1, tip:0, customTip:0, isCustomTip:false, method:"", name:"", email:""};
 
 // ========== INJECT CSS ==========
 var styleEl = document.createElement('style');
@@ -127,6 +130,30 @@ styleEl.textContent = `
 .gaf-share-wa{background:#25d366}
 .gaf-footer-links{text-align:center;font-size:12px;color:#aaa}
 .gaf-footer-links a{color:${P};cursor:pointer;text-decoration:underline}
+.gaf-price-hero{text-align:center;margin-bottom:20px}
+.gaf-price-amount{font-size:2.8em;font-weight:900;color:#1a1a1a;letter-spacing:-1px;line-height:1}
+.gaf-price-amount span{font-size:.35em;font-weight:600;color:#999;letter-spacing:0;vertical-align:top;position:relative;top:8px}
+.gaf-price-period{font-size:13px;color:#888;margin-top:4px}
+.gaf-price-slash{font-size:.5em;color:#bbb;font-weight:400;margin:0 1px}
+.gaf-tip-section{margin:18px 0 16px;padding:16px;background:#fafafa;border-radius:12px;border:1px solid #f0f0f0}
+.gaf-tip-label{font-size:13px;font-weight:700;color:#333;margin-bottom:4px;display:flex;align-items:center;gap:6px}
+.gaf-tip-sub{font-size:11.5px;color:#999;margin-bottom:12px}
+.gaf-tip-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:8px}
+.gaf-tip-btn{padding:9px 4px;border:1.5px solid #e4e4e4;border-radius:8px;text-align:center;cursor:pointer;font-weight:700;font-size:12.5px;color:#555;background:#fff;transition:all .15s;position:relative}
+.gaf-tip-btn:hover{border-color:${P};color:#333}
+.gaf-tip-btn.active{border-color:${P};background:#1e1e1e;color:${P}}
+.gaf-tip-tagline{text-align:center;font-size:11.5px;color:${PD};font-weight:600;min-height:16px;margin-top:6px;transition:opacity .2s}
+.gaf-tip-custom-row{display:flex;align-items:center;gap:8px;margin-top:10px}
+.gaf-tip-custom-row label{font-size:11px;color:#888;white-space:nowrap;font-weight:600}
+.gaf-tip-custom-row input{flex:1;padding:7px 10px;border:1.5px solid #e0e0e0;border-radius:6px;font-size:13px;outline:none;font-family:inherit;width:80px;transition:border-color .15s}
+.gaf-tip-custom-row input:focus{border-color:${P}}
+.gaf-total-row{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:#1e1e1e;border-radius:10px;margin-bottom:16px}
+.gaf-total-label{font-size:12px;color:rgba(255,255,255,.6);font-weight:600}
+.gaf-total-amount{font-size:20px;font-weight:800;color:${P}}
+.gaf-what-you-get{margin-bottom:16px}
+.gaf-what-you-get-title{font-size:11px;text-transform:uppercase;letter-spacing:.8px;color:#aaa;font-weight:700;margin-bottom:8px}
+.gaf-perk-item{display:flex;align-items:center;gap:8px;font-size:13px;color:#555;padding:4px 0}
+.gaf-perk-item .perk-check{color:${P};font-weight:700;font-size:14px}
 `;
 document.head.appendChild(styleEl);
 
@@ -162,18 +189,9 @@ function injectBar(ad){
 }
 
 // ========== POPUP ==========
-function getAmount(){return S.isCustom ? S.custom : S.preset}
-function getCtaText(verb){
-  var a = getAmount();
-  var per = FREQ_PER[S.freq];
-  return verb + ' $' + a + (per?' '+per:'');
-}
-function getPerDay(){
-  var a = getAmount();
-  var days = FREQ_DAYS[S.freq];
-  if(!days)return '';
-  return '~$'+(a/days).toFixed(2)+'/day';
-}
+function getTip(){return S.isCustomTip ? S.customTip : S.tip}
+function getTotal(){return +(BASE_PRICE + getTip()).toFixed(2)}
+function getCtaText(verb){return verb + ' $' + getTotal().toFixed(2) + ' / year'}
 
 function openPopup(){
   S.screen=1; S.method=''; S.name=''; S.email='';
@@ -209,30 +227,52 @@ function renderScreen(){
 
 // ========== SCREEN 1 ==========
 function screen1(){
-  var h='<div class="gaf-title">'+SITE_TITLE+'</div>';
-  h+='<div class="gaf-freq-wrap"><select class="gaf-freq" id="gaf-freq">';
-  FREQS.forEach(function(f){h+='<option value="'+f+'"'+(f===S.freq?' selected':'')+'>'+FREQ_LABELS[f]+'</option>'});
-  h+='</select></div>';
-  h+='<div class="gaf-amount-box"><input class="gaf-amount-input" id="gaf-amt" type="text" value="$ '+getAmount()+'"><div class="gaf-perday" id="gaf-perday">'+getPerDay()+'</div></div>';
-  h+='<div class="gaf-presets" id="gaf-presets">';
-  PRESETS.forEach(function(p){
-    var act=(!S.isCustom&&S.preset===p)?'active':'';
-    h+='<div class="gaf-preset '+act+'" data-val="'+p+'">';
-    if(p===POPULAR)h+='<span class="pop-label">Popular</span>';
-    h+='$'+p+'</div>';
+  var tipVal = getTip();
+  var tipIdx = S.isCustomTip ? -1 : TIP_OPTIONS.indexOf(S.tip);
+  var tagline = (tipIdx >= 0) ? TIP_TAGLINES[tipIdx] : (tipVal > 0 ? 'You\'re a legend. Seriously.' : '');
+
+  var h='<div class="gaf-title">Go Ads-Free</div>';
+
+  // Price hero
+  h+='<div class="gaf-price-hero">';
+  h+='<div class="gaf-price-amount">$'+BASE_PRICE.toFixed(2)+'<span> / year</span></div>';
+  h+='<div class="gaf-price-period">One plan. No ads. All content.</div>';
+  h+='</div>';
+
+  // What you get
+  h+='<div class="gaf-what-you-get">';
+  h+='<div class="gaf-what-you-get-title">What you get</div>';
+  h+='<div class="gaf-perk-item"><span class="perk-check">\u2713</span> 100% ads-free reading experience</div>';
+  h+='<div class="gaf-perk-item"><span class="perk-check">\u2713</span> Full access to all Shark Tank content</div>';
+  h+='<div class="gaf-perk-item"><span class="perk-check">\u2713</span> Support independent Shark Tank journalism</div>';
+  h+='</div>';
+
+  // Tip section
+  h+='<div class="gaf-tip-section">';
+  h+='<div class="gaf-tip-label">\ud83e\udd88 Want to throw in a little extra?</div>';
+  h+='<div class="gaf-tip-sub">Every dollar goes toward better coverage, faster updates, and keeping this blog alive.</div>';
+  h+='<div class="gaf-tip-grid" id="gaf-tips">';
+  TIP_OPTIONS.forEach(function(t, i){
+    var act = (!S.isCustomTip && S.tip === t) ? 'active' : '';
+    h+='<div class="gaf-tip-btn '+act+'" data-tip="'+t+'">'+TIP_LABELS[i]+'</div>';
   });
   h+='</div>';
-  h+='<div class="gaf-perk">\u2714 Includes ads-free experience</div>';
-  h+='<button class="gaf-main-cta" id="gaf-cta1">'+getCtaText('Continue with')+'</button>';
-  h+='<div class="gaf-trust">\ud83d\udd12 Secure payment \u00b7 ApplePay \u00b7 Visa \u00b7 MC</div>';
-  h+='<div class="gaf-bottom-line">Secure & encrypted \u00b7 Cancel anytime \u00b7 Takes <10 seconds</div>';
+  h+='<div class="gaf-tip-tagline" id="gaf-tagline">'+tagline+'</div>';
+  h+='<div class="gaf-tip-custom-row"><label>Custom tip:</label><input type="text" id="gaf-custom-tip" placeholder="$0" value="'+(S.isCustomTip && S.customTip > 0 ? '$'+S.customTip : '')+'"></div>';
+  h+='</div>';
+
+  // Total
+  h+='<div class="gaf-total-row"><span class="gaf-total-label">Total per year</span><span class="gaf-total-amount" id="gaf-total">$'+getTotal().toFixed(2)+'</span></div>';
+
+  h+='<button class="gaf-main-cta" id="gaf-cta1">'+getCtaText('Continue \u2014')+'</button>';
+  h+='<div class="gaf-trust">\ud83d\udd12 Secure \u00b7 Cancel anytime \u00b7 Takes 10 seconds</div>';
   return h;
 }
 
 // ========== SCREEN 2 ==========
 function screen2(){
-  var a=getAmount(), per=FREQ_PER[S.freq];
-  var h='<div class="gaf-summary"><div class="gaf-summary-label">You\'re supporting</div><div class="gaf-summary-amount">$'+a+(per?' '+per:'')+'</div><div class="gaf-summary-cause">Helping '+SITE_CAUSE+' every day</div></div>';
+  var a=getTotal();
+  var h='<div class="gaf-summary"><div class="gaf-summary-label">You\'re supporting</div><div class="gaf-summary-amount">$'+a.toFixed(2)+' / year</div><div class="gaf-summary-cause">Helping '+SITE_CAUSE+' every day</div></div>';
   h+='<div class="gaf-field"><label>Email</label><input type="email" id="gaf-email" placeholder="you@example.com" value="'+S.email+'"></div>';
   h+='<div class="gaf-method-heading">Select payment method</div>';
   h+='<div class="gaf-method-card'+(S.method==='bank'?' active':'')+'" data-method="bank"><div class="gaf-method-top"><span class="gaf-method-icon">\ud83c\udfe6</span><div class="gaf-method-info"><div class="gaf-method-name">Direct Bank Transfer (ACH)</div><div class="gaf-method-sub">Best for long-term support</div></div></div></div>';
@@ -240,21 +280,21 @@ function screen2(){
   h+='<div class="gaf-express-grid"><div class="gaf-express-btn">\uf8ff Pay</div><div class="gaf-express-btn">G Pay</div><div class="gaf-express-btn">PayPal</div><div class="gaf-express-btn">Venmo</div></div>';
   h+='<div class="gaf-method-card'+(S.method==='card'?' active':'')+'" data-method="card"><div class="gaf-method-top"><span class="gaf-method-icon">\ud83d\udcb3</span><div class="gaf-method-info"><div class="gaf-method-name">Card Payment</div><div class="gaf-method-sub">Visa, Mastercard, AmEx</div></div></div><div class="gaf-method-form"><div class="gaf-field"><label>Name on card</label><input type="text" id="gaf-cardname" placeholder="John Doe" value="'+S.name+'"></div><div class="gaf-field"><label>Card number</label><input type="text" placeholder="1234 5678 9012 3456" maxlength="19"></div><div class="gaf-row"><div class="gaf-field"><label>Expiry</label><input type="text" placeholder="MM/YY" maxlength="5"></div><div class="gaf-field"><label>CVC</label><input type="text" placeholder="123" maxlength="4"></div></div></div></div>';
   h+='<div class="gaf-trust">\ud83d\udd12 Secure payment \u2022 Powered by Stripe</div>';
-  h+='<button class="gaf-main-cta" id="gaf-cta2">'+getCtaText('Complete Payment \u2014')+'</button>';
+  h+='<button class="gaf-main-cta" id="gaf-cta2">'+getCtaText('Pay')+'</button>';
   return h;
 }
 
 // ========== SCREEN 3 ==========
 function screen3(){
-  var a=getAmount(), per=FREQ_PER[S.freq];
+  var a=getTotal();
   var name=S.name||S.email||'Supporter';
   var date=new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});
-  var freqLabel=S.freq==='one-time'?'one-time':'every '+S.freq.replace('ly','').replace('quarter','quarter');
+  var freqLabel='yearly';
   var shareText=encodeURIComponent("I just became an official supporter of "+SITE_NAME+"! \ud83e\udd88 Supporting free "+SITE_CAUSE+" for everyone. "+SITE_URL);
 
   var h='<div style="text-align:center">';
   h+='<div class="gaf-check-circle">\u2713</div>';
-  h+='<div class="gaf-confirm-text"><strong>Your $'+a+' '+freqLabel+' support is confirmed.</strong><br>You\'re now one of us \u2014 helping keep '+SITE_CAUSE+' free for '+SITE_AUDIENCE+'.</div>';
+  h+='<div class="gaf-confirm-text"><strong>Your $'+a.toFixed(2)+'/year support is confirmed.</strong><br>You\'re now one of us \u2014 helping keep '+SITE_CAUSE+' free for '+SITE_AUDIENCE+'.</div>';
   h+='<div class="gaf-badge">\ud83d\udc99 Official Supporter of '+SITE_NAME+'</div>';
   h+='</div>';
 
@@ -268,7 +308,7 @@ function screen3(){
   h+='<div class="gaf-cert-site"><div class="gaf-cert-site-icon">ST</div><span style="font-weight:700;font-size:15px">'+SITE_NAME+'</span></div>';
   h+='<hr>';
   h+='<div class="gaf-cert-cause">For keeping '+SITE_CAUSE+' free & accessible for everyone</div>';
-  h+='<div class="gaf-cert-amount">$'+a+' '+freqLabel+'</div>';
+  h+='<div class="gaf-cert-amount">$'+a.toFixed(2)+' / year</div>';
   h+='<div class="gaf-cert-date">'+date+'</div>';
   h+='<div class="gaf-cert-perk">\u2714 Your '+SITE_NAME+' experience will be <strong>ads-free</strong> while your support is active.</div>';
   h+='</div>';
@@ -286,29 +326,46 @@ function screen3(){
 
 // ========== EVENT BINDING ==========
 function bindEvents(){
-  // Screen 1
-  var freq=document.getElementById('gaf-freq');
-  if(freq)freq.addEventListener('change',function(){S.freq=this.value;updateScreen1()});
-
-  var presets=document.querySelectorAll('.gaf-preset');
-  presets.forEach(function(p){
-    p.addEventListener('click',function(){
-      S.preset=parseInt(this.getAttribute('data-val'));
-      S.isCustom=false;
-      updateScreen1();
+  // Screen 1 - Tip buttons
+  var tipBtns=document.querySelectorAll('.gaf-tip-btn');
+  tipBtns.forEach(function(b){
+    b.addEventListener('click',function(){
+      S.tip=parseInt(this.getAttribute('data-tip'));
+      S.isCustomTip=false;
+      S.customTip=0;
+      var ci=document.getElementById('gaf-custom-tip');
+      if(ci)ci.value='';
+      tipBtns.forEach(function(x){x.classList.remove('active')});
+      this.classList.add('active');
+      var idx=TIP_OPTIONS.indexOf(S.tip);
+      var tl=document.getElementById('gaf-tagline');
+      if(tl)tl.textContent=(idx>=0)?TIP_TAGLINES[idx]:'';
+      updateTotal();
     });
   });
 
-  var amt=document.getElementById('gaf-amt');
-  if(amt){
-    amt.addEventListener('focus',function(){this.value=getAmount()});
-    amt.addEventListener('input',function(){
-      var v=parseInt(this.value.replace(/[^0-9]/g,''))||0;
-      S.custom=v; S.isCustom=true;
-      document.querySelectorAll('.gaf-preset').forEach(function(p){p.classList.remove('active')});
-      updateCtaAndPerday();
+  // Custom tip input
+  var customTip=document.getElementById('gaf-custom-tip');
+  if(customTip){
+    customTip.addEventListener('focus',function(){
+      var v=S.isCustomTip?S.customTip:0;
+      this.value=v>0?v:'';
     });
-    amt.addEventListener('blur',function(){this.value='$ '+getAmount()});
+    customTip.addEventListener('input',function(){
+      var v=parseInt(this.value.replace(/[^0-9]/g,''))||0;
+      S.customTip=v;S.isCustomTip=v>0;
+      if(S.isCustomTip){
+        S.tip=0;
+        tipBtns.forEach(function(x){x.classList.remove('active')});
+        var tl=document.getElementById('gaf-tagline');
+        if(tl)tl.textContent=v>0?'You\'re a legend. Seriously.':'';
+      }
+      updateTotal();
+    });
+    customTip.addEventListener('blur',function(){
+      if(S.isCustomTip&&S.customTip>0)this.value='$'+S.customTip;
+      else this.value='';
+    });
   }
 
   var cta1=document.getElementById('gaf-cta1');
@@ -341,20 +398,11 @@ function bindEvents(){
   });
 }
 
-function updateScreen1(){
-  var amt=document.getElementById('gaf-amt');
-  if(amt)amt.value='$ '+getAmount();
-  document.querySelectorAll('.gaf-preset').forEach(function(p){
-    p.classList.toggle('active',!S.isCustom&&parseInt(p.getAttribute('data-val'))===S.preset);
-  });
-  updateCtaAndPerday();
-}
-
-function updateCtaAndPerday(){
+function updateTotal(){
+  var tot=document.getElementById('gaf-total');
+  if(tot)tot.textContent='$'+getTotal().toFixed(2);
   var cta=document.getElementById('gaf-cta1');
-  if(cta)cta.textContent=getCtaText('Continue with');
-  var pd=document.getElementById('gaf-perday');
-  if(pd)pd.textContent=getPerDay();
+  if(cta)cta.textContent=getCtaText('Continue \u2014');
 }
 
 // ========== INIT ==========
