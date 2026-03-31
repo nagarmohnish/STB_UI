@@ -919,8 +919,8 @@ ul { list-style: none; }
 .support-input::placeholder { color: #777; }
 .support-btn {
     padding: 10px 20px;
-    background: #f5d442;
-    color: #1e1e1e;
+    background: var(--cyan);
+    color: #fff;
     border: none;
     font-family: var(--font-body);
     font-size: 13px;
@@ -929,7 +929,7 @@ ul { list-style: none; }
     transition: background 0.15s;
     white-space: nowrap;
 }
-.support-btn:hover { background: #f7dc6f; }
+.support-btn:hover { background: var(--cyan-hover); }
 .support-note {
     font-size: 11px;
     color: #777;
@@ -947,9 +947,9 @@ ul { list-style: none; }
     margin-top: 16px;
     padding: 11px 20px;
     background: none;
-    border: 1.5px solid #f5d442;
+    border: 1.5px solid var(--cyan);
     border-radius: 4px;
-    color: #f5d442;
+    color: var(--cyan);
     font-family: var(--font-body);
     font-size: 13px;
     font-weight: 700;
@@ -957,8 +957,8 @@ ul { list-style: none; }
     transition: all 0.15s;
 }
 .footer-adfree-btn:hover {
-    background: #f5d442;
-    color: #1e1e1e;
+    background: var(--cyan);
+    color: #fff;
 }
 .adfree-icon {
     font-size: 11px;

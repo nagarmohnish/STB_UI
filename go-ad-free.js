@@ -1,26 +1,21 @@
 (function(){
 "use strict";
 
-// ========== BRAND CONFIG ==========
-var P = "#f5c518";     // Primary (yellow)
-var PD = "#d4a80e";    // Primary dark (darker yellow)
-var PL = "#fef9e7";    // Primary light (cream)
-var PT = "rgba(245,197,24,0.25)"; // Primary transparent
-
+// ========== CONFIG ==========
 var SITE_NAME = "Shark Tank Blog";
 var SITE_CAUSE = "Shark Tank coverage";
-var SITE_AUDIENCE = "entrepreneurs and fans worldwide";
-var SITE_TITLE = "Support Shark Tank Blog";
 var SITE_URL = "https://nagarmohnish.github.io/STB_UI/";
+var PRESETS = [2, 5, 9, 15];
+var POPULAR = 5;
+var DEFAULT_AMT = 3;
+var ACCENT = "#6366f1";
+var ACCENT_DARK = "#4f46e5";
+var ACCENT_LIGHT = "#eef2ff";
 
-var BASE_PRICE = 14.99;
-var TIP_OPTIONS = [0, 5, 10, 25];
-var TIP_LABELS = ["Just the plan","+ $5","+ $10","+ $25"];
-var TIP_TAGLINES = [
-  "All good \u2014 you're already awesome.",
-  "Buys our writer an extra coffee.",
-  "Keeps the servers warm at night.",
-  "Basically a Shark Tank investor now."
+// Demo Google accounts
+var DEMO_ACCOUNTS = [
+  {name:"Mohnish Nagar", email:"mohnish.nagar@gmail.com", color:"#4285F4", initial:"M"},
+  {name:"Mohnish", email:"mohnish@getmega.com", color:"#EA4335", initial:"M"}
 ];
 
 // ========== SCRIPT TAG CONFIG ==========
@@ -28,8 +23,7 @@ var scriptTag = document.currentScript || document.querySelector('script[src*="g
 var CFG = {
   delay: parseInt((scriptTag&&scriptTag.getAttribute('data-delay'))||'1500'),
   poll: parseInt((scriptTag&&scriptTag.getAttribute('data-poll'))||'3000'),
-  extra: (scriptTag&&scriptTag.getAttribute('data-selectors'))||'',
-  utm: (scriptTag&&scriptTag.getAttribute('data-utm-param'))||'utm_source=go-ad-free-widget'
+  extra: (scriptTag&&scriptTag.getAttribute('data-selectors'))||''
 };
 
 // ========== AD SELECTORS ==========
@@ -46,114 +40,156 @@ var AD_SELECTORS = [
   'iframe[src*="doubleclick"]','iframe[src*="googlesyndication"]'
 ];
 
-
 // ========== STATE ==========
-var S = {screen:1, tip:0, customTip:0, isCustomTip:false, method:"", name:"", email:""};
+var S = {
+  screen: 1,      // 1=amount, 2=google signin, 3=payment, 4=success
+  amount: DEFAULT_AMT,
+  isCustom: false,
+  method: "",
+  name: "John Doe",
+  email: "",
+  selectedAccount: null
+};
 
 // ========== INJECT CSS ==========
 var styleEl = document.createElement('style');
 styleEl.textContent = `
 @keyframes gaf-fadeIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
-@keyframes gaf-popIn{from{opacity:0;transform:scale(.94) translateY(10px)}to{opacity:1;transform:scale(1) translateY(0)}}
+@keyframes gaf-popIn{from{opacity:0;transform:scale(.96) translateY(8px)}to{opacity:1;transform:scale(1) translateY(0)}}
+@keyframes gaf-spin{to{transform:rotate(360deg)}}
 .gaf-bar{display:flex;align-items:center;justify-content:flex-end;height:28px;padding:0;background:none;cursor:pointer;animation:gaf-fadeIn .3s ease-out;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;margin:0 0 4px}
-.gaf-bar-cta{display:inline-flex;align-items:center;gap:4px;padding:4px 14px;background:#f5d442;color:#1e1e1e;font-size:10.5px;font-weight:800;border-radius:14px;white-space:nowrap;letter-spacing:.4px;text-transform:uppercase;transition:transform .15s,box-shadow .15s}
-.gaf-bar:hover .gaf-bar-cta{transform:scale(1.03);box-shadow:0 2px 8px rgba(245,212,66,.3)}
+.gaf-bar-cta{display:inline-flex;align-items:center;gap:4px;padding:4px 14px;background:#00bcd4;color:#fff;font-size:10.5px;font-weight:800;border-radius:14px;white-space:nowrap;letter-spacing:.4px;text-transform:uppercase;transition:transform .15s,box-shadow .15s}
+.gaf-bar:hover .gaf-bar-cta{transform:scale(1.03);box-shadow:0 2px 8px rgba(0,188,212,.3)}
 .gaf-bar-cta svg{width:10px;height:10px;transition:transform .15s}
 .gaf-bar:hover .gaf-bar-cta svg{transform:translateX(2px)}
-.gaf-overlay{position:fixed;inset:0;z-index:9999999;background:rgba(0,0,0,.45);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;animation:gaf-fadeIn .25s ease-out}
-.gaf-popup{width:440px;max-width:calc(100% - 32px);max-height:90vh;overflow-y:auto;border-radius:20px;background:#fff;box-shadow:0 24px 80px rgba(0,0,0,.2);animation:gaf-popIn .3s ease-out;position:relative;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;box-sizing:border-box}
+.gaf-overlay{position:fixed;inset:0;z-index:9999999;background:rgba(0,0,0,0);display:flex;align-items:center;justify-content:center;transition:background .25s ease;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
+.gaf-overlay.active{background:rgba(0,0,0,.5)}
+.gaf-popup{width:520px;max-width:calc(100% - 32px);max-height:92vh;overflow-y:auto;border-radius:18px;background:#fff;box-shadow:0 24px 80px rgba(0,0,0,.25);position:relative;box-sizing:border-box;opacity:0;transform:scale(.96) translateY(8px);transition:opacity .25s ease,transform .25s ease}
+.gaf-overlay.active .gaf-popup{opacity:1;transform:scale(1) translateY(0)}
 .gaf-popup *{box-sizing:border-box}
-.gaf-close{position:absolute;top:14px;right:16px;width:30px;height:30px;border:none;background:rgba(0,0,0,.06);border-radius:50%;cursor:pointer;font-size:18px;color:#666;display:flex;align-items:center;justify-content:center;transition:background .15s;z-index:2}
-.gaf-close:hover{background:rgba(0,0,0,.12)}
-.gaf-body{padding:28px 28px 22px}
-.gaf-title{font-size:1.35em;font-weight:800;text-align:center;margin-bottom:18px;color:#1a1a1a}
-.gaf-freq-wrap{display:flex;justify-content:center;margin-bottom:16px}
-.gaf-freq{padding:8px 18px;border:1.5px solid #ddd;border-radius:25px;font-size:13px;font-weight:600;background:#fff;color:#333;cursor:pointer;-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23666' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:36px}
-.gaf-amount-box{border:1.5px solid #e0e0e0;border-radius:12px;padding:14px 18px;display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
-.gaf-amount-input{font-size:2em;font-weight:800;border:none;outline:none;width:120px;color:#1a1a1a;background:transparent;font-family:inherit}
-.gaf-perday{font-size:12px;color:#888;text-align:right}
-.gaf-presets{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px}
-.gaf-preset{padding:10px;border:1.5px solid #e0e0e0;border-radius:10px;text-align:center;cursor:pointer;font-weight:700;font-size:15px;color:#333;background:#fff;transition:all .15s;position:relative}
-.gaf-preset:hover{border-color:${P}}
-.gaf-preset.active{border-color:${P};background:${PL};color:${PD}}
-.gaf-preset .pop-label{position:absolute;top:-8px;left:50%;transform:translateX(-50%);font-size:9px;font-weight:700;color:${P};background:#fff;padding:0 6px;border:1px solid ${P};border-radius:8px;white-space:nowrap}
-.gaf-perk{text-align:center;font-size:13px;color:${P};font-weight:600;margin-bottom:16px}
-.gaf-main-cta{width:100%;padding:15px;border:none;border-radius:12px;background:${P};color:#111;font-size:15px;font-weight:700;cursor:pointer;box-shadow:0 4px 16px ${PT};transition:background .15s,transform .15s;font-family:inherit}
-.gaf-main-cta:hover{background:${PD};transform:translateY(-1px)}
+.gaf-close{position:absolute;top:16px;right:18px;width:32px;height:32px;border:none;background:none;cursor:pointer;font-size:22px;color:#bbb;display:flex;align-items:center;justify-content:center;transition:color .15s;z-index:2;line-height:1}
+.gaf-close:hover{color:#666}
+.gaf-body{padding:40px 40px 32px}
+
+/* ---- Screen 1: Amount ---- */
+.gaf-s1-title{font-family:'Playfair Display',Georgia,serif;font-size:26px;font-weight:700;color:#1a1a1a;text-align:center;margin-bottom:6px;font-style:italic}
+.gaf-s1-sub{font-size:14px;color:#999;text-align:center;margin-bottom:28px}
+.gaf-amount-box{border:1.5px solid #e4e4e4;border-radius:14px;padding:22px 24px;display:flex;align-items:baseline;justify-content:space-between;margin-bottom:20px;transition:border-color .15s}
+.gaf-amount-box:focus-within{border-color:${ACCENT}}
+.gaf-amt-left{display:flex;align-items:baseline;gap:2px}
+.gaf-amt-dollar{font-size:20px;color:#bbb;font-weight:600}
+.gaf-amt-input{font-size:44px;font-weight:900;border:none;outline:none;width:80px;color:#1a1a1a;background:transparent;font-family:inherit;line-height:1}
+.gaf-amt-period{font-size:16px;color:#999;margin-left:2px}
+.gaf-amt-daily{font-size:13px;color:#bbb}
+.gaf-presets{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:28px}
+.gaf-preset{padding:14px 8px;border:1.5px solid #e8e8e8;border-radius:12px;background:#fff;cursor:pointer;font-size:17px;font-weight:700;color:#444;transition:all .15s;position:relative;text-align:center;font-family:inherit}
+.gaf-preset:hover{border-color:${ACCENT};background:#fafafe}
+.gaf-preset.active{border-color:${ACCENT};background:${ACCENT_LIGHT};color:${ACCENT_DARK}}
+.gaf-preset .pop-tag{position:absolute;top:-9px;left:50%;transform:translateX(-50%);font-size:9px;font-weight:700;color:#fff;background:${ACCENT};padding:2px 10px;border-radius:8px;white-space:nowrap}
+.gaf-main-cta{width:100%;padding:17px 20px;border:none;border-radius:14px;background:${ACCENT};color:#fff;font-size:16px;font-weight:700;cursor:pointer;font-family:inherit;transition:background .15s,transform .1s;margin-bottom:18px}
+.gaf-main-cta:hover{background:${ACCENT_DARK};transform:translateY(-1px)}
 .gaf-main-cta:active{transform:translateY(0)}
-.gaf-main-cta.processing{background:${PD};opacity:.7;cursor:not-allowed}
-.gaf-trust{text-align:center;margin-top:14px;font-size:11px;color:#aaa}
-.gaf-bottom-line{text-align:center;margin-top:8px;font-size:10.5px;color:#bbb}
-.gaf-summary{text-align:center;margin-bottom:18px}
-.gaf-summary-label{font-size:12px;color:#888;margin-bottom:4px}
-.gaf-summary-amount{font-size:2em;font-weight:800;color:#1a1a1a}
-.gaf-summary-cause{font-size:13px;color:${P};font-weight:600}
-.gaf-field{margin-bottom:14px}
-.gaf-field label{display:block;font-size:12px;font-weight:600;color:#555;margin-bottom:5px}
-.gaf-field input{width:100%;padding:11px 14px;border:1.5px solid #ddd;border-radius:8px;font-size:14px;outline:none;font-family:inherit;transition:border-color .15s}
-.gaf-field input:focus{border-color:${P}}
-.gaf-method-heading{font-size:13px;font-weight:700;color:#888;text-align:center;margin:16px 0 10px;text-transform:uppercase;letter-spacing:.5px}
-.gaf-method-card{border:1.5px solid #e0e0e0;border-radius:12px;padding:14px 16px;margin-bottom:10px;cursor:pointer;transition:border-color .15s,background .15s}
-.gaf-method-card:hover{border-color:${P}}
-.gaf-method-card.active{border-color:${P};background:${PL}}
-.gaf-method-top{display:flex;align-items:center;gap:10px}
-.gaf-method-icon{font-size:20px}
-.gaf-method-info{flex:1}
-.gaf-method-name{font-weight:700;font-size:14px;color:#333}
-.gaf-method-sub{font-size:11px;color:${P};font-weight:600}
-.gaf-method-form{margin-top:12px;display:none}
+.gaf-main-cta.processing{opacity:.7;cursor:not-allowed}
+.gaf-perk-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.gaf-perk-text{font-size:13px;color:${ACCENT};font-weight:600}
+.gaf-perk-text i{margin-right:4px}
+.gaf-perk-text em{font-style:italic}
+.gaf-billing-badge{display:inline-flex;align-items:center;gap:4px;padding:5px 12px;border:1px solid #e0e0e0;border-radius:16px;font-size:11.5px;color:#999;cursor:default}
+.gaf-billing-badge i{font-size:8px}
+.gaf-trust-row{display:flex;align-items:center;justify-content:center;gap:10px;font-size:12px;color:#ccc;margin-top:4px}
+.gaf-trust-row img{height:14px;opacity:.4}
+
+/* ---- Screen 2: Google Sign In ---- */
+.gaf-s2-glogo{display:flex;justify-content:center;margin-bottom:20px}
+.gaf-s2-glogo svg{width:40px;height:40px;padding:8px;background:#f8f8f8;border-radius:50%}
+.gaf-s2-title{font-size:20px;font-weight:700;color:#1a1a1a;text-align:center;margin-bottom:4px}
+.gaf-s2-sub{font-size:13px;color:#aaa;text-align:center;margin-bottom:24px}
+.gaf-account{display:flex;align-items:center;gap:14px;padding:16px 18px;border:1.5px solid #eee;border-radius:12px;margin-bottom:10px;cursor:pointer;transition:border-color .15s,background .15s}
+.gaf-account:hover{border-color:#ddd;background:#fafafa}
+.gaf-account-avatar{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;font-weight:700;flex-shrink:0}
+.gaf-account-info{flex:1}
+.gaf-account-name{font-size:14px;font-weight:600;color:#333}
+.gaf-account-email{font-size:12px;color:#999}
+.gaf-account-arrow{color:#ccc;font-size:14px}
+.gaf-s2-divider{display:flex;align-items:center;gap:12px;margin:20px 0}
+.gaf-s2-divider::before,.gaf-s2-divider::after{content:'';flex:1;height:1px;background:#eee}
+.gaf-s2-divider span{font-size:12px;color:#bbb}
+.gaf-s2-email-btn{display:block;width:100%;padding:12px;border:none;background:none;color:#999;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;text-align:center;transition:color .15s}
+.gaf-s2-email-btn:hover{color:${ACCENT}}
+
+/* ---- Screen 3: Payment ---- */
+.gaf-s3-label{font-size:13px;color:#999;margin-bottom:4px}
+.gaf-s3-amount{font-size:32px;font-weight:900;color:#1a1a1a;margin-bottom:28px;line-height:1}
+.gaf-s3-heading{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.gaf-s3-heading-text{font-size:15px;font-weight:700;color:#333}
+.gaf-s3-heading-right{font-size:12px;color:#999}
+.gaf-method-card{border:1.5px solid #eee;border-radius:12px;padding:18px 20px;margin-bottom:12px;cursor:pointer;transition:border-color .15s}
+.gaf-method-card:hover{border-color:#ddd}
+.gaf-method-card.active{border-color:${ACCENT}}
+.gaf-method-top{display:flex;align-items:center;justify-content:space-between}
+.gaf-method-left{display:flex;align-items:center;gap:12px}
+.gaf-method-icon{font-size:18px;color:#888}
+.gaf-method-name{font-size:14px;font-weight:600;color:#333}
+.gaf-method-sub{font-size:11px;color:${ACCENT};font-weight:600;margin-top:1px}
+.gaf-method-chevron{color:#ccc;font-size:12px}
+.gaf-method-form{margin-top:14px;display:none}
 .gaf-method-card.active .gaf-method-form{display:block}
-.gaf-method-form .gaf-row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.gaf-express-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px}
-.gaf-express-btn{padding:10px;border:1.5px solid #e0e0e0;border-radius:10px;text-align:center;cursor:pointer;font-size:12px;font-weight:700;color:#333;background:#fff;transition:border-color .15s}
-.gaf-express-btn:hover{border-color:${P}}
-.gaf-check-circle{width:48px;height:48px;border-radius:50%;border:2.5px solid ${P};background:#1a1a1a;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;font-size:24px;color:${P}}
-.gaf-confirm-text{text-align:center;font-size:14px;color:#555;line-height:1.5;margin-bottom:14px}
-.gaf-confirm-text strong{color:#1a1a1a}
-.gaf-badge{display:inline-block;padding:6px 16px;border:1.5px solid ${P};border-radius:20px;background:#1a1a1a;color:${P};font-size:12px;font-weight:700;margin-bottom:20px}
-.gaf-cert{background:#fff;border:1px solid #e8e8e8;border-radius:14px;padding:24px;margin-bottom:18px;box-shadow:0 2px 12px rgba(0,0,0,.04);text-align:center}
-.gaf-cert-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;font-size:16px}
-.gaf-cert-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#aaa;margin-bottom:12px}
-.gaf-cert hr{border:none;border-top:1px solid #eee;margin:10px 0}
-.gaf-cert-name{font-size:1.4em;font-weight:800;color:#1a1a1a;margin:6px 0}
-.gaf-cert-site{display:flex;align-items:center;justify-content:center;gap:8px;margin:10px 0}
-.gaf-cert-site-icon{width:28px;height:28px;border-radius:50%;background:${P};display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;font-weight:700}
-.gaf-cert-cause{font-style:italic;color:#777;font-size:13px;margin:8px 0}
-.gaf-cert-amount{font-weight:800;font-size:15px;color:#1a1a1a}
-.gaf-cert-date{font-size:12px;color:#aaa;margin-top:4px}
-.gaf-cert-perk{background:#1a1a1a;border-radius:0 0 14px 14px;padding:14px;margin:-24px -24px 0;margin-top:16px;font-size:13px;color:${P};font-weight:600}
-.gaf-share-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#aaa;text-align:center;margin-bottom:10px}
-.gaf-share-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px}
-.gaf-share-btn{padding:10px;border:none;border-radius:10px;color:#fff;font-size:13px;font-weight:700;cursor:pointer;text-decoration:none;text-align:center;display:block}
-.gaf-share-x{background:#000}
-.gaf-share-li{background:#0077b5}
-.gaf-share-wa{background:#25d366}
-.gaf-footer-links{text-align:center;font-size:12px;color:#aaa}
-.gaf-footer-links a{color:${P};cursor:pointer;text-decoration:underline}
-.gaf-price-hero{text-align:center;margin-bottom:20px}
-.gaf-price-amount{font-size:2.8em;font-weight:900;color:#1a1a1a;letter-spacing:-1px;line-height:1}
-.gaf-price-amount span{font-size:.35em;font-weight:600;color:#999;letter-spacing:0;vertical-align:top;position:relative;top:8px}
-.gaf-price-period{font-size:13px;color:#888;margin-top:4px}
-.gaf-price-slash{font-size:.5em;color:#bbb;font-weight:400;margin:0 1px}
-.gaf-tip-section{margin:18px 0 16px;padding:16px;background:#fafafa;border-radius:12px;border:1px solid #f0f0f0}
-.gaf-tip-label{font-size:13px;font-weight:700;color:#333;margin-bottom:4px;display:flex;align-items:center;gap:6px}
-.gaf-tip-sub{font-size:11.5px;color:#999;margin-bottom:12px}
-.gaf-tip-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:8px}
-.gaf-tip-btn{padding:9px 4px;border:1.5px solid #e4e4e4;border-radius:8px;text-align:center;cursor:pointer;font-weight:700;font-size:12.5px;color:#555;background:#fff;transition:all .15s;position:relative}
-.gaf-tip-btn:hover{border-color:${P};color:#333}
-.gaf-tip-btn.active{border-color:${P};background:#1e1e1e;color:${P}}
-.gaf-tip-tagline{text-align:center;font-size:11.5px;color:${PD};font-weight:600;min-height:16px;margin-top:6px;transition:opacity .2s}
-.gaf-tip-custom-row{display:flex;align-items:center;gap:8px;margin-top:10px}
-.gaf-tip-custom-row label{font-size:11px;color:#888;white-space:nowrap;font-weight:600}
-.gaf-tip-custom-row input{flex:1;padding:7px 10px;border:1.5px solid #e0e0e0;border-radius:6px;font-size:13px;outline:none;font-family:inherit;width:80px;transition:border-color .15s}
-.gaf-tip-custom-row input:focus{border-color:${P}}
-.gaf-total-row{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:#1e1e1e;border-radius:10px;margin-bottom:16px}
-.gaf-total-label{font-size:12px;color:rgba(255,255,255,.6);font-weight:600}
-.gaf-total-amount{font-size:20px;font-weight:800;color:${P}}
-.gaf-what-you-get{margin-bottom:16px}
-.gaf-what-you-get-title{font-size:11px;text-transform:uppercase;letter-spacing:.8px;color:#aaa;font-weight:700;margin-bottom:8px}
-.gaf-perk-item{display:flex;align-items:center;gap:8px;font-size:13px;color:#555;padding:4px 0}
-.gaf-perk-item .perk-check{color:${P};font-weight:700;font-size:14px}
+.gaf-method-card.active .gaf-method-chevron{transform:rotate(180deg)}
+.gaf-field{margin-bottom:12px}
+.gaf-field label{display:block;font-size:11px;font-weight:600;color:#888;margin-bottom:4px;text-transform:uppercase;letter-spacing:.3px}
+.gaf-field input{width:100%;padding:11px 14px;border:1.5px solid #e4e4e4;border-radius:8px;font-size:14px;outline:none;font-family:inherit;transition:border-color .15s}
+.gaf-field input:focus{border-color:${ACCENT}}
+.gaf-field-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.gaf-express-label{font-size:12px;font-weight:600;color:#999;text-align:center;margin:20px 0 12px;text-transform:uppercase;letter-spacing:.5px}
+.gaf-express-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px}
+.gaf-express-btn{padding:12px 8px;border:1.5px solid #eee;border-radius:10px;text-align:center;cursor:pointer;font-size:12px;font-weight:600;color:#444;background:#fff;transition:border-color .15s;font-family:inherit}
+.gaf-express-btn:hover{border-color:${ACCENT}}
+.gaf-s3-trust{text-align:center;font-size:12px;color:#bbb;margin-bottom:20px}
+.gaf-s3-cta{width:100%;padding:17px 20px;border:none;border-radius:14px;background:${ACCENT};color:#fff;font-size:16px;font-weight:700;cursor:pointer;font-family:inherit;transition:background .15s,transform .1s;position:sticky;bottom:0}
+.gaf-s3-cta:hover{background:${ACCENT_DARK}}
+.gaf-s3-cta.processing{opacity:.7;cursor:not-allowed}
+
+/* ---- Screen 4: Success ---- */
+.gaf-s4-back{display:inline-flex;align-items:center;gap:4px;font-size:13px;color:#bbb;cursor:pointer;border:none;background:none;margin-bottom:20px;font-family:inherit;transition:color .15s}
+.gaf-s4-back:hover{color:#888}
+.gaf-s4-confirm{text-align:center;font-size:14px;color:#777;line-height:1.6;margin-bottom:20px}
+.gaf-s4-confirm strong{color:#1a1a1a}
+.gaf-s4-badge{display:inline-flex;align-items:center;gap:6px;padding:8px 20px;border:1.5px solid ${ACCENT};border-radius:20px;color:${ACCENT};font-size:12px;font-weight:700;margin-bottom:28px}
+.gaf-cert{background:#fff;border:1px solid #e8e8e8;border-radius:14px;padding:28px;margin-bottom:22px;box-shadow:0 2px 12px rgba(0,0,0,.04);text-align:center;position:relative}
+.gaf-cert-bar{height:4px;background:linear-gradient(90deg,${ACCENT},#818cf8);border-radius:14px 14px 0 0;position:absolute;top:0;left:0;right:0}
+.gaf-cert-icons{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;font-size:16px;color:${ACCENT}}
+.gaf-cert-icons .share-icon{cursor:pointer;color:#ccc;transition:color .15s}
+.gaf-cert-icons .share-icon:hover{color:#888}
+.gaf-cert-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#bbb;margin-bottom:14px}
+.gaf-cert hr{border:none;border-top:1px solid #f0f0f0;margin:12px 0}
+.gaf-cert-small{font-size:12px;color:#bbb}
+.gaf-cert-name{font-size:24px;font-weight:800;color:#1a1a1a;margin:6px 0}
+.gaf-cert-site{display:flex;align-items:center;justify-content:center;gap:8px;margin:12px 0}
+.gaf-cert-site-icon{width:28px;height:28px;border-radius:50%;background:${ACCENT};display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;font-weight:700}
+.gaf-cert-cause{font-style:italic;color:#999;font-size:13px;margin:10px 0}
+.gaf-cert-amount{font-weight:800;font-size:16px;color:#1a1a1a}
+.gaf-cert-date{font-size:12px;color:#bbb;margin-top:4px}
+.gaf-cert-perk{background:${ACCENT_LIGHT};border-radius:0 0 14px 14px;padding:14px;margin:-28px -28px 0;margin-top:18px;font-size:13px;color:${ACCENT_DARK};font-weight:600}
+.gaf-hide-toggle{display:flex;align-items:center;justify-content:center;gap:6px;font-size:12px;color:#bbb;margin-bottom:20px;cursor:pointer}
+.gaf-hide-toggle .circle{width:16px;height:16px;border:1.5px solid #ddd;border-radius:50%}
+.gaf-share-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#bbb;text-align:center;margin-bottom:10px}
+.gaf-share-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:18px}
+.gaf-share-btn{padding:12px;border:1.5px solid #eee;border-radius:10px;color:#555;font-size:13px;font-weight:600;cursor:pointer;text-decoration:none;text-align:center;display:flex;align-items:center;justify-content:center;gap:6px;background:#fff;transition:border-color .15s;font-family:inherit}
+.gaf-share-btn:hover{border-color:${ACCENT}}
+.gaf-share-btn i{font-size:14px}
+.gaf-footer-text{text-align:center;font-size:12px;color:#bbb}
+.gaf-footer-text i{margin-right:4px}
+
+/* ---- Spinner ---- */
+.gaf-spinner{display:inline-block;width:16px;height:16px;border:2.5px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:gaf-spin .6s linear infinite;vertical-align:middle;margin-right:6px}
+
+/* ---- Responsive ---- */
+@media(max-width:520px){
+.gaf-popup{max-width:100%;border-radius:16px 16px 0 0;align-self:flex-end;max-height:95vh}
+.gaf-body{padding:32px 24px 24px}
+.gaf-amt-input{font-size:36px;width:65px}
+.gaf-presets{grid-template-columns:repeat(2,1fr)}
+}
 `;
 document.head.appendChild(styleEl);
 
@@ -183,24 +219,25 @@ function scanAds(){
 function injectBar(ad){
   var bar = document.createElement('div');
   bar.className = 'gaf-bar';
-  bar.innerHTML = '<span class="gaf-bar-cta">Go Ads-Free <svg viewBox="0 0 12 12"><path d="M4.5 2L8.5 6L4.5 10" stroke="#1e1e1e" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>';
+  bar.innerHTML = '<span class="gaf-bar-cta">Go Ads-Free <svg viewBox="0 0 12 12"><path d="M4.5 2L8.5 6L4.5 10" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>';
   bar.addEventListener('click', function(e){e.stopPropagation();openPopup()});
   ad.parentNode.insertBefore(bar, ad);
 }
 
-// ========== POPUP ==========
-function getTip(){return S.isCustomTip ? S.customTip : S.tip}
-function getTotal(){return +(BASE_PRICE + getTip()).toFixed(2)}
-function getCtaText(verb){return verb + ' $' + getTotal().toFixed(2) + ' / year'}
+// ========== HELPERS ==========
+function getAnnual(){ return S.amount * 12; }
+function getDaily(){ return (S.amount / 30).toFixed(2); }
 
+// ========== POPUP ==========
 function openPopup(){
-  S.screen=1; S.method=''; S.name=''; S.email='';
+  S.screen=1; S.amount=DEFAULT_AMT; S.isCustom=false; S.method=''; S.selectedAccount=null;
   document.body.style.overflow='hidden';
   var overlay = document.createElement('div');
   overlay.className='gaf-overlay';
   overlay.id='gaf-overlay';
-  overlay.innerHTML='<div class="gaf-popup" id="gaf-popup"><button class="gaf-close" id="gaf-close">\u00d7</button><div class="gaf-body" id="gaf-body"></div></div>';
+  overlay.innerHTML='<div class="gaf-popup" id="gaf-popup"><button class="gaf-close" id="gaf-close">&times;</button><div class="gaf-body" id="gaf-body"></div></div>';
   document.body.appendChild(overlay);
+  requestAnimationFrame(function(){ requestAnimationFrame(function(){ overlay.classList.add('active'); }); });
   overlay.addEventListener('click',function(e){if(e.target===overlay)closePopup()});
   document.getElementById('gaf-close').addEventListener('click',closePopup);
   document.addEventListener('keydown',escHandler);
@@ -209,8 +246,9 @@ function openPopup(){
 
 function closePopup(){
   var o=document.getElementById('gaf-overlay');
-  if(o)o.remove();
-  document.body.style.overflow='';
+  if(!o)return;
+  o.classList.remove('active');
+  setTimeout(function(){ o.remove(); document.body.style.overflow=''; },250);
   document.removeEventListener('keydown',escHandler);
 }
 
@@ -219,235 +257,256 @@ function escHandler(e){if(e.key==='Escape')closePopup()}
 function renderScreen(){
   var body=document.getElementById('gaf-body');
   if(!body)return;
-  if(S.screen===1)body.innerHTML=screen1();
-  else if(S.screen===2)body.innerHTML=screen2();
-  else body.innerHTML=screen3();
+  if(S.screen===1) body.innerHTML=screen1();
+  else if(S.screen===2) body.innerHTML=screen2();
+  else if(S.screen===3) body.innerHTML=screen3();
+  else body.innerHTML=screen4();
   bindEvents();
 }
 
-// ========== SCREEN 1 ==========
+// ========== SCREEN 1: Amount Selection ==========
 function screen1(){
-  var tipVal = getTip();
-  var tipIdx = S.isCustomTip ? -1 : TIP_OPTIONS.indexOf(S.tip);
-  var tagline = (tipIdx >= 0) ? TIP_TAGLINES[tipIdx] : (tipVal > 0 ? 'You\'re a legend. Seriously.' : '');
+  var h='';
+  h+='<div class="gaf-s1-title">Support '+SITE_NAME+'</div>';
+  h+='<div class="gaf-s1-sub">Support starts with ad-free. Many choose to give a little more.</div>';
 
-  var h='<div class="gaf-title">Go Ads-Free</div>';
-
-  // Price hero
-  h+='<div class="gaf-price-hero">';
-  h+='<div class="gaf-price-amount">$'+BASE_PRICE.toFixed(2)+'<span> / year</span></div>';
-  h+='<div class="gaf-price-period">One plan. No ads. All content.</div>';
+  // Amount box
+  h+='<div class="gaf-amount-box">';
+  h+='<div class="gaf-amt-left"><span class="gaf-amt-dollar">$</span><input class="gaf-amt-input" id="gaf-amt" type="text" value="'+S.amount+'" inputmode="numeric"><span class="gaf-amt-period">/ month</span></div>';
+  h+='<span class="gaf-amt-daily" id="gaf-daily">$'+getDaily()+'/day</span>';
   h+='</div>';
 
-  // What you get
-  h+='<div class="gaf-what-you-get">';
-  h+='<div class="gaf-what-you-get-title">What you get</div>';
-  h+='<div class="gaf-perk-item"><span class="perk-check">\u2713</span> 100% ads-free reading experience</div>';
-  h+='<div class="gaf-perk-item"><span class="perk-check">\u2713</span> Full access to all Shark Tank content</div>';
-  h+='<div class="gaf-perk-item"><span class="perk-check">\u2713</span> Support independent Shark Tank journalism</div>';
-  h+='</div>';
-
-  // Tip section
-  h+='<div class="gaf-tip-section">';
-  h+='<div class="gaf-tip-label">\ud83e\udd88 Want to throw in a little extra?</div>';
-  h+='<div class="gaf-tip-sub">Every dollar goes toward better coverage, faster updates, and keeping this blog alive.</div>';
-  h+='<div class="gaf-tip-grid" id="gaf-tips">';
-  TIP_OPTIONS.forEach(function(t, i){
-    var act = (!S.isCustomTip && S.tip === t) ? 'active' : '';
-    h+='<div class="gaf-tip-btn '+act+'" data-tip="'+t+'">'+TIP_LABELS[i]+'</div>';
+  // Presets
+  h+='<div class="gaf-presets" id="gaf-presets">';
+  PRESETS.forEach(function(p){
+    var act=(!S.isCustom && S.amount===p)?'active':'';
+    h+='<div class="gaf-preset '+act+'" data-val="'+p+'">';
+    if(p===POPULAR) h+='<span class="pop-tag">Popular</span>';
+    h+='$'+p+'</div>';
   });
   h+='</div>';
-  h+='<div class="gaf-tip-tagline" id="gaf-tagline">'+tagline+'</div>';
-  h+='<div class="gaf-tip-custom-row"><label>Custom tip:</label><input type="text" id="gaf-custom-tip" placeholder="$0" value="'+(S.isCustomTip && S.customTip > 0 ? '$'+S.customTip : '')+'"></div>';
+
+  // CTA
+  h+='<button class="gaf-main-cta" id="gaf-cta1">Continue with $'+S.amount+' / month</button>';
+
+  // Perk + billing
+  h+='<div class="gaf-perk-row">';
+  h+='<span class="gaf-perk-text"><i class="fas fa-globe"></i> Includes <em>ad-free</em> experience</span>';
+  h+='<span class="gaf-billing-badge"><i class="fas fa-chevron-down"></i> $'+getAnnual()+' Billed Annually</span>';
   h+='</div>';
 
-  // Total
-  h+='<div class="gaf-total-row"><span class="gaf-total-label">Total per year</span><span class="gaf-total-amount" id="gaf-total">$'+getTotal().toFixed(2)+'</span></div>';
-
-  h+='<button class="gaf-main-cta" id="gaf-cta1">'+getCtaText('Continue \u2014')+'</button>';
-  h+='<div class="gaf-trust">\ud83d\udd12 Secure \u00b7 Cancel anytime \u00b7 Takes 10 seconds</div>';
+  // Trust
+  h+='<div class="gaf-trust-row"><span><i class="fas fa-lock" style="margin-right:3px"></i> Secure payment</span><span>&bull;</span><span>Cancel anytime</span></div>';
   return h;
 }
 
-// ========== SCREEN 2 ==========
+// ========== SCREEN 2: Google Sign In ==========
 function screen2(){
-  var a=getTotal();
-  var h='<div class="gaf-summary"><div class="gaf-summary-label">You\'re supporting</div><div class="gaf-summary-amount">$'+a.toFixed(2)+' / year</div><div class="gaf-summary-cause">Helping '+SITE_CAUSE+' every day</div></div>';
-  h+='<div class="gaf-method-heading">Select payment method</div>';
-  h+='<div class="gaf-method-card'+(S.method==='bank'?' active':'')+'" data-method="bank"><div class="gaf-method-top"><span class="gaf-method-icon">\ud83c\udfe6</span><div class="gaf-method-info"><div class="gaf-method-name">Direct Bank Transfer (ACH)</div><div class="gaf-method-sub">Best for long-term support</div></div></div></div>';
-  h+='<div class="gaf-method-heading">Express checkout</div>';
-  h+='<div class="gaf-express-grid"><div class="gaf-express-btn">\uf8ff Pay</div><div class="gaf-express-btn">G Pay</div><div class="gaf-express-btn">PayPal</div><div class="gaf-express-btn">Venmo</div></div>';
-  h+='<div class="gaf-method-card'+(S.method==='card'?' active':'')+'" data-method="card"><div class="gaf-method-top"><span class="gaf-method-icon">\ud83d\udcb3</span><div class="gaf-method-info"><div class="gaf-method-name">Card Payment</div><div class="gaf-method-sub">Visa, Mastercard, AmEx</div></div></div><div class="gaf-method-form"><div class="gaf-field"><label>Name on card</label><input type="text" id="gaf-cardname" placeholder="John Doe" value="'+S.name+'"></div><div class="gaf-field"><label>Card number</label><input type="text" placeholder="1234 5678 9012 3456" maxlength="19"></div><div class="gaf-row"><div class="gaf-field"><label>Expiry</label><input type="text" placeholder="MM/YY" maxlength="5"></div><div class="gaf-field"><label>CVC</label><input type="text" placeholder="123" maxlength="4"></div></div></div></div>';
-  h+='<div class="gaf-trust">\ud83d\udd12 Secure payment \u2022 Powered by Stripe</div>';
-  h+='<button class="gaf-main-cta" id="gaf-cta2">'+getCtaText('Pay')+'</button>';
+  var h='';
+  // Google logo
+  h+='<div class="gaf-s2-glogo"><svg viewBox="0 0 48 48" width="24" height="24"><path fill="#4285F4" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#34A853" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#EA4335" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg></div>';
+  h+='<div class="gaf-s2-title">Sign in to continue</div>';
+  h+='<div class="gaf-s2-sub">Choose your Google account</div>';
+
+  // Account rows
+  DEMO_ACCOUNTS.forEach(function(acc, i){
+    h+='<div class="gaf-account" data-idx="'+i+'">';
+    h+='<div class="gaf-account-avatar" style="background:'+acc.color+'">'+acc.initial+'</div>';
+    h+='<div class="gaf-account-info"><div class="gaf-account-name">'+acc.name+'</div><div class="gaf-account-email">'+acc.email+'</div></div>';
+    h+='<span class="gaf-account-arrow"><i class="fas fa-chevron-right"></i></span>';
+    h+='</div>';
+  });
+
+  // Divider
+  h+='<div class="gaf-s2-divider"><span>Use email instead</span></div>';
+  h+='<button class="gaf-s2-email-btn" id="gaf-use-email">Continue with email</button>';
   return h;
 }
 
-// ========== SCREEN 3 ==========
+// ========== SCREEN 3: Payment ==========
 function screen3(){
-  var a=getTotal();
-  var name=S.name||S.email||'Supporter';
-  var date=new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});
-  var freqLabel='yearly';
-  var shareText=encodeURIComponent("I just became an official supporter of "+SITE_NAME+"! \ud83e\udd88 Supporting free "+SITE_CAUSE+" for everyone. "+SITE_URL);
+  var annual = getAnnual();
+  var h='';
+  h+='<div class="gaf-s3-label">You\'re supporting</div>';
+  h+='<div class="gaf-s3-amount">$'+annual+' / year</div>';
 
-  var h='<div style="text-align:center">';
-  h+='<div class="gaf-check-circle">\u2713</div>';
-  h+='<div class="gaf-confirm-text"><strong>Your $'+a.toFixed(2)+'/year support is confirmed.</strong><br>You\'re now one of us \u2014 helping keep '+SITE_CAUSE+' free for '+SITE_AUDIENCE+'.</div>';
-  h+='<div class="gaf-badge">\ud83d\udc99 Official Supporter of '+SITE_NAME+'</div>';
+  // Heading
+  h+='<div class="gaf-s3-heading"><span class="gaf-s3-heading-text">Select payment method</span><span class="gaf-s3-heading-right"><small>us</small> United States <i class="fas fa-chevron-down" style="font-size:9px"></i></span></div>';
+
+  // Bank transfer
+  h+='<div class="gaf-method-card'+(S.method==='bank'?' active':'')+'" data-method="bank"><div class="gaf-method-top"><div class="gaf-method-left"><span class="gaf-method-icon"><i class="fas fa-building-columns"></i></span><div><div class="gaf-method-name">Direct Bank Transfer (ACH)</div><div class="gaf-method-sub">Best for long-term support</div></div></div><span class="gaf-method-chevron"><i class="fas fa-chevron-down"></i></span></div></div>';
+
+  // Express checkout
+  h+='<div class="gaf-express-label">Express checkout</div>';
+  h+='<div class="gaf-express-grid">';
+  h+='<div class="gaf-express-btn">Apple Pay</div>';
+  h+='<div class="gaf-express-btn" style="border-color:'+ACCENT+'">Google Pay</div>';
+  h+='<div class="gaf-express-btn">PayPal</div>';
+  h+='<div class="gaf-express-btn">Venmo</div>';
   h+='</div>';
 
+  // Card payment
+  h+='<div class="gaf-method-card'+(S.method==='card'?' active':'')+'" data-method="card"><div class="gaf-method-top"><div class="gaf-method-left"><span class="gaf-method-icon"><i class="fas fa-credit-card"></i></span><div><div class="gaf-method-name">Card payment</div></div></div><span class="gaf-method-chevron"><i class="fas fa-chevron-down"></i></span></div>';
+  h+='<div class="gaf-method-form"><div class="gaf-field"><label>Name on card</label><input type="text" id="gaf-cardname" placeholder="John Doe" value="'+S.name+'"></div><div class="gaf-field"><label>Card number</label><input type="text" placeholder="1234 5678 9012 3456" maxlength="19"></div><div class="gaf-field-row"><div class="gaf-field"><label>Expiry</label><input type="text" placeholder="MM/YY" maxlength="5"></div><div class="gaf-field"><label>CVC</label><input type="text" placeholder="123" maxlength="4"></div></div></div>';
+  h+='</div>';
+
+  // Trust
+  h+='<div class="gaf-s3-trust"><i class="fas fa-lock"></i> Secure payment &bull; Powered by Stripe</div>';
+
+  // CTA
+  h+='<button class="gaf-s3-cta" id="gaf-cta3">Complete Payment &mdash; $'+annual+' / year</button>';
+  return h;
+}
+
+// ========== SCREEN 4: Success ==========
+function screen4(){
+  var annual = getAnnual();
+  var name = S.name || (S.selectedAccount ? DEMO_ACCOUNTS[S.selectedAccount].name : 'Supporter');
+  var date = new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});
+  var shareText = encodeURIComponent("I just became an official supporter of "+SITE_NAME+"! Supporting free "+SITE_CAUSE+" for everyone. "+SITE_URL);
+
+  var h='';
+  h+='<div style="text-align:center">';
+  h+='<div class="gaf-s4-confirm">Your <strong>$'+annual+' every year</strong> support is confirmed.<br>You\'re now one of us &mdash; helping keep '+SITE_CAUSE+' free for millions worldwide.</div>';
+  h+='<div class="gaf-s4-badge"><i class="far fa-heart"></i> Official Supporter of '+SITE_NAME+'</div>';
+  h+='</div>';
+
+  // Certificate
   h+='<div class="gaf-cert">';
-  h+='<div class="gaf-cert-top"><span>\u2764\ufe0f</span><span style="cursor:pointer">\ud83d\udcE4</span></div>';
+  h+='<div class="gaf-cert-bar"></div>';
+  h+='<div class="gaf-cert-icons"><span style="color:'+ACCENT+'"><i class="fas fa-heart"></i></span><span class="share-icon"><i class="fas fa-share-from-square"></i></span></div>';
   h+='<div class="gaf-cert-label">Certificate of Support</div>';
   h+='<hr>';
-  h+='<div style="font-size:12px;color:#aaa">This certifies that</div>';
+  h+='<div class="gaf-cert-small">This certifies that</div>';
   h+='<div class="gaf-cert-name">'+name+'</div>';
-  h+='<div style="font-size:12px;color:#aaa">is a proud supporter of</div>';
+  h+='<div class="gaf-cert-small">is a proud supporter of</div>';
   h+='<div class="gaf-cert-site"><div class="gaf-cert-site-icon">ST</div><span style="font-weight:700;font-size:15px">'+SITE_NAME+'</span></div>';
   h+='<hr>';
   h+='<div class="gaf-cert-cause">For keeping '+SITE_CAUSE+' free & accessible for everyone</div>';
-  h+='<div class="gaf-cert-amount">$'+a.toFixed(2)+' / year</div>';
+  h+='<div class="gaf-cert-amount">$'+annual+' every year</div>';
   h+='<div class="gaf-cert-date">'+date+'</div>';
-  h+='<div class="gaf-cert-perk">\u2714 Your '+SITE_NAME+' experience will be <strong>ads-free</strong> while your support is active.</div>';
+  h+='<div class="gaf-cert-perk"><i class="fas fa-check" style="margin-right:4px"></i> Your '+SITE_NAME+' experience will be <strong>ads-free</strong> while your support is active.</div>';
   h+='</div>';
 
-  h+='<div class="gaf-share-label">Show others you support '+SITE_CAUSE.toUpperCase()+'</div>';
+  // Hide toggle
+  h+='<div class="gaf-hide-toggle"><span class="circle"></span> Hide amount from certificate</div>';
+
+  // Share
+  h+='<div class="gaf-share-label">Share Your Support</div>';
   h+='<div class="gaf-share-grid">';
-  h+='<a class="gaf-share-btn gaf-share-x" href="https://twitter.com/intent/tweet?text='+shareText+'" target="_blank">X</a>';
-  h+='<a class="gaf-share-btn gaf-share-li" href="https://www.linkedin.com/sharing/share-offsite/?url='+encodeURIComponent(SITE_URL)+'" target="_blank">LinkedIn</a>';
-  h+='<a class="gaf-share-btn gaf-share-wa" href="https://wa.me/?text='+shareText+'" target="_blank">WhatsApp</a>';
+  h+='<a class="gaf-share-btn" href="https://twitter.com/intent/tweet?text='+shareText+'" target="_blank"><i class="fab fa-x-twitter"></i> X</a>';
+  h+='<a class="gaf-share-btn" href="https://www.linkedin.com/sharing/share-offsite/?url='+encodeURIComponent(SITE_URL)+'" target="_blank"><i class="fab fa-linkedin-in"></i> LinkedIn</a>';
+  h+='<a class="gaf-share-btn" href="https://wa.me/?text='+shareText+'" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>';
   h+='</div>';
 
-  h+='<div class="gaf-footer-links"><a onclick="closePopup()">Manage your support</a><br>\u2709 Certificate and invoice sent to your email</div>';
+  h+='<div class="gaf-footer-text"><i class="far fa-envelope"></i> Certificate and invoice sent to your email</div>';
   return h;
 }
 
 // ========== EVENT BINDING ==========
 function bindEvents(){
-  // Screen 1 - Tip buttons
-  var tipBtns=document.querySelectorAll('.gaf-tip-btn');
-  tipBtns.forEach(function(b){
-    b.addEventListener('click',function(){
-      S.tip=parseInt(this.getAttribute('data-tip'));
-      S.isCustomTip=false;
-      S.customTip=0;
-      var ci=document.getElementById('gaf-custom-tip');
-      if(ci)ci.value='';
-      tipBtns.forEach(function(x){x.classList.remove('active')});
-      this.classList.add('active');
-      var idx=TIP_OPTIONS.indexOf(S.tip);
-      var tl=document.getElementById('gaf-tagline');
-      if(tl)tl.textContent=(idx>=0)?TIP_TAGLINES[idx]:'';
-      updateTotal();
+  // Screen 1
+  var presets = document.querySelectorAll('.gaf-preset');
+  presets.forEach(function(p){
+    p.addEventListener('click', function(){
+      S.amount = parseInt(this.getAttribute('data-val'));
+      S.isCustom = false;
+      updateScreen1();
     });
   });
 
-  // Custom tip input
-  var customTip=document.getElementById('gaf-custom-tip');
-  if(customTip){
-    customTip.addEventListener('focus',function(){
-      var v=S.isCustomTip?S.customTip:0;
-      this.value=v>0?v:'';
-    });
-    customTip.addEventListener('input',function(){
-      var v=parseInt(this.value.replace(/[^0-9]/g,''))||0;
-      S.customTip=v;S.isCustomTip=v>0;
-      if(S.isCustomTip){
-        S.tip=0;
-        tipBtns.forEach(function(x){x.classList.remove('active')});
-        var tl=document.getElementById('gaf-tagline');
-        if(tl)tl.textContent=v>0?'You\'re a legend. Seriously.':'';
-      }
-      updateTotal();
-    });
-    customTip.addEventListener('blur',function(){
-      if(S.isCustomTip&&S.customTip>0)this.value='$'+S.customTip;
-      else this.value='';
+  var amtInput = document.getElementById('gaf-amt');
+  if(amtInput){
+    amtInput.addEventListener('focus', function(){ this.select(); });
+    amtInput.addEventListener('input', function(){
+      var v = parseInt(this.value.replace(/[^0-9]/g,'')) || 0;
+      S.amount = v; S.isCustom = true;
+      presets.forEach(function(p){ p.classList.remove('active'); });
+      updateCta1();
     });
   }
 
-  var cta1=document.getElementById('gaf-cta1');
-  if(cta1)cta1.addEventListener('click',function(){S.screen=2;renderScreen()});
+  var cta1 = document.getElementById('gaf-cta1');
+  if(cta1) cta1.addEventListener('click', function(){ S.screen=2; renderScreen(); });
 
   // Screen 2
-  var methods=document.querySelectorAll('.gaf-method-card');
-  methods.forEach(function(m){
-    m.addEventListener('click',function(){
-      var mt=this.getAttribute('data-method');
-      S.method=(S.method===mt)?'':mt;
-      methods.forEach(function(x){x.classList.remove('active')});
-      if(S.method)this.classList.add('active');
+  var accounts = document.querySelectorAll('.gaf-account');
+  accounts.forEach(function(a){
+    a.addEventListener('click', function(){
+      S.selectedAccount = parseInt(this.getAttribute('data-idx'));
+      var acc = DEMO_ACCOUNTS[S.selectedAccount];
+      S.name = acc.name;
+      S.email = acc.email;
+      S.screen = 3;
+      renderScreen();
     });
   });
 
-  var cardname=document.getElementById('gaf-cardname');
-  if(cardname)cardname.addEventListener('input',function(){S.name=this.value});
+  var useEmail = document.getElementById('gaf-use-email');
+  if(useEmail) useEmail.addEventListener('click', function(){ S.screen=3; renderScreen(); });
 
-  var cta2=document.getElementById('gaf-cta2');
-  if(cta2)cta2.addEventListener('click',function(){
-    this.textContent='Processing...';
+  // Screen 3
+  var methods = document.querySelectorAll('.gaf-method-card');
+  methods.forEach(function(m){
+    m.addEventListener('click', function(){
+      var mt = this.getAttribute('data-method');
+      S.method = (S.method===mt) ? '' : mt;
+      methods.forEach(function(x){ x.classList.remove('active'); });
+      if(S.method) this.classList.add('active');
+    });
+  });
+
+  var cardname = document.getElementById('gaf-cardname');
+  if(cardname) cardname.addEventListener('input', function(){ S.name = this.value; });
+
+  var cta3 = document.getElementById('gaf-cta3');
+  if(cta3) cta3.addEventListener('click', function(){
+    this.innerHTML = '<span class="gaf-spinner"></span> Processing...';
     this.classList.add('processing');
-    var self=this;
-    setTimeout(function(){self.classList.remove('processing');S.screen=3;renderScreen()},1800);
+    var self = this;
+    setTimeout(function(){ self.classList.remove('processing'); S.screen=4; renderScreen(); }, 1800);
   });
 }
 
-function updateTotal(){
-  var tot=document.getElementById('gaf-total');
-  if(tot)tot.textContent='$'+getTotal().toFixed(2);
-  var cta=document.getElementById('gaf-cta1');
-  if(cta)cta.textContent=getCtaText('Continue \u2014');
+function updateScreen1(){
+  var amtInput = document.getElementById('gaf-amt');
+  if(amtInput) amtInput.value = S.amount;
+  document.querySelectorAll('.gaf-preset').forEach(function(p){
+    p.classList.toggle('active', !S.isCustom && parseInt(p.getAttribute('data-val'))===S.amount);
+  });
+  updateCta1();
+}
+
+function updateCta1(){
+  var cta = document.getElementById('gaf-cta1');
+  if(cta) cta.textContent = 'Continue with $'+S.amount+' / month';
+  var daily = document.getElementById('gaf-daily');
+  if(daily) daily.textContent = '$'+getDaily()+'/day';
+  // Update billing badge
+  var badges = document.querySelectorAll('.gaf-billing-badge');
+  badges.forEach(function(b){ b.innerHTML = '<i class="fas fa-chevron-down" style="font-size:8px"></i> $'+getAnnual()+' Billed Annually'; });
 }
 
 // ========== INIT ==========
 setTimeout(function(){
   scanAds();
-  if(CFG.poll>0)setInterval(scanAds, CFG.poll);
-
-  // MutationObserver for dynamic ads
+  if(CFG.poll>0) setInterval(scanAds, CFG.poll);
   if(typeof MutationObserver!=='undefined'){
-    var obs=new MutationObserver(function(muts){
-      var shouldScan=false;
-      muts.forEach(function(m){if(m.addedNodes.length)shouldScan=true});
-      if(shouldScan)setTimeout(scanAds,500);
+    var obs = new MutationObserver(function(muts){
+      var shouldScan = false;
+      muts.forEach(function(m){ if(m.addedNodes.length) shouldScan=true; });
+      if(shouldScan) setTimeout(scanAds, 500);
     });
-    obs.observe(document.body,{childList:true,subtree:true});
+    obs.observe(document.body, {childList:true, subtree:true});
   }
 }, CFG.delay);
 
-// Expose for external callers (footer buttons)
+// Expose globally
 window.gafOpenPopup = openPopup;
-window.gafOpenDonate = function(amount) {
-  S.tip = 0; S.customTip = 0; S.isCustomTip = false;
-  // Override BASE_PRICE temporarily for donate mode
-  S._donateMode = true;
-  S._donateAmount = amount;
-  S.screen = 2; S.method = ''; S.name = ''; S.email = '';
-  document.body.style.overflow = 'hidden';
-  var overlay = document.createElement('div');
-  overlay.className = 'gaf-overlay';
-  overlay.id = 'gaf-overlay';
-  overlay.innerHTML = '<div class="gaf-popup" id="gaf-popup"><button class="gaf-close" id="gaf-close">\u00d7</button><div class="gaf-body" id="gaf-body"></div></div>';
-  document.body.appendChild(overlay);
-  overlay.addEventListener('click', function(e){ if(e.target===overlay) closePopup() });
-  document.getElementById('gaf-close').addEventListener('click', closePopup);
-  document.addEventListener('keydown', escHandler);
-  // Render screen 2 directly with donate amount
-  var body = document.getElementById('gaf-body');
-  if(body){
-    var a = amount;
-    var h = '<div class="gaf-summary"><div class="gaf-summary-label">Your donation</div><div class="gaf-summary-amount">$'+a.toFixed(2)+'</div><div class="gaf-summary-cause">Supporting '+SITE_CAUSE+' \u2764\ufe0f</div></div>';
-    h += '<div class="gaf-method-heading">Select payment method</div>';
-    h += '<div class="gaf-method-card" data-method="bank"><div class="gaf-method-top"><span class="gaf-method-icon">\ud83c\udfe6</span><div class="gaf-method-info"><div class="gaf-method-name">Direct Bank Transfer (ACH)</div><div class="gaf-method-sub">Best for long-term support</div></div></div></div>';
-    h += '<div class="gaf-method-heading">Express checkout</div>';
-    h += '<div class="gaf-express-grid"><div class="gaf-express-btn">\uf8ff Pay</div><div class="gaf-express-btn">G Pay</div><div class="gaf-express-btn">PayPal</div><div class="gaf-express-btn">Venmo</div></div>';
-    h += '<div class="gaf-method-card" data-method="card"><div class="gaf-method-top"><span class="gaf-method-icon">\ud83d\udcb3</span><div class="gaf-method-info"><div class="gaf-method-name">Card Payment</div><div class="gaf-method-sub">Visa, Mastercard, AmEx</div></div></div><div class="gaf-method-form"><div class="gaf-field"><label>Name on card</label><input type="text" id="gaf-cardname" placeholder="John Doe"></div><div class="gaf-field"><label>Card number</label><input type="text" placeholder="1234 5678 9012 3456" maxlength="19"></div><div class="gaf-row"><div class="gaf-field"><label>Expiry</label><input type="text" placeholder="MM/YY" maxlength="5"></div><div class="gaf-field"><label>CVC</label><input type="text" placeholder="123" maxlength="4"></div></div></div></div>';
-    h += '<div class="gaf-trust">\ud83d\udd12 Secure payment \u2022 Powered by Stripe</div>';
-    h += '<button class="gaf-main-cta" id="gaf-cta2">Donate $'+a.toFixed(2)+'</button>';
-    body.innerHTML = h;
-    bindEvents();
-  }
+window.gafOpenDonate = function(amount){
+  S.amount = Math.round(amount/12) || DEFAULT_AMT;
+  S.isCustom = true;
+  openPopup();
 };
 
 })();
