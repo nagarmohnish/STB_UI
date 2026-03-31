@@ -126,12 +126,12 @@
         .zone-a-text span { font-size: 12.5px; color: #888; }
         .zone-a-cta {
             display: inline-flex; align-items: center; gap: 5px;
-            padding: 8px 18px; background: var(--cyan); color: #fff;
+            padding: 8px 18px; background: var(--cyan); color: #fff !important;
             border: none; border-radius: 6px; font-size: 12px; font-weight: 700;
             cursor: pointer; font-family: var(--font-body); white-space: nowrap;
-            text-decoration: none; transition: background .15s;
+            text-decoration: none !important; transition: background .15s;
         }
-        .zone-a-cta:hover { background: var(--cyan-hover); }
+        .zone-a-cta:hover { background: var(--cyan-hover); color: #fff !important; }
 
         /* ---- Zone B: Mid-article strip ---- */
         .zone-b {
@@ -150,12 +150,12 @@
         .zone-b-text span { font-size: 13px; color: rgba(255,255,255,.5); }
         .zone-b-cta {
             display: inline-flex; align-items: center; gap: 5px;
-            padding: 10px 22px; background: var(--cyan); color: #fff;
+            padding: 10px 22px; background: var(--cyan); color: #fff !important;
             border: none; border-radius: 8px; font-size: 13px; font-weight: 700;
             cursor: pointer; font-family: var(--font-body); white-space: nowrap;
-            text-decoration: none; transition: background .15s, transform .1s;
+            text-decoration: none !important; transition: background .15s, transform .1s;
         }
-        .zone-b-cta:hover { background: var(--cyan-hover); transform: translateY(-1px); }
+        .zone-b-cta:hover { background: var(--cyan-hover); color: #fff !important; transform: translateY(-1px); }
 
         /* ---- Zone D: Author bio strip ---- */
         .zone-d {
