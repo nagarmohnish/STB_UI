@@ -123,6 +123,7 @@ ul { list-style: none; }
     font-size: 13px;
     font-weight: 600;
     transition: background 0.2s;
+    white-space: nowrap;
 }
 .btn-contact:hover { background: var(--cyan-hover); }
 

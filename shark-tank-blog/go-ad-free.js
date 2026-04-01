@@ -58,8 +58,8 @@ styleEl.textContent = `
 @keyframes gaf-popIn{from{opacity:0;transform:scale(.96) translateY(8px)}to{opacity:1;transform:scale(1) translateY(0)}}
 @keyframes gaf-spin{to{transform:rotate(360deg)}}
 .gaf-bar{display:flex;align-items:center;justify-content:flex-end;height:28px;padding:0;background:none;cursor:pointer;animation:gaf-fadeIn .3s ease-out;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;margin:0 0 4px}
-.gaf-bar-cta{display:inline-flex;align-items:center;gap:4px;padding:4px 14px;background:#00bcd4;color:#fff;font-size:10.5px;font-weight:800;border-radius:14px;white-space:nowrap;letter-spacing:.4px;text-transform:uppercase;transition:transform .15s,box-shadow .15s}
-.gaf-bar:hover .gaf-bar-cta{transform:scale(1.03);box-shadow:0 2px 8px rgba(0,188,212,.3)}
+.gaf-bar-cta{display:inline-flex;align-items:center;gap:4px;padding:4px 14px;background:#c0392b;color:#fff;font-size:10.5px;font-weight:800;border-radius:14px;white-space:nowrap;letter-spacing:.4px;text-transform:uppercase;transition:transform .15s,box-shadow .15s}
+.gaf-bar:hover .gaf-bar-cta{transform:scale(1.03);box-shadow:0 2px 8px rgba(192,57,43,.3)}
 .gaf-bar-cta svg{width:10px;height:10px;transition:transform .15s}
 .gaf-bar:hover .gaf-bar-cta svg{transform:translateX(2px)}
 .gaf-overlay{position:fixed;inset:0;z-index:9999999;background:rgba(0,0,0,0);display:flex;align-items:center;justify-content:center;transition:background .25s ease;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
