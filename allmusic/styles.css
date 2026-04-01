@@ -336,32 +336,24 @@ img { max-width: 100%; display: block; }
     padding: 16px 20px;
 }
 .ad-slot {
-    background: #f5f5f0;
-    border: 1px dashed #d0d0c8;
+    background: #f0efec;
+    border: 1px solid #e0dfdc;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
-    border-radius: 2px;
+    border-radius: 4px;
     position: relative;
 }
 .ad-slot-label {
-    position: absolute;
-    top: 6px;
-    left: 10px;
-    font-size: 9px;
-    color: #bbb;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    font-weight: 600;
+    display: none;
 }
 .ad-slot-inner {
-    font-size: 12px;
-    color: #aaa;
+    font-size: 13px;
+    color: #b8b5ae;
     display: flex;
-    flex-direction: column;
     align-items: center;
-    gap: 4px;
+    gap: 6px;
+    letter-spacing: 0.5px;
 }
 .leaderboard-ad {
     height: 90px;
