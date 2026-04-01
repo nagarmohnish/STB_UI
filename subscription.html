@@ -519,7 +519,7 @@
         (function() {
             var user = localStorage.getItem('stb_user');
             if (!user) {
-                window.location.href = 'login.html?redirect=subscription.html';
+                if(typeof openLoginModal==='function') openLoginModal(); else window.location.href = 'login.html?redirect=subscription.html';
                 return;
             }
 

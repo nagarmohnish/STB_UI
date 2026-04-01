@@ -641,7 +641,7 @@
                 var planPrice = btn.getAttribute('data-price');
 
                 if (!isLoggedIn) {
-                    window.location.href = 'login.html?redirect=subscribe.html';
+                    if(typeof openLoginModal==='function') openLoginModal(); else window.location.href = 'login.html?redirect=subscribe.html';
                     return;
                 }
 
@@ -662,7 +662,7 @@
             // If not logged in, Free button goes to login
             if (!isLoggedIn) {
                 btnFree.addEventListener('click', function() {
-                    window.location.href = 'login.html?redirect=subscribe.html';
+                    if(typeof openLoginModal==='function') openLoginModal(); else window.location.href = 'login.html?redirect=subscribe.html';
                 });
             }
 
