@@ -406,8 +406,11 @@ img { max-width: 100%; display: block; }
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    gap: 8px;
-    padding: 0 0 4px 0;
+    padding: 6px 8px;
+    background: #f0efec;
+    border-radius: 6px 6px 0 0;
+    border: 1px solid #e0dfdc;
+    border-bottom: none;
 }
 .sticky-video-gaf-pill {
     display: inline-flex;
@@ -450,7 +453,7 @@ img { max-width: 100%; display: block; }
     transition: background 0.15s;
 }
 .sticky-video-close:hover { background: #333; }
-.sticky-video-player { position: relative; border-radius: 6px; overflow: hidden; }
+.sticky-video-player { position: relative; border-radius: 0 0 6px 6px; overflow: hidden; }
 .sticky-video-screen {
     width: 100%;
     aspect-ratio: 16/9;
