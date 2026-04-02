@@ -993,6 +993,9 @@ ul { list-style: none; }
 /* ==================
    RESPONSIVE
    ================== */
+/* ==================
+   TABLET (max-width: 992px)
+   ================== */
 @media (max-width: 992px) {
     .nav-menu { display: none; }
     .hamburger { display: flex; }
@@ -1005,45 +1008,144 @@ ul { list-style: none; }
         background: var(--nav-bg);
         border-top: 1px solid rgba(255,255,255,0.05);
         z-index: 100;
+        padding: 8px 0;
     }
-    .nav-menu.active li a { padding: 14px 20px; }
+    .nav-menu.active li a {
+        padding: 14px 20px;
+        font-size: 15px;
+        border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
 
     .hero-inner { flex-direction: column; text-align: center; }
     .hero-text p { margin: 0 auto; }
-    .hero-image { width: 80%; }
+    .hero-image { width: 80%; margin: 0 auto; }
 
     .episodes-grid { grid-template-columns: 1fr; }
     .videos-grid { grid-template-columns: 1fr; }
-    .footer-grid { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr; gap: 28px; }
 
     .social-icons.nav-social { display: none; }
+
+    .products-inner { flex-direction: column; }
+    .companies-grid { grid-template-columns: 1fr; }
+    .blog-grid { grid-template-columns: 1fr; }
 }
 
+/* ==================
+   MOBILE (max-width: 768px)
+   ================== */
 @media (max-width: 768px) {
-    .hero-text h1 { font-size: 28px; }
-    .hero-image { width: 100%; }
+    /* --- Nav --- */
+    .nav-inner { padding: 0 12px; }
+    .btn-contact { display: none; }
+    .nav-right .social-icons { display: none; }
+    .nav-right { gap: 8px; }
 
+    /* --- Hero --- */
+    .hero-section { padding: 30px 0; }
+    .hero-text h1 { font-size: 26px; line-height: 1.2; }
+    .hero-text p { font-size: 14px; line-height: 1.6; }
+    .hero-image { width: 100%; }
+    .hero-image img { border-radius: 8px; }
+
+    /* --- Sections --- */
+    .container { padding: 0 16px; }
+    .section-title { font-size: 22px; margin-bottom: 16px; }
+
+    /* --- Episode Cards --- */
+    .episodes-grid { gap: 16px; }
+    .episode-main, .episode-side { width: 100%; }
+    .episode-card .card-body { padding: 14px; }
+    .episode-card .card-body h3 { font-size: 17px; }
+    .episode-card .card-body p { font-size: 13px; }
+
+    /* --- Product Cards --- */
     .product-card { flex-direction: column; }
     .product-img { width: 100%; }
     .product-img img { height: 200px; }
+    .product-body { padding: 14px; }
 
+    /* --- Company Cards --- */
     .company-card { flex-direction: column; }
     .company-img { width: 100%; }
     .company-img img { height: 200px; }
 
+    /* --- Blog Cards --- */
     .blog-card { flex-direction: column; }
     .blog-img { width: 100%; }
-    .blog-img img { height: 220px; }
+    .blog-img img { height: 200px; }
+    .blog-body { padding: 14px; }
 
-    .btn-contact { display: none; }
-    .nav-right .social-icons { display: none; }
+    /* --- Videos --- */
+    .video-card { min-width: 280px; }
+
+    /* --- Footer --- */
+    .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+    .footer-content { padding: 30px 16px; }
+    .footer-bottom { padding: 16px; flex-direction: column; gap: 12px; text-align: center; }
+
+    /* --- Scroll top --- */
+    .scroll-top { width: 40px; height: 40px; font-size: 14px; bottom: 16px; right: 12px; }
+
+    /* --- Search box --- */
+    .search-box { padding: 8px 12px; }
+    .search-box input { font-size: 14px; }
+
+    /* --- Cards hover --- */
+    .episode-card:hover, .product-card:hover, .company-card:hover, .blog-card:hover {
+        transform: none;
+    }
+
+    /* --- Read more --- */
+    .read-more { font-size: 13px; }
+
+    /* --- Touch targets --- */
+    a, button { min-height: 44px; }
+    .nav-menu.active li a { min-height: 48px; display: flex; align-items: center; }
 }
 
+/* ==================
+   SMALL MOBILE (max-width: 480px)
+   ================== */
 @media (max-width: 480px) {
-    .hero-text h1 { font-size: 24px; }
-    .section-title { font-size: 22px; }
-    .episode-card .card-body h3 { font-size: 17px; }
+    .hero-text h1 { font-size: 22px; }
+    .hero-text p { font-size: 13px; }
+
+    .section-title { font-size: 20px; }
+    .episode-card .card-body h3 { font-size: 16px; }
+    .episode-card .card-meta { font-size: 11px; }
+    .episode-card .card-body p { font-size: 12px; line-height: 1.5; }
+
+    .product-body h3 { font-size: 16px; }
+    .company-card h3 { font-size: 16px; }
+    .blog-body h3 { font-size: 16px; }
+
+    .footer-newsletter input { font-size: 14px; }
+    .footer-newsletter button { font-size: 13px; padding: 10px 16px; }
+
+    /* Stack see-more buttons full width */
+    .btn-see-more, .see-more-wrap { width: 100%; text-align: center; }
+
+    /* Logo smaller */
+    .logo img { width: 48px; height: 40px; }
 }
+
+/* ==================
+   iOS/ANDROID SAFE AREAS
+   ================== */
+@supports (padding: env(safe-area-inset-bottom)) {
+    .scroll-top { bottom: calc(16px + env(safe-area-inset-bottom)); }
+    body { padding-bottom: env(safe-area-inset-bottom); }
+}
+
+/* --- Prevent iOS zoom on input focus --- */
+input, select, textarea { font-size: 16px; }
+
+/* --- Smooth scrolling for touch --- */
+html { -webkit-overflow-scrolling: touch; }
+
+/* --- Tap highlight --- */
+a, button { -webkit-tap-highlight-color: rgba(0,188,212,0.15); }
 
 /* ==================
    PLACEHOLDER IMAGES (shimmer)

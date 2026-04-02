@@ -563,75 +563,47 @@
    RESPONSIVE - PAGE STYLES
    ================== */
 @media (max-width: 768px) {
-    .page-hero h1 {
-        font-size: 28px;
-    }
+    .page-hero { padding: 30px 16px; }
+    .page-hero h1 { font-size: 24px; }
+    .page-hero p { font-size: 13px; }
 
     .filter-row {
         flex-direction: column;
-        gap: 12px;
-        align-items: flex-start;
-    }
-
-    .product-listing-card {
-        flex-direction: column;
-    }
-
-    .product-listing-card .card-image {
+        gap: 10px;
+        align-items: stretch;
         width: 100%;
     }
+    .filter-row select, .filter-row input { width: 100%; font-size: 14px; }
 
-    .product-listing-card .card-image img {
-        height: 220px;
-        min-height: auto;
-    }
+    .product-listing-card { flex-direction: column; }
+    .product-listing-card .card-image { width: 100%; }
+    .product-listing-card .card-image img { height: 200px; min-height: auto; }
+    .product-listing-card .card-content { padding: 14px 16px; }
+    .product-listing-card .card-content h3 { font-size: 17px; }
 
-    .product-listing-card .card-content {
-        padding: 18px 20px;
-    }
+    .blog-grid { grid-template-columns: 1fr; gap: 20px; }
+    .blog-grid .blog-card-img { height: 180px; }
 
-    .blog-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 25px;
-    }
+    .seasons-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    .season-card { padding: 16px; }
 
-    .seasons-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 20px;
-    }
+    .listing-card { flex-direction: column; }
+    .listing-img { width: 100%; }
+    .listing-img img { height: 200px; }
+    .listing-body { padding: 14px 16px; }
 
-    .listing-card {
-        flex-direction: column;
-    }
-
-    .listing-img {
-        width: 100%;
-    }
-
-    .listing-img img {
-        height: 220px;
-    }
+    .pagination { flex-wrap: wrap; gap: 6px; }
+    .pagination a, .pagination span { min-width: 36px; min-height: 36px; font-size: 13px; }
 }
 
 @media (max-width: 480px) {
-    .page-hero h1 {
-        font-size: 24px;
-    }
+    .page-hero h1 { font-size: 20px; }
+    .page-hero p { font-size: 12px; }
 
-    .product-listing-card .card-content h3 {
-        font-size: 17px;
-    }
+    .product-listing-card .card-content h3 { font-size: 16px; }
 
-    .pagination {
-        flex-wrap: wrap;
-    }
+    .seasons-grid { grid-template-columns: 1fr; }
 
-    .blog-grid {
-        grid-template-columns: 1fr;
-        gap: 20px;
-    }
-
-    .seasons-grid {
-        grid-template-columns: 1fr;
-    }
+    .blog-grid .blog-card-title { font-size: 15px; }
+    .blog-grid .blog-card-excerpt { font-size: 12px; }
 }
