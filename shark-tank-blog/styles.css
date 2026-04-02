@@ -1002,13 +1002,13 @@ ul { list-style: none; }
    TABLET (max-width: 992px)
    ================== */
 @media (max-width: 992px) {
-    /* --- Nav: hamburger LEFT, logo next to it, actions RIGHT --- */
+    /* --- Nav: [hamburger logo] ............ [search] [Go Ads-Free] --- */
     .nav-menu { display: none; }
     .hamburger { display: flex; }
     .nav-left { flex: 1; gap: 12px; }
-    .nav-right { flex-shrink: 0; }
-    .btn-contact { display: none; }
+    .nav-right { flex-shrink: 0; gap: 10px; }
     .nav-right .social-icons { display: none; }
+    .btn-contact { font-size: 12px; padding: 6px 14px; }
 
     .nav-menu.active {
         display: flex;
@@ -1135,7 +1135,8 @@ ul { list-style: none; }
     .nav-inner { height: 48px; }
     .logo img { height: 32px; }
     .hamburger span { width: 20px; }
-    .search-toggle { font-size: 15px; }
+    .search-toggle { font-size: 14px; padding: 6px; }
+    .btn-contact { font-size: 11px; padding: 5px 10px; }
 
     .hero-text h1 { font-size: 21px; }
     .hero-text p { font-size: 12px; }
