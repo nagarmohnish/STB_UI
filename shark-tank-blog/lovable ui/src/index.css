@@ -1,0 +1,131 @@
+@import url('https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,300;1,6..72,400&family=Inter:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 220 20% 12%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 220 20% 12%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 20% 12%;
+
+    --primary: 14 80% 50%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 220 14% 96%;
+    --secondary-foreground: 220 20% 12%;
+
+    --muted: 220 14% 96%;
+    --muted-foreground: 220 10% 46%;
+
+    --accent: 220 14% 96%;
+    --accent-foreground: 220 20% 12%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 220 13% 92%;
+    --input: 220 13% 92%;
+    --ring: 14 80% 50%;
+
+    --radius: 0.75rem;
+
+    --warm: 14 80% 50%;
+    --warm-glow: 10 75% 42%;
+
+    --story-heading: 220 25% 10%;
+    --story-body: 220 8% 40%;
+    --story-subtle: 220 6% 58%;
+    --story-divider: 220 13% 92%;
+    --story-highlight: 14 80% 50%;
+
+    --widget-card-bg: 0 0% 100%;
+    --widget-card-fg: 220 20% 12%;
+    --widget-card-muted: 220 10% 50%;
+    --widget-card-border: 220 13% 92%;
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 220 20% 12%;
+    --sidebar-primary: 14 80% 50%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 220 14% 96%;
+    --sidebar-accent-foreground: 220 20% 12%;
+    --sidebar-border: 220 13% 92%;
+    --sidebar-ring: 14 80% 50%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+@layer components {
+  .story-heading {
+    font-family: 'Newsreader', Georgia, serif;
+    color: hsl(var(--story-heading));
+  }
+
+  .story-body {
+    color: hsl(var(--story-body));
+    line-height: 1.75;
+  }
+
+  .story-subtle {
+    color: hsl(var(--story-subtle));
+  }
+
+  .story-divider {
+    background-color: hsl(var(--story-divider));
+    height: 1px;
+    width: 4rem;
+  }
+
+  .story-section {
+    @apply max-w-lg mx-auto px-6 sm:px-8;
+  }
+
+  .warm-text {
+    color: hsl(var(--warm));
+  }
+
+  .section-glow {
+    background: radial-gradient(ellipse at center top, hsl(var(--warm) / 0.04) 0%, transparent 70%);
+  }
+
+  .cta-button {
+    @apply inline-flex items-center justify-center font-semibold transition-all duration-200;
+    font-family: 'Inter', sans-serif;
+    background: hsl(var(--warm));
+    color: hsl(0 0% 100%);
+    padding: 1rem 2.5rem;
+    border-radius: 0.625rem;
+    font-size: 0.9375rem;
+    letter-spacing: -0.01em;
+    box-shadow: 0 1px 3px hsl(var(--warm) / 0.2), 0 4px 16px hsl(var(--warm) / 0.15);
+  }
+
+  .cta-button:hover {
+    background: hsl(var(--warm-glow));
+    box-shadow: 0 2px 4px hsl(var(--warm) / 0.25), 0 8px 24px hsl(var(--warm) / 0.2);
+    transform: translateY(-1px);
+  }
+
+  .cta-button:active {
+    transform: translateY(0);
+  }
+}
