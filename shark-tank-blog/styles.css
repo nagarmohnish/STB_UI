@@ -127,7 +127,7 @@ ul { list-style: none; }
 }
 .btn-contact:hover { background: var(--cyan-hover); }
 
-/* Login button (top-left of nav) */
+/* Login button (right of Go Ads-Free) */
 .btn-login-nav {
     display: inline-flex;
     align-items: center;
@@ -142,7 +142,6 @@ ul { list-style: none; }
     text-decoration: none;
     transition: all 0.2s;
     white-space: nowrap;
-    margin-right: 6px;
 }
 .btn-login-nav:hover {
     background: var(--cyan);
@@ -150,6 +149,28 @@ ul { list-style: none; }
     color: #fff !important;
 }
 .btn-login-nav i { font-size: 11px; }
+
+/* Top social bar */
+.top-social-bar {
+    background: var(--cyan);
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+}
+.top-social-inner {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 8px 20px;
+    max-width: var(--max-width);
+    margin: 0 auto;
+}
+.top-social-icons { display: flex; gap: 18px; }
+.top-social-icons a {
+    color: rgba(255,255,255,0.95);
+    font-size: 14px;
+    transition: color 0.2s, transform 0.15s;
+    line-height: 1;
+}
+.top-social-icons a:hover { color: #fff; transform: translateY(-1px); }
 
 .btn-signin {
     background: var(--cyan);
@@ -1034,8 +1055,9 @@ ul { list-style: none; }
     .nav-right { flex-shrink: 0; gap: 10px; }
     .nav-right .social-icons { display: none; }
     .btn-contact { font-size: 12px; padding: 6px 14px; }
-    .btn-login-nav { font-size: 12px; padding: 6px 12px; margin-right: 4px; }
+    .btn-login-nav { font-size: 12px; padding: 6px 12px; }
     .btn-login-nav i { display: none; }
+    .top-social-bar { display: none; }
 
     .nav-menu.active {
         display: flex;
