@@ -334,6 +334,83 @@
             display: flex; border: 1.5px solid var(--stb-subtle);
             border-radius: 4px; overflow: hidden; margin-bottom: 28px;
         }
+
+        /* Close the Deal sidebar card */
+        .sidebar-deal-card {
+            position: relative;
+            background: linear-gradient(160deg, #0B1426 0%, #142342 100%);
+            border-radius: 14px;
+            padding: 24px 22px 22px;
+            margin-bottom: 32px;
+            color: #fff;
+            overflow: hidden;
+            box-shadow: 0 6px 24px rgba(11, 20, 38, 0.18);
+        }
+        .sidebar-deal-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #00BCD4 0%, #F5A623 100%);
+        }
+        .sidebar-deal-card .deal-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 19px;
+            font-weight: 800;
+            color: #fff;
+            margin: 4px 0 14px;
+        }
+        .sidebar-deal-card .deal-title i {
+            color: #00BCD4;
+            font-size: 16px;
+        }
+        .sidebar-deal-card .deal-copy {
+            font-size: 14px;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.72);
+            margin-bottom: 18px;
+        }
+        .sidebar-deal-card .deal-copy strong {
+            color: #fff;
+            font-weight: 700;
+        }
+        .sidebar-deal-card .deal-cta {
+            display: block;
+            width: 100%;
+            text-align: center;
+            background: linear-gradient(135deg, #00BCD4 0%, #00a4bb 100%);
+            color: #fff;
+            font-size: 15px;
+            font-weight: 700;
+            padding: 14px 20px;
+            border-radius: 10px;
+            text-decoration: none;
+            box-shadow: 0 4px 14px rgba(0, 188, 212, 0.3);
+            transition: transform 0.15s, box-shadow 0.15s;
+        }
+        .sidebar-deal-card .deal-cta:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(0, 188, 212, 0.4);
+            text-decoration: none;
+        }
+        .sidebar-deal-card .deal-alt {
+            text-align: center;
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.55);
+            margin: 14px 0 0;
+        }
+        .sidebar-deal-card .deal-alt a {
+            color: #00BCD4;
+            font-weight: 600;
+            text-decoration: none;
+            border-bottom: 1px solid rgba(0, 188, 212, 0.4);
+        }
+        .sidebar-deal-card .deal-alt a:hover {
+            color: #00E5FF;
+            border-color: #00E5FF;
+        }
         .sidebar-search input {
             flex: 1; padding: 11px 14px; border: none; outline: none;
             font-family: inherit; font-size: 13px; color: var(--stb-ink);
@@ -860,6 +937,14 @@
             <div class="sidebar-search">
                 <input type="text" placeholder="Search Headlines, News...">
                 <button>| Search</button>
+            </div>
+
+            <!-- Close the Deal CTA card -->
+            <div class="sidebar-deal-card">
+                <h4 class="deal-title"><i class="fas fa-bolt"></i> Close the Deal</h4>
+                <p class="deal-copy"><strong>No equity. No royalties.</strong> Just <strong>$20/year</strong> for zero ads across the entire site.</p>
+                <a href="go-ads-free.html" class="deal-cta">I'm In</a>
+                <p class="deal-alt">Or <a href="support.html">support the coverage</a> from $3/mo</p>
             </div>
 
             <!-- Recent Blogs widget -->
