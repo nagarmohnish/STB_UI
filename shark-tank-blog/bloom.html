@@ -692,58 +692,154 @@
             position: fixed; inset: 0; z-index: 9997;
             background: rgba(0,0,0,0); display: none;
             align-items: center; justify-content: center;
-            transition: background 0.3s;
+            transition: background 0.35s;
+            padding: 20px;
         }
-        .sub-overlay.active { display: flex; background: rgba(0,0,0,0.6); }
+        .sub-overlay.active { display: flex; background: rgba(5,10,20,0.7); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
         .sub-modal {
-            background: #fff; border-radius: 16px; width: 100%; max-width: 440px;
-            padding: 40px 36px 32px; position: relative;
-            box-shadow: 0 24px 80px rgba(0,0,0,0.3);
-            opacity: 0; transform: translateY(16px) scale(0.97);
-            transition: opacity 0.3s, transform 0.3s;
+            width: 100%; max-width: 460px; position: relative;
+            border-radius: 18px; overflow: hidden;
+            box-shadow: 0 32px 80px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.06);
+            opacity: 0; transform: translateY(20px) scale(0.96);
+            transition: opacity 0.35s ease, transform 0.35s ease;
         }
         .sub-overlay.active .sub-modal { opacity: 1; transform: translateY(0) scale(1); }
-        .sub-modal-close {
-            position: absolute; top: 14px; right: 16px;
-            background: none; border: none; font-size: 22px;
-            color: #bbb; cursor: pointer; line-height: 1;
+
+        /* Modal header area */
+        .modal-header {
+            background: linear-gradient(160deg, #0B1426 0%, #142342 100%);
+            padding: 32px 32px 24px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
         }
-        .sub-modal-close:hover { color: #666; }
-        .sub-modal h2 {
+        .modal-header::before {
+            content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+            width: 80px; height: 3px;
+            background: linear-gradient(90deg, var(--stb-cyan), #F5A623);
+        }
+        .modal-header::after {
+            content: ''; position: absolute; top: -50px; right: -50px;
+            width: 180px; height: 180px; border-radius: 50%;
+            background: radial-gradient(circle, rgba(0,188,212,0.12), transparent 70%);
+            pointer-events: none;
+        }
+        .modal-header .modal-icon {
+            width: 56px; height: 56px; margin: 0 auto 14px;
+            background: rgba(0,188,212,0.12); border: 1px solid rgba(0,188,212,0.2);
+            border-radius: 14px; display: flex; align-items: center; justify-content: center;
+            font-size: 26px;
+        }
+        .modal-header h2 {
             font-family: var(--font-heading, 'Roboto Slab', serif);
-            font-size: 24px; font-weight: 800; color: var(--stb-ink); margin-bottom: 10px;
+            font-size: 22px; font-weight: 800; color: #fff; margin: 0 0 8px; line-height: 1.25;
         }
-        .sub-modal p { font-size: 15px; line-height: 1.6; color: #555; margin-bottom: 22px; }
-        .sub-modal .modal-cta {
-            display: block; width: 100%; padding: 15px;
-            background: var(--stb-cyan); color: #fff;
-            border: none; border-radius: 10px; font-size: 16px;
-            font-weight: 700; cursor: pointer; text-align: center;
-            text-decoration: none; transition: background 0.15s;
+        .modal-header .modal-sub {
+            font-size: 14px; color: rgba(255,255,255,0.55); line-height: 1.5; margin: 0;
         }
-        .sub-modal .modal-cta:hover { background: var(--stb-cyan-dark); text-decoration: none; }
-        .sub-modal .modal-dismiss {
-            display: block; text-align: center; margin-top: 14px;
-            font-size: 13px; color: #999; cursor: pointer;
-            background: none; border: none; font-family: inherit;
+
+        /* Modal body area */
+        .modal-body {
+            background: #fff;
+            padding: 28px 32px 24px;
         }
-        .sub-modal .modal-dismiss:hover { color: #666; }
-        .sub-modal .modal-benefits {
+
+        /* Price callout */
+        .modal-price-row {
+            display: flex; align-items: baseline; justify-content: center;
+            gap: 8px; margin-bottom: 20px;
+        }
+        .modal-price-old {
+            font-size: 18px; color: #bbb; text-decoration: line-through; font-weight: 500;
+        }
+        .modal-price-new {
+            font-size: 36px; font-weight: 800; color: var(--stb-ink); letter-spacing: -1px;
+        }
+        .modal-price-period { font-size: 15px; color: var(--stb-muted); }
+
+        /* Benefits list */
+        .modal-benefits {
             list-style: none; padding: 0; margin: 0 0 22px;
         }
-        .sub-modal .modal-benefits li {
-            font-size: 14px; color: #444; padding: 5px 0;
+        .modal-benefits li {
+            display: flex; align-items: center; gap: 10px;
+            font-size: 14px; color: #444; padding: 7px 0;
         }
-        .sub-modal .modal-benefits li::before {
-            content: '\2713'; color: var(--stb-cyan); font-weight: 700; margin-right: 8px;
+        .modal-benefits li .benefit-icon {
+            width: 22px; height: 22px; border-radius: 50%;
+            background: rgba(0,188,212,0.1); color: var(--stb-cyan);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 10px; flex-shrink: 0;
         }
+
+        /* CTA button */
+        .sub-modal .modal-cta {
+            display: block; width: 100%; padding: 16px;
+            background: linear-gradient(135deg, var(--stb-cyan) 0%, #0099b8 100%);
+            color: #fff !important; border: none; border-radius: 10px;
+            font-size: 16px; font-weight: 700; cursor: pointer;
+            text-align: center; text-decoration: none !important;
+            box-shadow: 0 4px 16px rgba(0,188,212,0.3);
+            transition: all 0.15s;
+            font-family: inherit;
+        }
+        .sub-modal .modal-cta:hover {
+            background: linear-gradient(135deg, #00d4ef, var(--stb-cyan));
+            transform: translateY(-1px);
+            box-shadow: 0 6px 24px rgba(0,188,212,0.4);
+            text-decoration: none !important;
+        }
+        .sub-modal .modal-dismiss {
+            display: block; text-align: center; margin-top: 14px;
+            font-size: 13px; color: #aaa; cursor: pointer;
+            background: none; border: none; font-family: inherit;
+            transition: color 0.15s;
+        }
+        .sub-modal .modal-dismiss:hover { color: #666; }
+
+        /* Close button */
+        .sub-modal-close {
+            position: absolute; top: 14px; right: 16px; z-index: 2;
+            width: 30px; height: 30px; border-radius: 50%;
+            background: rgba(255,255,255,0.08); border: none;
+            font-size: 18px; color: rgba(255,255,255,0.5);
+            cursor: pointer; display: flex; align-items: center;
+            justify-content: center; line-height: 1;
+            transition: all 0.15s;
+        }
+        .sub-modal-close:hover { background: rgba(255,255,255,0.15); color: #fff; }
+
+        /* Trust line */
+        .modal-trust {
+            display: flex; align-items: center; justify-content: center;
+            gap: 14px; margin-top: 16px; font-size: 11px; color: #bbb;
+        }
+        .modal-trust span { display: flex; align-items: center; gap: 4px; }
+        .modal-trust i { font-size: 10px; }
 
         /* #1 Timed modal */
         #timedModal { z-index: 9997; }
 
-        /* #3 Exit intent modal */
+        /* #3 Exit intent modal — gold accent for urgency */
         #exitModal { z-index: 9998; }
-        #exitModal .sub-modal { border-top: 4px solid #F5A623; }
+        #exitModal .modal-header::before {
+            background: linear-gradient(90deg, #F5A623, #d98e00);
+        }
+        #exitModal .modal-header .modal-icon {
+            background: rgba(245,166,35,0.12); border-color: rgba(245,166,35,0.25);
+        }
+        #exitModal .modal-cta {
+            background: linear-gradient(135deg, #F5A623 0%, #d98e00 100%) !important;
+            color: var(--stb-ink) !important;
+            box-shadow: 0 4px 16px rgba(245,166,35,0.3);
+        }
+        #exitModal .modal-cta:hover {
+            background: linear-gradient(135deg, #FFD700, #F5A623) !important;
+            box-shadow: 0 6px 24px rgba(245,166,35,0.4);
+        }
+        #exitModal .modal-benefits li .benefit-icon {
+            background: rgba(245,166,35,0.1); color: #d98e00;
+        }
 
         /* #2 Sticky bottom bar */
         .sub-sticky-bar {
@@ -863,8 +959,13 @@
 
         /* Mobile overrides for entry points */
         @media (max-width: 640px) {
-            .sub-modal { padding: 32px 24px 24px; max-width: 100%; margin: 0 16px; border-radius: 12px; }
-            .sub-modal h2 { font-size: 20px; }
+            .sub-modal { max-width: 100%; border-radius: 14px; }
+            .modal-header { padding: 24px 22px 20px; }
+            .modal-header h2 { font-size: 19px; }
+            .modal-body { padding: 22px 22px 20px; }
+            .modal-price-new { font-size: 30px; }
+            .modal-benefits li { font-size: 13px; }
+            .modal-icon { width: 48px; height: 48px; font-size: 22px; }
             .sub-sticky-bar { flex-direction: column; height: auto; padding: 12px 16px; gap: 10px; text-align: center; }
             .sub-sticky-bar .ssb-close { position: absolute; top: 8px; right: 12px; }
             .end-article-cta { padding: 28px 22px; }
@@ -1539,10 +1640,30 @@
     <div class="sub-overlay" id="timedModal">
         <div class="sub-modal">
             <button class="sub-modal-close" aria-label="Close">&times;</button>
-            <h2>Reading Without Interruptions?</h2>
-            <p>Go ad-free for just $20/year. That's less than a single Shark Tank deal gone wrong.</p>
-            <a href="go-ads-free.html" class="modal-cta">Remove All Ads</a>
-            <button class="modal-dismiss">Maybe later</button>
+            <div class="modal-header">
+                <div class="modal-icon">🦈</div>
+                <h2>Reading Without Interruptions?</h2>
+                <p class="modal-sub">That's less than a single Shark Tank deal gone wrong.</p>
+            </div>
+            <div class="modal-body">
+                <div class="modal-price-row">
+                    <span class="modal-price-old">$25</span>
+                    <span class="modal-price-new">$20</span>
+                    <span class="modal-price-period">/ year</span>
+                </div>
+                <ul class="modal-benefits">
+                    <li><span class="benefit-icon"><i class="fas fa-eye-slash"></i></span> Zero ads, banners, or popups</li>
+                    <li><span class="benefit-icon"><i class="fas fa-bolt"></i></span> Pages load 2x faster</li>
+                    <li><span class="benefit-icon"><i class="fas fa-heart"></i></span> Fund independent Shark Tank coverage</li>
+                </ul>
+                <a href="go-ads-free.html" class="modal-cta">Remove All Ads</a>
+                <div class="modal-trust">
+                    <span><i class="fas fa-lock"></i> Secure payment</span>
+                    <span>&middot;</span>
+                    <span>Cancel anytime</span>
+                </div>
+                <button class="modal-dismiss">Maybe later</button>
+            </div>
         </div>
     </div>
 
@@ -1550,15 +1671,30 @@
     <div class="sub-overlay" id="exitModal">
         <div class="sub-modal">
             <button class="sub-modal-close" aria-label="Close">&times;</button>
-            <h2>Wait — One Last Offer Before You Go</h2>
-            <p>Get unlimited ad-free access to every Shark Tank story for $20/year.</p>
-            <ul class="modal-benefits">
-                <li>Zero ads across the entire site</li>
-                <li>Faster page loading</li>
-                <li>Support independent coverage</li>
-            </ul>
-            <a href="go-ads-free.html" class="modal-cta">Claim Ad-Free Access</a>
-            <button class="modal-dismiss">No thanks, I like ads</button>
+            <div class="modal-header">
+                <div class="modal-icon">⏳</div>
+                <h2>Wait — One Last Offer</h2>
+                <p class="modal-sub">Before you go, here's what you're missing.</p>
+            </div>
+            <div class="modal-body">
+                <div class="modal-price-row">
+                    <span class="modal-price-old">$25</span>
+                    <span class="modal-price-new">$20</span>
+                    <span class="modal-price-period">/ year</span>
+                </div>
+                <ul class="modal-benefits">
+                    <li><span class="benefit-icon"><i class="fas fa-eye-slash"></i></span> Zero ads across the entire site</li>
+                    <li><span class="benefit-icon"><i class="fas fa-bolt"></i></span> Faster, cleaner page loads</li>
+                    <li><span class="benefit-icon"><i class="fas fa-shield-alt"></i></span> Support independent coverage</li>
+                </ul>
+                <a href="go-ads-free.html" class="modal-cta">Claim Ad-Free Access</a>
+                <div class="modal-trust">
+                    <span><i class="fas fa-lock"></i> Secure payment</span>
+                    <span>&middot;</span>
+                    <span>Cancel anytime</span>
+                </div>
+                <button class="modal-dismiss">No thanks, I like ads</button>
+            </div>
         </div>
     </div>
 
