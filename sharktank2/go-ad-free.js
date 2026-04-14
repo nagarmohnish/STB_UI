@@ -381,6 +381,7 @@ function screen4(){
 
   // Dark hero header
   h+='<div class="gaf-s4-hero">';
+  h+='<img src="assets/images/shark_logo.jpeg" alt="The Shark Tank Blog" style="width:110px;margin:0 auto 16px;display:block;border-radius:6px">';
   h+='<div class="gaf-s4-check"><i class="fas fa-check"></i></div>';
   h+='<div class="gaf-s4-heading">You\'re Ad-Free!</div>';
   h+='<div class="gaf-s4-sub">Welcome back, '+name+'. Your subscription is active &mdash; enjoy uninterrupted Shark Tank coverage.</div>';
