@@ -12,485 +12,185 @@
     <link rel="stylesheet" href="page-styles.css">
     <link rel="stylesheet" href="auth-styles.css">
     <style>
-        /* ===== MY ACCOUNT PAGE ===== */
-        .account-layout {
+        .acct-wrap {
             display: flex;
-            gap: 40px;
+            gap: 48px;
             max-width: var(--max-width);
             margin: 0 auto;
             padding: 40px 20px 60px;
         }
+        .acct-main { flex: 1; min-width: 0; }
 
-        /* --- Main Column --- */
-        .account-main {
-            flex: 1;
-            min-width: 0;
-        }
-
-        .account-page-title {
+        .acct-main h1 {
             font-family: var(--font-heading);
-            font-size: 32px;
+            font-size: 30px;
             font-weight: 700;
             color: var(--text-primary);
-            margin-bottom: 32px;
-            padding-bottom: 16px;
-            border-bottom: 3px solid var(--cyan);
+            margin: 0 0 28px;
         }
 
-        /* Welcome Card */
-        .account-welcome {
-            background: #fff;
-            border-radius: 10px;
-            box-shadow: 0 1px 8px rgba(0,0,0,0.06);
-            padding: 28px 32px;
-            margin-bottom: 28px;
-        }
-
-        .account-welcome-header {
-            display: flex;
-            align-items: center;
-            gap: 18px;
-            margin-bottom: 20px;
-        }
-
-        .account-avatar {
-            width: 64px;
-            height: 64px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--cyan), #0d5f85);
-            color: #fff;
-            font-size: 26px;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
-
-        .account-user-info h2 {
+        .acct-main h2 {
             font-family: var(--font-heading);
             font-size: 22px;
             font-weight: 700;
             color: var(--text-primary);
-            margin-bottom: 2px;
+            margin: 0 0 8px;
         }
 
-        .account-user-info .user-email {
-            font-size: 14px;
-            color: var(--text-light);
-        }
-
-        .account-user-info .user-since {
-            font-size: 12px;
-            color: #bbb;
-            margin-top: 2px;
-        }
-
-        /* Subscription Section */
-        .account-section {
-            background: #fff;
-            border-radius: 10px;
-            box-shadow: 0 1px 8px rgba(0,0,0,0.06);
-            margin-bottom: 28px;
-            overflow: hidden;
-        }
-
-        .account-section-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 18px 28px;
-            background: linear-gradient(135deg, #0a2a4a, #0d3b66);
-            color: #fff;
-        }
-
-        .account-section-header h3 {
-            font-family: var(--font-heading);
-            font-size: 18px;
-            font-weight: 700;
-        }
-
-        .account-section-header .badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            background: rgba(255,255,255,0.15);
-            padding: 5px 14px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 600;
-        }
-
-        .badge-dot {
-            width: 7px;
-            height: 7px;
-            border-radius: 50%;
-            background: #4ade80;
-        }
-
-        .account-section-body {
-            padding: 24px 28px;
-        }
-
-        /* Subscription Details Grid */
-        .sub-details-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px 32px;
-            margin-bottom: 24px;
-        }
-
-        .sub-detail-item {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-
-        .sub-detail-label {
-            font-size: 11px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.8px;
-            color: #999;
-        }
-
-        .sub-detail-value {
+        .acct-welcome {
             font-size: 15px;
-            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 28px;
+            padding-bottom: 28px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .acct-sub-title {
+            font-family: var(--font-heading);
+            font-size: 20px;
+            font-weight: 700;
             color: var(--text-primary);
+            margin: 0 0 16px;
         }
 
-        .sub-detail-value .highlight {
-            color: var(--cyan);
-        }
-
-        /* Stripe Badge */
-        .stripe-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: #f0f4ff;
-            padding: 4px 12px;
-            border-radius: 6px;
-            font-size: 13px;
-            font-weight: 600;
-            color: #635bff;
-        }
-
-        .stripe-badge i {
-            font-size: 14px;
-        }
-
-        /* Action Buttons */
-        .account-actions {
-            display: flex;
-            gap: 12px;
-            padding-top: 20px;
-            border-top: 1px solid #f0f0f0;
-        }
-
-        .btn-account {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 10px 22px;
-            border-radius: 6px;
+        .acct-cancel-btn {
+            display: inline-block;
+            padding: 10px 24px;
+            background: #e53935;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
             font-family: var(--font-body);
-            font-size: 13px;
+            font-size: 14px;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.2s;
-            border: none;
+            transition: background 0.2s;
             text-decoration: none;
         }
-
-        .btn-account-primary {
-            background: var(--cyan);
-            color: #fff;
-        }
-        .btn-account-primary:hover {
-            background: var(--cyan-hover);
+        .acct-cancel-btn:hover { background: #c62828; }
+        .acct-cancel-btn.cancelled {
+            background: #e8f5e9;
+            color: #2e7d32;
+            cursor: default;
         }
 
-        .btn-account-outline {
-            background: transparent;
-            border: 1.5px solid #ddd;
-            color: var(--text-secondary);
-        }
-        .btn-account-outline:hover {
-            border-color: #bbb;
-            color: var(--text-primary);
-        }
-
-        .btn-account-danger {
-            background: transparent;
-            border: 1.5px solid #fca5a5;
-            color: #dc2626;
-        }
-        .btn-account-danger:hover {
-            background: #fef2f2;
-            border-color: #f87171;
-        }
-
-        /* Payment History Table */
-        .payment-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .payment-table thead th {
-            text-align: left;
-            font-size: 11px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.8px;
-            color: #999;
-            padding: 12px 16px;
-            border-bottom: 2px solid #f0f0f0;
-        }
-
-        .payment-table tbody td {
-            padding: 14px 16px;
-            font-size: 14px;
-            color: var(--text-primary);
-            border-bottom: 1px solid #f5f5f5;
-        }
-
-        .payment-table tbody tr:last-child td {
-            border-bottom: none;
-        }
-
-        .payment-table .status-paid {
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            background: #dcfce7;
-            color: #16a34a;
-            padding: 3px 10px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 600;
-        }
-
-        .payment-table .status-paid i {
-            font-size: 10px;
-        }
-
-        .payment-table .amount {
-            font-weight: 700;
-            color: var(--text-primary);
-        }
-
-        .payment-table .receipt-link {
-            color: var(--cyan);
-            font-size: 13px;
-            font-weight: 600;
-        }
-        .payment-table .receipt-link:hover {
-            color: var(--cyan-hover);
-        }
-
-        /* Cancel Notice */
-        .cancel-notice {
+        .acct-cancel-note {
             font-size: 13px;
             color: var(--text-light);
+            margin-top: 10px;
             line-height: 1.6;
+        }
+
+        .acct-section {
+            margin-bottom: 32px;
+            padding-bottom: 32px;
+            border-bottom: 1px solid #eee;
+        }
+        .acct-section:last-child { border-bottom: none; }
+
+        /* Payment History Table */
+        .acct-table {
+            width: 100%;
+            border-collapse: collapse;
             margin-top: 4px;
+        }
+        .acct-table th {
+            text-align: left;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-primary);
+            padding: 12px 16px;
+            background: #f9f9f9;
+            border: 1px solid #eee;
+        }
+        .acct-table td {
+            font-size: 14px;
+            color: var(--text-secondary);
+            padding: 12px 16px;
+            border: 1px solid #eee;
         }
 
         /* --- Sidebar --- */
-        .account-sidebar {
-            width: 320px;
-            flex-shrink: 0;
-        }
+        .acct-sidebar { width: 300px; flex-shrink: 0; }
 
-        .sidebar-widget {
-            background: #fff;
-            border-radius: 10px;
-            box-shadow: 0 1px 8px rgba(0,0,0,0.06);
-            padding: 24px;
-            margin-bottom: 24px;
-        }
-
-        .sidebar-search {
+        .sb-search {
             display: flex;
             align-items: center;
-            gap: 0;
-            border: 1.5px solid #e0e0e0;
-            border-radius: 6px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
             overflow: hidden;
+            margin-bottom: 32px;
         }
-
-        .sidebar-search i {
-            padding: 0 12px;
-            color: #aaa;
-            font-size: 14px;
+        .sb-search i { padding: 0 12px; color: #aaa; font-size: 14px; }
+        .sb-search input {
+            flex: 1; padding: 10px 0; border: none; outline: none;
+            font-family: var(--font-body); font-size: 14px; color: var(--text-primary);
         }
-
-        .sidebar-search input {
-            flex: 1;
-            padding: 10px 0;
-            border: none;
-            outline: none;
-            font-family: var(--font-body);
-            font-size: 14px;
-            color: var(--text-primary);
-        }
-        .sidebar-search input::placeholder { color: #bbb; }
-
-        .sidebar-search-btn {
-            padding: 10px 16px;
-            background: none;
-            border: none;
-            border-left: 1.5px solid #e0e0e0;
-            color: var(--cyan);
-            font-family: var(--font-body);
-            font-size: 13px;
-            font-weight: 700;
+        .sb-search input::placeholder { color: #bbb; }
+        .sb-search-btn {
+            padding: 10px 16px; background: none; border: none;
+            border-left: 1px solid #ddd; color: #e53935;
+            font-family: var(--font-body); font-size: 13px; font-weight: 700;
             cursor: pointer;
-            transition: background 0.15s;
         }
-        .sidebar-search-btn:hover { background: #f5f5f5; }
+        .sb-search-btn::before { content: '| '; color: #e53935; font-weight: 700; }
+        .sb-search-btn::before { display: none; }
 
-        .sidebar-title {
+        .sb-title {
             font-family: var(--font-heading);
             font-size: 18px;
             font-weight: 700;
             color: var(--text-primary);
-            margin-bottom: 18px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
+            margin-bottom: 16px;
         }
+        .sb-title .accent { color: #e53935; font-weight: 800; }
 
-        .sidebar-title-accent {
-            color: var(--cyan);
-            font-weight: 800;
-        }
-
-        /* Recent Blog Items */
-        .recent-blog-item {
+        .sb-blog-item {
             display: flex;
             gap: 14px;
-            padding: 12px 0;
-            border-bottom: 1px solid #f0f0f0;
-        }
-        .recent-blog-item:first-child { padding-top: 0; }
-        .recent-blog-item:last-child { border-bottom: none; padding-bottom: 0; }
-
-        .recent-blog-thumb {
-            width: 80px;
-            height: 60px;
-            border-radius: 6px;
-            overflow: hidden;
-            flex-shrink: 0;
-        }
-
-        .recent-blog-thumb img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .recent-blog-info h4 {
-            font-size: 14px;
-            font-weight: 700;
-            line-height: 1.35;
-            color: var(--text-primary);
-            margin-bottom: 4px;
-        }
-
-        .recent-blog-info h4 a {
-            color: inherit;
-            transition: color 0.2s;
-        }
-        .recent-blog-info h4 a:hover { color: var(--cyan); }
-
-        .recent-blog-info .blog-category {
-            font-size: 11px;
-            color: var(--text-light);
-            font-weight: 600;
-        }
-
-        /* Recent Pitches */
-        .recent-pitch-item {
             padding: 10px 0;
             border-bottom: 1px solid #f0f0f0;
         }
-        .recent-pitch-item:first-child { padding-top: 0; }
-        .recent-pitch-item:last-child { border-bottom: none; padding-bottom: 0; }
+        .sb-blog-item:first-child { padding-top: 0; }
+        .sb-blog-item:last-child { border-bottom: none; }
 
-        .recent-pitch-item h4 {
-            font-size: 14px;
-            font-weight: 700;
-            color: var(--text-primary);
-            margin-bottom: 2px;
+        .sb-blog-thumb {
+            width: 80px; height: 60px; border-radius: 4px;
+            overflow: hidden; flex-shrink: 0; background: #f0f0f0;
         }
-        .recent-pitch-item h4 a {
-            color: inherit;
-            transition: color 0.2s;
-        }
-        .recent-pitch-item h4 a:hover { color: var(--cyan); }
+        .sb-blog-thumb img { width: 100%; height: 100%; object-fit: cover; }
 
-        .recent-pitch-item .pitch-date {
-            font-size: 12px;
-            color: var(--text-light);
+        .sb-blog-info h4 {
+            font-size: 14px; font-weight: 700; line-height: 1.35;
+            color: var(--text-primary); margin: 0 0 3px;
         }
+        .sb-blog-info h4 a { color: inherit; text-decoration: none; }
+        .sb-blog-info h4 a:hover { color: var(--cyan); }
+        .sb-blog-cat { font-size: 12px; color: var(--text-light); }
 
-        /* Responsive */
+        .sb-section { margin-bottom: 32px; }
+
+        .sb-pitch-item {
+            padding: 8px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .sb-pitch-item:first-child { padding-top: 0; }
+        .sb-pitch-item:last-child { border-bottom: none; }
+        .sb-pitch-item h4 {
+            font-size: 14px; font-weight: 700; color: var(--text-primary); margin: 0 0 2px;
+        }
+        .sb-pitch-item h4 a { color: inherit; text-decoration: none; }
+        .sb-pitch-item h4 a:hover { color: var(--cyan); }
+        .sb-pitch-date { font-size: 12px; color: var(--text-light); }
+
         @media (max-width: 992px) {
-            .account-layout {
-                flex-direction: column;
-            }
-            .account-sidebar {
-                width: 100%;
-            }
+            .acct-wrap { flex-direction: column; }
+            .acct-sidebar { width: 100%; }
         }
-
         @media (max-width: 768px) {
-            .account-layout {
-                padding: 24px 16px 40px;
-            }
-            .account-page-title {
-                font-size: 26px;
-            }
-            .account-welcome-header {
-                flex-direction: column;
-                text-align: center;
-            }
-            .sub-details-grid {
-                grid-template-columns: 1fr;
-            }
-            .account-actions {
-                flex-direction: column;
-            }
-            .btn-account {
-                justify-content: center;
-            }
-            .account-section-header {
-                flex-direction: column;
-                gap: 8px;
-                align-items: flex-start;
-            }
-            .payment-table {
-                font-size: 13px;
-            }
-            .payment-table thead th,
-            .payment-table tbody td {
-                padding: 10px 10px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .account-page-title {
-                font-size: 22px;
-            }
-            .account-welcome {
-                padding: 20px;
-            }
-            .account-section-body {
-                padding: 18px 16px;
-            }
+            .acct-wrap { padding: 24px 16px 40px; }
+            .acct-main h1 { font-size: 26px; }
+            .acct-table th, .acct-table td { padding: 10px 10px; font-size: 13px; }
         }
     </style>
 </head>
@@ -541,250 +241,138 @@
     </nav>
 
     <!-- Account Layout -->
-    <div class="account-layout">
+    <div class="acct-wrap">
 
-        <!-- Main Content -->
-        <div class="account-main">
-            <h1 class="account-page-title">My Account</h1>
+        <!-- Main -->
+        <div class="acct-main">
 
-            <!-- Welcome Card -->
-            <div class="account-welcome">
-                <div class="account-welcome-header">
-                    <div class="account-avatar">UG</div>
-                    <div class="account-user-info">
-                        <h2>Welcome, Upneet Grover</h2>
-                        <div class="user-email">upneet.grover@email.com</div>
-                        <div class="user-since">Member since April 2026</div>
-                    </div>
-                </div>
+            <h1>My Account</h1>
+
+            <!-- Welcome -->
+            <div class="acct-section">
+                <h2>My Account</h2>
+                <p class="acct-welcome">Welcome, Upneet Grover</p>
             </div>
 
-            <!-- Ad-free Subscription Section -->
-            <div class="account-section">
-                <div class="account-section-header">
-                    <h3><i class="fas fa-crown" style="margin-right:8px;color:#fbbf24"></i> Ad-free Subscription (Stripe)</h3>
-                    <span class="badge"><span class="badge-dot"></span> Active</span>
-                </div>
-                <div class="account-section-body">
-                    <div class="sub-details-grid">
-                        <div class="sub-detail-item">
-                            <span class="sub-detail-label">Plan</span>
-                            <span class="sub-detail-value">Ad-Free Reading</span>
-                        </div>
-                        <div class="sub-detail-item">
-                            <span class="sub-detail-label">Price</span>
-                            <span class="sub-detail-value"><span class="highlight">$2.00</span> / month</span>
-                        </div>
-                        <div class="sub-detail-item">
-                            <span class="sub-detail-label">Billing Cycle</span>
-                            <span class="sub-detail-value">Monthly</span>
-                        </div>
-                        <div class="sub-detail-item">
-                            <span class="sub-detail-label">Next Billing Date</span>
-                            <span class="sub-detail-value">May 10, 2026</span>
-                        </div>
-                        <div class="sub-detail-item">
-                            <span class="sub-detail-label">Payment Method</span>
-                            <span class="sub-detail-value">
-                                <span class="stripe-badge"><i class="fab fa-stripe-s"></i> Stripe</span>
-                            </span>
-                        </div>
-                        <div class="sub-detail-item">
-                            <span class="sub-detail-label">Card</span>
-                            <span class="sub-detail-value"><i class="fab fa-cc-visa" style="color:#1a1f71;margin-right:4px"></i> **** 4242</span>
-                        </div>
-                    </div>
-
-                    <div class="account-actions">
-                        <button class="btn-account btn-account-danger" onclick="confirmCancel()">
-                            <i class="fas fa-times-circle"></i> Cancel subscription renewal
-                        </button>
-                        <a href="#" class="btn-account btn-account-outline">
-                            <i class="fas fa-credit-card"></i> Update Payment
-                        </a>
-                    </div>
-                    <p class="cancel-notice" style="margin-top:14px">Stops future charges at the end of your current billing period. You will not be charged again.</p>
-                </div>
+            <!-- Subscription -->
+            <div class="acct-section">
+                <h3 class="acct-sub-title">Ad-free subscription (Stripe)</h3>
+                <button class="acct-cancel-btn" onclick="cancelSub(this)">Cancel subscription renewal</button>
+                <p class="acct-cancel-note">Stops future charges at the end of your current billing period. You will not be charged again.</p>
             </div>
 
-            <!-- Payment History Section -->
-            <div class="account-section">
-                <div class="account-section-header" style="background:linear-gradient(135deg,#1a1d24,#2a2d33)">
-                    <h3><i class="fas fa-receipt" style="margin-right:8px;opacity:0.7"></i> Payment History</h3>
-                </div>
-                <div class="account-section-body" style="padding:0">
-                    <table class="payment-table">
-                        <thead>
-                            <tr>
-                                <th>Amount</th>
-                                <th>Tenure</th>
-                                <th>Status</th>
-                                <th>Date</th>
-                                <th>Receipt</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="amount">$2.00</td>
-                                <td>month</td>
-                                <td><span class="status-paid"><i class="fas fa-check"></i> paid</span></td>
-                                <td>2026-04-10 12:39:48</td>
-                                <td><a href="#" class="receipt-link"><i class="fas fa-download"></i> PDF</a></td>
-                            </tr>
-                            <tr>
-                                <td class="amount">$2.00</td>
-                                <td>month</td>
-                                <td><span class="status-paid"><i class="fas fa-check"></i> paid</span></td>
-                                <td>2026-03-10 09:14:22</td>
-                                <td><a href="#" class="receipt-link"><i class="fas fa-download"></i> PDF</a></td>
-                            </tr>
-                            <tr>
-                                <td class="amount">$2.00</td>
-                                <td>month</td>
-                                <td><span class="status-paid"><i class="fas fa-check"></i> paid</span></td>
-                                <td>2026-02-10 10:05:37</td>
-                                <td><a href="#" class="receipt-link"><i class="fas fa-download"></i> PDF</a></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+            <!-- Payment History -->
+            <div class="acct-section">
+                <h3 class="acct-sub-title">Payment history</h3>
+                <table class="acct-table">
+                    <thead>
+                        <tr>
+                            <th>Amount</th>
+                            <th>Tenure</th>
+                            <th>Status</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>$20.00</td>
+                            <td>year</td>
+                            <td>paid</td>
+                            <td>2026-04-10 12:39:48</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
 
-            <!-- Account Settings -->
-            <div class="account-section">
-                <div class="account-section-header" style="background:linear-gradient(135deg,#1e3a5f,#2c5282)">
-                    <h3><i class="fas fa-cog" style="margin-right:8px;opacity:0.7"></i> Account Settings</h3>
-                </div>
-                <div class="account-section-body">
-                    <div class="sub-details-grid">
-                        <div class="sub-detail-item">
-                            <span class="sub-detail-label">Email Notifications</span>
-                            <span class="sub-detail-value"><i class="fas fa-toggle-on" style="color:var(--cyan);font-size:20px;vertical-align:middle"></i> Enabled</span>
-                        </div>
-                        <div class="sub-detail-item">
-                            <span class="sub-detail-label">Newsletter</span>
-                            <span class="sub-detail-value"><i class="fas fa-toggle-on" style="color:var(--cyan);font-size:20px;vertical-align:middle"></i> Subscribed</span>
-                        </div>
-                        <div class="sub-detail-item">
-                            <span class="sub-detail-label">Login Method</span>
-                            <span class="sub-detail-value"><i class="fab fa-google" style="color:#4285f4;margin-right:4px"></i> Google OAuth</span>
-                        </div>
-                        <div class="sub-detail-item">
-                            <span class="sub-detail-label">Last Login</span>
-                            <span class="sub-detail-value">April 14, 2026</span>
-                        </div>
-                    </div>
-                    <div class="account-actions">
-                        <a href="#" class="btn-account btn-account-outline">
-                            <i class="fas fa-envelope"></i> Change Email
-                        </a>
-                        <a href="#" class="btn-account btn-account-outline">
-                            <i class="fas fa-bell"></i> Notification Preferences
-                        </a>
-                        <a href="index.html" class="btn-account btn-account-danger" onclick="localStorage.removeItem('stb_user')">
-                            <i class="fas fa-sign-out-alt"></i> Log Out
-                        </a>
-                    </div>
-                </div>
-            </div>
         </div>
 
         <!-- Sidebar -->
-        <div class="account-sidebar">
+        <div class="acct-sidebar">
 
-            <!-- Search Widget -->
-            <div class="sidebar-widget">
-                <div class="sidebar-search">
+            <!-- Search -->
+            <div class="sb-section">
+                <div class="sb-search">
                     <i class="fa fa-search"></i>
                     <input type="text" placeholder="Search Headlines, News...">
-                    <button class="sidebar-search-btn">Search</button>
+                    <button class="sb-search-btn">Search</button>
                 </div>
             </div>
 
-            <!-- Recent Blogs Widget -->
-            <div class="sidebar-widget">
-                <h3 class="sidebar-title"><span class="sidebar-title-accent">/</span> Recent Blogs <span class="sidebar-title-accent">/</span></h3>
+            <!-- Recent Blogs -->
+            <div class="sb-section">
+                <h3 class="sb-title"><span class="accent">/</span> Recent Blogs <span class="accent">/</span></h3>
 
-                <div class="recent-blog-item">
-                    <div class="recent-blog-thumb">
-                        <img src="assets/images/blog-whiskey-empire.svg" alt="Manscaped">
-                    </div>
-                    <div class="recent-blog-info">
+                <div class="sb-blog-item">
+                    <div class="sb-blog-thumb"><img src="assets/images/blog-whiskey-empire.svg" alt="Manscaped"></div>
+                    <div class="sb-blog-info">
                         <h4><a href="#">Manscaped Mens Grooming &ndash; A Business Breakdown</a></h4>
-                        <span class="blog-category">season 10</span>
+                        <span class="sb-blog-cat">season 10</span>
                     </div>
                 </div>
 
-                <div class="recent-blog-item">
-                    <div class="recent-blog-thumb">
-                        <img src="assets/images/blog-herjavec-millionaires.svg" alt="Pluto Pillow">
-                    </div>
-                    <div class="recent-blog-info">
+                <div class="sb-blog-item">
+                    <div class="sb-blog-thumb"><img src="assets/images/blog-herjavec-millionaires.svg" alt="Pluto Pillow"></div>
+                    <div class="sb-blog-info">
                         <h4><a href="#">Pluto Customizable Pillow &ndash; A Business Breakdown</a></h4>
-                        <span class="blog-category">Season 12</span>
+                        <span class="sb-blog-cat">Season 12</span>
                     </div>
                 </div>
 
-                <div class="recent-blog-item">
-                    <div class="recent-blog-thumb">
-                        <img src="assets/images/blog-corcoran-passive.svg" alt="Shark Tank Statistics">
-                    </div>
-                    <div class="recent-blog-info">
+                <div class="sb-blog-item">
+                    <div class="sb-blog-thumb"><img src="assets/images/blog-corcoran-passive.svg" alt="Statistics"></div>
+                    <div class="sb-blog-info">
                         <h4><a href="#">Shark Tank Statistics: The Ultimate Breakdown</a></h4>
-                        <span class="blog-category">Financing</span>
+                        <span class="sb-blog-cat">Financing</span>
                     </div>
                 </div>
 
-                <div class="recent-blog-item">
-                    <div class="recent-blog-thumb">
-                        <img src="assets/images/blog-ring-exit.svg" alt="How Long Are Pitches">
-                    </div>
-                    <div class="recent-blog-info">
+                <div class="sb-blog-item">
+                    <div class="sb-blog-thumb"><img src="assets/images/blog-ring-exit.svg" alt="Pitches"></div>
+                    <div class="sb-blog-info">
                         <h4><a href="#">How Long Are Shark Tank Pitches? What Entrepreneurs Need to Know</a></h4>
-                        <span class="blog-category">Entrepreneur Training</span>
+                        <span class="sb-blog-cat">Entrepreneur Training</span>
                     </div>
                 </div>
 
-                <div class="recent-blog-item">
-                    <div class="recent-blog-thumb">
-                        <img src="assets/images/blog-oleary-ai.svg" alt="Best Food Products">
-                    </div>
-                    <div class="recent-blog-info">
+                <div class="sb-blog-item">
+                    <div class="sb-blog-thumb"><img src="assets/images/blog-oleary-ai.svg" alt="Food Products"></div>
+                    <div class="sb-blog-info">
                         <h4><a href="#">10 Best Shark Tank Food Products of All Time</a></h4>
-                        <span class="blog-category">Success Stories</span>
+                        <span class="sb-blog-cat">Success Stories</span>
                     </div>
                 </div>
             </div>
 
-            <!-- Recent Shark Tank Pitches Widget -->
-            <div class="sidebar-widget">
-                <h3 class="sidebar-title">Recent Shark Tank Pitches</h3>
+            <!-- Recent Pitches -->
+            <div class="sb-section">
+                <h3 class="sb-title">Recent Shark Tank Pitches</h3>
 
-                <div class="recent-pitch-item">
+                <div class="sb-pitch-item">
                     <h4><a href="login.html">Profile Login</a></h4>
-                    <span class="pitch-date">April 8, 2026</span>
+                    <span class="sb-pitch-date">April 8, 2026</span>
                 </div>
 
-                <div class="recent-pitch-item">
+                <div class="sb-pitch-item">
                     <h4><a href="#">Collars and Co Shark Tank Update</a></h4>
-                    <span class="pitch-date">June 6, 2025</span>
+                    <span class="sb-pitch-date">June 6, 2025</span>
                 </div>
 
-                <div class="recent-pitch-item">
+                <div class="sb-pitch-item">
                     <h4><a href="#">Sock Candy Shark Tank | Season 16</a></h4>
-                    <span class="pitch-date">April 16, 2025</span>
+                    <span class="sb-pitch-date">April 16, 2025</span>
                 </div>
 
-                <div class="recent-pitch-item">
+                <div class="sb-pitch-item">
                     <h4><a href="#">AirTulip Shark Tank | Season 16</a></h4>
-                    <span class="pitch-date">April 16, 2025</span>
+                    <span class="sb-pitch-date">April 16, 2025</span>
                 </div>
 
-                <div class="recent-pitch-item">
+                <div class="sb-pitch-item">
                     <h4><a href="#">Shark Tank Season 16 Episode 15</a></h4>
-                    <span class="pitch-date">April 15, 2025</span>
+                    <span class="sb-pitch-date">April 15, 2025</span>
                 </div>
             </div>
+
         </div>
     </div>
 
@@ -828,13 +416,11 @@
         </div>
     </footer>
 
-    <!-- Footer Bottom Bar -->
     <div class="footer-bottom">
         <a href="#">Terms of Content Use</a>
         <span class="raptive">A RAPTIVE PARTNER SITE</span>
     </div>
 
-    <!-- Scroll to Top -->
     <button class="scroll-top" id="scrollTop" aria-label="Scroll to top">
         <i class="fa fa-chevron-up"></i>
     </button>
@@ -842,15 +428,11 @@
     <script src="script.js"></script>
     <script src="auth.js"></script>
     <script>
-        function confirmCancel() {
-            if (confirm('Are you sure you want to cancel your subscription renewal?\n\nYou will continue to have ad-free access until the end of your current billing period.')) {
-                var btn = document.querySelector('.btn-account-danger');
-                btn.innerHTML = '<i class="fas fa-check-circle"></i> Cancellation Requested';
-                btn.style.background = '#dcfce7';
-                btn.style.color = '#16a34a';
-                btn.style.borderColor = '#86efac';
+        function cancelSub(btn) {
+            if (confirm('Are you sure you want to cancel your subscription renewal?')) {
+                btn.textContent = 'Cancellation Requested';
+                btn.classList.add('cancelled');
                 btn.disabled = true;
-                btn.style.cursor = 'default';
             }
         }
     </script>
