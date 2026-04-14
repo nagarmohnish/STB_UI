@@ -12,7 +12,7 @@
         :root {
             --navy: #0B1426;
             --navy-2: #142342;
-            --cyan: #117fb0;
+            --cyan: #00BCD4;
             --cyan-dark: #0097a7;
             --gold: #F5A623;
             --ink: #1e293b;
@@ -52,7 +52,7 @@
             padding: 6px 14px; border-radius: 20px; border: 1px solid var(--border);
             transition: all 0.15s; display: inline-block;
         }
-        .toc-pill:hover { background: rgba(17, 127, 176,0.08); border-color: var(--cyan); color: var(--cyan); }
+        .toc-pill:hover { background: rgba(0,188,212,0.08); border-color: var(--cyan); color: var(--cyan); }
 
         /* Section wrapper */
         .section { max-width: 1000px; margin: 0 auto; padding: 48px 24px 0; }
@@ -148,7 +148,7 @@
             border-radius: 7px; font-size: 13px; font-weight: 700;
         }
         .render-ic .alt { font-size: 13px; color: rgba(255,255,255,0.5); }
-        .render-ic .alt a { color: var(--cyan); font-weight: 600; border-bottom: 1px solid rgba(17, 127, 176,0.4); }
+        .render-ic .alt a { color: var(--cyan); font-weight: 600; border-bottom: 1px solid rgba(0,188,212,0.4); }
 
         /* #3 End of Article */
         .render-eoa {
@@ -240,7 +240,7 @@
         .render-float {
             display: inline-flex; align-items: center; gap: 8px;
             padding: 10px 18px 10px 14px; background: linear-gradient(135deg, var(--navy), var(--navy-2));
-            color: #fff; border: 1.5px solid rgba(17, 127, 176,0.35); border-radius: 28px;
+            color: #fff; border: 1.5px solid rgba(0,188,212,0.35); border-radius: 28px;
             font-size: 13px; font-weight: 700; box-shadow: 0 4px 20px rgba(0,0,0,0.25);
         }
         .render-float .shark { font-size: 20px; }
@@ -278,8 +278,7 @@
             padding: 28px 28px 22px; text-align: center; position: relative; overflow: hidden;
         }
         .render-modal .rm-header::before {
-            content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
-            width: 70px; height: 3px; border-radius: 0 0 3px 3px;
+            display: none;
         }
         .render-modal .rm-header::after {
             content: ''; position: absolute; top: -40px; right: -40px;
@@ -299,9 +298,9 @@
         }
         .render-modal .close {
             position: absolute; top: 12px; right: 14px; z-index: 2;
-            width: 28px; height: 28px; border-radius: 50%;
-            background: rgba(255,255,255,0.08);
-            color: rgba(255,255,255,0.5); font-size: 16px;
+            width: auto; height: auto; border-radius: 0;
+            background: none;
+            color: rgba(255,255,255,0.5); font-size: 20px;
             display: flex; align-items: center; justify-content: center;
         }
 
@@ -313,9 +312,9 @@
             display: flex; align-items: baseline; justify-content: center; gap: 6px;
             margin-bottom: 18px;
         }
-        .render-modal .rm-price .old { font-size: 16px; color: #bbb; text-decoration: line-through; }
-        .render-modal .rm-price .new { font-size: 32px; font-weight: 800; color: var(--ink); letter-spacing: -1px; }
-        .render-modal .rm-price .per { font-size: 14px; color: var(--muted); }
+        .render-modal .rm-price .old { font-size: 20px; color: #bbb; text-decoration: line-through; }
+        .render-modal .rm-price .new { font-size: 44px; font-weight: 800; color: var(--ink); letter-spacing: -1px; }
+        .render-modal .rm-price .per { font-size: 16px; color: var(--muted); }
 
         /* Benefits with icon badges */
         .render-modal .rm-benefits {
@@ -323,7 +322,7 @@
         }
         .render-modal .rm-benefits li {
             display: flex; align-items: center; gap: 10px;
-            font-size: 13px; color: #444; padding: 6px 0;
+            font-size: 13px; color: #444; padding: 2px 0;
         }
         .render-modal .rm-benefits .bi {
             width: 22px; height: 22px; border-radius: 50%;
@@ -348,9 +347,9 @@
 
         /* Timed modal — cyan accent */
         .render-modal.timed .rm-header::before { background: linear-gradient(90deg, var(--cyan), var(--gold)); }
-        .render-modal.timed .rm-header::after { background: radial-gradient(circle, rgba(17, 127, 176,0.12), transparent 70%); }
-        .render-modal.timed .rm-icon { background: rgba(17, 127, 176,0.12); border: 1px solid rgba(17, 127, 176,0.2); }
-        .render-modal.timed .rm-benefits .bi { background: rgba(17, 127, 176,0.1); color: var(--cyan); }
+        .render-modal.timed .rm-header::after { background: radial-gradient(circle, rgba(0,188,212,0.12), transparent 70%); }
+        .render-modal.timed .rm-icon { background: rgba(0,188,212,0.12); border: 1px solid rgba(0,188,212,0.2); }
+        .render-modal.timed .rm-benefits .bi { background: rgba(0,188,212,0.1); color: var(--cyan); }
         .render-modal.timed .rm-cta { background: linear-gradient(135deg, var(--cyan), #0099b8); color: #fff; }
 
         /* Exit modal — gold accent */
@@ -669,7 +668,7 @@
                     <div class="render-modal timed">
                         <div class="rm-header">
                             <span class="close">&times;</span>
-                            <img src="assets/images/shark_logo.jpeg" alt="The Shark Tank Blog" style="width:180px;margin:0 auto 8px;display:block;border-radius:8px;">
+                            <img src="assets/images/shark_logo.jpeg" alt="The Shark Tank Blog" style="width:130px;margin:0 auto 8px;display:block;border-radius:8px;">
                             <h2>Reading Without Interruptions?</h2>
                             <p>That's less than a single Shark Tank deal gone wrong.</p>
                         </div>

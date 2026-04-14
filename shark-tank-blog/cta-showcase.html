@@ -278,8 +278,7 @@
             padding: 28px 28px 22px; text-align: center; position: relative; overflow: hidden;
         }
         .render-modal .rm-header::before {
-            content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
-            width: 70px; height: 3px; border-radius: 0 0 3px 3px;
+            display: none;
         }
         .render-modal .rm-header::after {
             content: ''; position: absolute; top: -40px; right: -40px;
@@ -299,9 +298,9 @@
         }
         .render-modal .close {
             position: absolute; top: 12px; right: 14px; z-index: 2;
-            width: 28px; height: 28px; border-radius: 50%;
-            background: rgba(255,255,255,0.08);
-            color: rgba(255,255,255,0.5); font-size: 16px;
+            width: auto; height: auto; border-radius: 0;
+            background: none;
+            color: rgba(255,255,255,0.5); font-size: 20px;
             display: flex; align-items: center; justify-content: center;
         }
 
@@ -313,9 +312,9 @@
             display: flex; align-items: baseline; justify-content: center; gap: 6px;
             margin-bottom: 18px;
         }
-        .render-modal .rm-price .old { font-size: 16px; color: #bbb; text-decoration: line-through; }
-        .render-modal .rm-price .new { font-size: 32px; font-weight: 800; color: var(--ink); letter-spacing: -1px; }
-        .render-modal .rm-price .per { font-size: 14px; color: var(--muted); }
+        .render-modal .rm-price .old { font-size: 20px; color: #bbb; text-decoration: line-through; }
+        .render-modal .rm-price .new { font-size: 44px; font-weight: 800; color: var(--ink); letter-spacing: -1px; }
+        .render-modal .rm-price .per { font-size: 16px; color: var(--muted); }
 
         /* Benefits with icon badges */
         .render-modal .rm-benefits {
@@ -323,7 +322,7 @@
         }
         .render-modal .rm-benefits li {
             display: flex; align-items: center; gap: 10px;
-            font-size: 13px; color: #444; padding: 6px 0;
+            font-size: 13px; color: #444; padding: 2px 0;
         }
         .render-modal .rm-benefits .bi {
             width: 22px; height: 22px; border-radius: 50%;
@@ -669,7 +668,7 @@
                     <div class="render-modal timed">
                         <div class="rm-header">
                             <span class="close">&times;</span>
-                            <img src="assets/images/shark_logo.jpeg" alt="The Shark Tank Blog" style="width:180px;margin:0 auto 8px;display:block;border-radius:8px;">
+                            <img src="assets/images/shark_logo.jpeg" alt="The Shark Tank Blog" style="width:130px;margin:0 auto 8px;display:block;border-radius:8px;">
                             <h2>Reading Without Interruptions?</h2>
                             <p>That's less than a single Shark Tank deal gone wrong.</p>
                         </div>
