@@ -12,185 +12,302 @@
     <link rel="stylesheet" href="page-styles.css">
     <link rel="stylesheet" href="auth-styles.css">
     <style>
+        /* Layout */
         .acct-wrap {
             display: flex;
             gap: 48px;
             max-width: var(--max-width);
             margin: 0 auto;
-            padding: 40px 20px 60px;
+            padding: 48px 20px 80px;
         }
         .acct-main { flex: 1; min-width: 0; }
+        .acct-sidebar { width: 320px; flex-shrink: 0; padding-top: 4px; }
 
-        .acct-main h1 {
+        /* Page Title */
+        .acct-title {
             font-family: var(--font-heading);
-            font-size: 30px;
+            font-size: 28px;
             font-weight: 700;
             color: var(--text-primary);
-            margin: 0 0 28px;
+            margin: 0 0 36px;
         }
 
-        .acct-main h2 {
+        /* Card */
+        .acct-card {
+            background: #fff;
+            border: 1px solid #eaeaea;
+            border-radius: 10px;
+            margin-bottom: 24px;
+            overflow: hidden;
+        }
+
+        .acct-card-header {
+            padding: 16px 24px;
+            border-bottom: 1px solid #eaeaea;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .acct-card-header h2 {
             font-family: var(--font-heading);
-            font-size: 22px;
+            font-size: 16px;
             font-weight: 700;
             color: var(--text-primary);
-            margin: 0 0 8px;
+            margin: 0;
         }
 
-        .acct-welcome {
+        .acct-card-header i {
+            color: var(--cyan);
             font-size: 15px;
-            color: var(--text-secondary);
-            margin-bottom: 28px;
-            padding-bottom: 28px;
-            border-bottom: 1px solid #eee;
         }
 
-        .acct-sub-title {
-            font-family: var(--font-heading);
-            font-size: 20px;
+        .acct-card-body { padding: 24px; }
+
+        /* Welcome */
+        .welcome-row {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .welcome-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--cyan);
+            color: #fff;
+            font-size: 18px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .welcome-text h3 {
+            font-family: var(--font-body);
+            font-size: 16px;
             font-weight: 700;
             color: var(--text-primary);
-            margin: 0 0 16px;
+            margin: 0 0 2px;
+        }
+
+        .welcome-text span {
+            font-size: 13px;
+            color: var(--text-light);
+        }
+
+        /* Subscription */
+        .sub-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #ecfdf5;
+            color: #059669;
+            font-size: 12px;
+            font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 20px;
+            margin-bottom: 16px;
+        }
+        .sub-status-dot {
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: #059669;
+        }
+
+        .sub-info {
+            display: flex;
+            gap: 32px;
+            margin-bottom: 20px;
+        }
+        .sub-info-item {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+        .sub-info-label {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            color: #aaa;
+        }
+        .sub-info-value {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .sub-divider {
+            height: 1px;
+            background: #f0f0f0;
+            margin: 20px 0;
+        }
+
+        .sub-cancel-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
         }
 
         .acct-cancel-btn {
-            display: inline-block;
-            padding: 10px 24px;
-            background: #e53935;
-            color: #fff;
-            border: none;
-            border-radius: 4px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 9px 20px;
+            background: none;
+            border: 1.5px solid #fca5a5;
+            color: #dc2626;
+            border-radius: 6px;
             font-family: var(--font-body);
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 600;
             cursor: pointer;
-            transition: background 0.2s;
-            text-decoration: none;
+            transition: all 0.2s;
+            white-space: nowrap;
+            flex-shrink: 0;
         }
-        .acct-cancel-btn:hover { background: #c62828; }
+        .acct-cancel-btn:hover {
+            background: #fef2f2;
+            border-color: #f87171;
+        }
         .acct-cancel-btn.cancelled {
-            background: #e8f5e9;
-            color: #2e7d32;
+            background: #ecfdf5;
+            color: #059669;
+            border-color: #6ee7b7;
             cursor: default;
         }
 
         .acct-cancel-note {
             font-size: 13px;
             color: var(--text-light);
-            margin-top: 10px;
-            line-height: 1.6;
+            line-height: 1.55;
+            padding-top: 2px;
         }
 
-        .acct-section {
-            margin-bottom: 32px;
-            padding-bottom: 32px;
-            border-bottom: 1px solid #eee;
-        }
-        .acct-section:last-child { border-bottom: none; }
-
-        /* Payment History Table */
+        /* Payment Table */
         .acct-table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 4px;
         }
         .acct-table th {
             text-align: left;
-            font-size: 14px;
+            font-size: 11px;
             font-weight: 700;
-            color: var(--text-primary);
-            padding: 12px 16px;
-            background: #f9f9f9;
-            border: 1px solid #eee;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            color: #aaa;
+            padding: 10px 16px 10px 0;
+            border-bottom: 1px solid #eaeaea;
         }
         .acct-table td {
             font-size: 14px;
             color: var(--text-secondary);
-            padding: 12px 16px;
-            border: 1px solid #eee;
+            padding: 14px 16px 14px 0;
+            border-bottom: 1px solid #f5f5f5;
+        }
+        .acct-table tbody tr:last-child td { border-bottom: none; }
+
+        .acct-table .amount { font-weight: 700; color: var(--text-primary); }
+        .acct-table .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: #ecfdf5;
+            color: #059669;
+            font-size: 12px;
+            font-weight: 600;
+            padding: 3px 10px;
+            border-radius: 12px;
         }
 
-        /* --- Sidebar --- */
-        .acct-sidebar { width: 300px; flex-shrink: 0; }
+        /* ---- Sidebar ---- */
+        .sb-widget {
+            background: #fff;
+            border: 1px solid #eaeaea;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 24px;
+        }
 
         .sb-search {
             display: flex;
             align-items: center;
-            border: 1px solid #ddd;
-            border-radius: 4px;
+            background: #f7f7f7;
+            border-radius: 6px;
             overflow: hidden;
-            margin-bottom: 32px;
         }
         .sb-search i { padding: 0 12px; color: #aaa; font-size: 14px; }
         .sb-search input {
             flex: 1; padding: 10px 0; border: none; outline: none;
-            font-family: var(--font-body); font-size: 14px; color: var(--text-primary);
+            background: transparent;
+            font-family: var(--font-body); font-size: 13px; color: var(--text-primary);
         }
         .sb-search input::placeholder { color: #bbb; }
         .sb-search-btn {
-            padding: 10px 16px; background: none; border: none;
-            border-left: 1px solid #ddd; color: #e53935;
-            font-family: var(--font-body); font-size: 13px; font-weight: 700;
-            cursor: pointer;
+            padding: 10px 14px; background: none; border: none;
+            color: var(--cyan); font-family: var(--font-body);
+            font-size: 13px; font-weight: 700; cursor: pointer;
         }
-        .sb-search-btn::before { content: '| '; color: #e53935; font-weight: 700; }
-        .sb-search-btn::before { display: none; }
 
         .sb-title {
             font-family: var(--font-heading);
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 700;
             color: var(--text-primary);
             margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--cyan);
+            display: inline-block;
         }
-        .sb-title .accent { color: #e53935; font-weight: 800; }
 
         .sb-blog-item {
             display: flex;
-            gap: 14px;
+            gap: 12px;
             padding: 10px 0;
-            border-bottom: 1px solid #f0f0f0;
         }
         .sb-blog-item:first-child { padding-top: 0; }
-        .sb-blog-item:last-child { border-bottom: none; }
+        .sb-blog-item + .sb-blog-item { border-top: 1px solid #f5f5f5; }
 
         .sb-blog-thumb {
-            width: 80px; height: 60px; border-radius: 4px;
+            width: 72px; height: 52px; border-radius: 6px;
             overflow: hidden; flex-shrink: 0; background: #f0f0f0;
         }
         .sb-blog-thumb img { width: 100%; height: 100%; object-fit: cover; }
 
         .sb-blog-info h4 {
-            font-size: 14px; font-weight: 700; line-height: 1.35;
+            font-size: 13px; font-weight: 600; line-height: 1.4;
             color: var(--text-primary); margin: 0 0 3px;
         }
         .sb-blog-info h4 a { color: inherit; text-decoration: none; }
         .sb-blog-info h4 a:hover { color: var(--cyan); }
-        .sb-blog-cat { font-size: 12px; color: var(--text-light); }
-
-        .sb-section { margin-bottom: 32px; }
+        .sb-blog-cat { font-size: 11px; color: var(--text-light); }
 
         .sb-pitch-item {
             padding: 8px 0;
-            border-bottom: 1px solid #f0f0f0;
         }
         .sb-pitch-item:first-child { padding-top: 0; }
-        .sb-pitch-item:last-child { border-bottom: none; }
+        .sb-pitch-item + .sb-pitch-item { border-top: 1px solid #f5f5f5; }
         .sb-pitch-item h4 {
-            font-size: 14px; font-weight: 700; color: var(--text-primary); margin: 0 0 2px;
+            font-size: 13px; font-weight: 600; color: var(--text-primary); margin: 0 0 2px;
         }
         .sb-pitch-item h4 a { color: inherit; text-decoration: none; }
         .sb-pitch-item h4 a:hover { color: var(--cyan); }
-        .sb-pitch-date { font-size: 12px; color: var(--text-light); }
+        .sb-pitch-date { font-size: 11px; color: var(--text-light); }
 
+        /* Responsive */
         @media (max-width: 992px) {
-            .acct-wrap { flex-direction: column; }
+            .acct-wrap { flex-direction: column; gap: 32px; }
             .acct-sidebar { width: 100%; }
         }
         @media (max-width: 768px) {
-            .acct-wrap { padding: 24px 16px 40px; }
-            .acct-main h1 { font-size: 26px; }
-            .acct-table th, .acct-table td { padding: 10px 10px; font-size: 13px; }
+            .acct-wrap { padding: 28px 16px 48px; }
+            .acct-title { font-size: 24px; margin-bottom: 24px; }
+            .sub-info { flex-direction: column; gap: 14px; }
+            .sub-cancel-row { flex-direction: column; }
+            .acct-table th, .acct-table td { padding: 10px 10px 10px 0; font-size: 13px; }
         }
     </style>
 </head>
@@ -246,42 +363,81 @@
         <!-- Main -->
         <div class="acct-main">
 
-            <h1>My Account</h1>
+            <h1 class="acct-title">My Account</h1>
 
-            <!-- Welcome -->
-            <div class="acct-section">
-                <h2>My Account</h2>
-                <p class="acct-welcome">Welcome, Upneet Grover</p>
+            <!-- Welcome Card -->
+            <div class="acct-card">
+                <div class="acct-card-header">
+                    <i class="fas fa-user-circle"></i>
+                    <h2>My Account</h2>
+                </div>
+                <div class="acct-card-body">
+                    <div class="welcome-row">
+                        <div class="welcome-avatar">UG</div>
+                        <div class="welcome-text">
+                            <h3>Welcome, Upneet Grover</h3>
+                            <span>upneet.grover@email.com</span>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <!-- Subscription -->
-            <div class="acct-section">
-                <h3 class="acct-sub-title">Ad-free subscription (Stripe)</h3>
-                <button class="acct-cancel-btn" onclick="cancelSub(this)">Cancel subscription renewal</button>
-                <p class="acct-cancel-note">Stops future charges at the end of your current billing period. You will not be charged again.</p>
+            <!-- Subscription Card -->
+            <div class="acct-card">
+                <div class="acct-card-header">
+                    <i class="fab fa-stripe-s" style="color:#635bff"></i>
+                    <h2>Ad-free subscription (Stripe)</h2>
+                </div>
+                <div class="acct-card-body">
+                    <div class="sub-status"><span class="sub-status-dot"></span> Active</div>
+                    <div class="sub-info">
+                        <div class="sub-info-item">
+                            <span class="sub-info-label">Amount</span>
+                            <span class="sub-info-value">$20.00</span>
+                        </div>
+                        <div class="sub-info-item">
+                            <span class="sub-info-label">Tenure</span>
+                            <span class="sub-info-value">Yearly</span>
+                        </div>
+                        <div class="sub-info-item">
+                            <span class="sub-info-label">Since</span>
+                            <span class="sub-info-value">April 10, 2026</span>
+                        </div>
+                    </div>
+                    <div class="sub-divider"></div>
+                    <div class="sub-cancel-row">
+                        <button class="acct-cancel-btn" onclick="cancelSub(this)"><i class="fas fa-times-circle"></i> Cancel subscription renewal</button>
+                        <p class="acct-cancel-note">Stops future charges at the end of your current billing period. You will not be charged again.</p>
+                    </div>
+                </div>
             </div>
 
-            <!-- Payment History -->
-            <div class="acct-section">
-                <h3 class="acct-sub-title">Payment history</h3>
-                <table class="acct-table">
-                    <thead>
-                        <tr>
-                            <th>Amount</th>
-                            <th>Tenure</th>
-                            <th>Status</th>
-                            <th>Date</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>$20.00</td>
-                            <td>year</td>
-                            <td>paid</td>
-                            <td>2026-04-10 12:39:48</td>
-                        </tr>
-                    </tbody>
-                </table>
+            <!-- Payment History Card -->
+            <div class="acct-card">
+                <div class="acct-card-header">
+                    <i class="fas fa-receipt"></i>
+                    <h2>Payment history</h2>
+                </div>
+                <div class="acct-card-body">
+                    <table class="acct-table">
+                        <thead>
+                            <tr>
+                                <th>Amount</th>
+                                <th>Tenure</th>
+                                <th>Status</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="amount">$20.00</td>
+                                <td>year</td>
+                                <td><span class="status-badge"><i class="fas fa-check" style="font-size:9px"></i> paid</span></td>
+                                <td>2026-04-10 12:39:48</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
 
         </div>
@@ -290,7 +446,7 @@
         <div class="acct-sidebar">
 
             <!-- Search -->
-            <div class="sb-section">
+            <div class="sb-widget">
                 <div class="sb-search">
                     <i class="fa fa-search"></i>
                     <input type="text" placeholder="Search Headlines, News...">
@@ -299,8 +455,8 @@
             </div>
 
             <!-- Recent Blogs -->
-            <div class="sb-section">
-                <h3 class="sb-title"><span class="accent">/</span> Recent Blogs <span class="accent">/</span></h3>
+            <div class="sb-widget">
+                <h3 class="sb-title">Recent Blogs</h3>
 
                 <div class="sb-blog-item">
                     <div class="sb-blog-thumb"><img src="assets/images/blog-whiskey-empire.svg" alt="Manscaped"></div>
@@ -344,7 +500,7 @@
             </div>
 
             <!-- Recent Pitches -->
-            <div class="sb-section">
+            <div class="sb-widget">
                 <h3 class="sb-title">Recent Shark Tank Pitches</h3>
 
                 <div class="sb-pitch-item">
@@ -372,7 +528,6 @@
                     <span class="sb-pitch-date">April 15, 2025</span>
                 </div>
             </div>
-
         </div>
     </div>
 
@@ -430,7 +585,7 @@
     <script>
         function cancelSub(btn) {
             if (confirm('Are you sure you want to cancel your subscription renewal?')) {
-                btn.textContent = 'Cancellation Requested';
+                btn.innerHTML = '<i class="fas fa-check-circle"></i> Cancellation Requested';
                 btn.classList.add('cancelled');
                 btn.disabled = true;
             }
