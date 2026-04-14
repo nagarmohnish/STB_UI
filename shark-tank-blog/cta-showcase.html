@@ -275,74 +275,75 @@
         /* Modal header (dark) */
         .render-modal .rm-header {
             background: linear-gradient(160deg, var(--navy), var(--navy-2));
-            padding: 28px 28px 22px; text-align: center; position: relative; overflow: hidden;
+            padding: 36px 32px 28px; text-align: center; position: relative; overflow: hidden;
         }
         .render-modal .rm-header::before {
             display: none;
         }
         .render-modal .rm-header::after {
-            content: ''; position: absolute; top: -40px; right: -40px;
-            width: 150px; height: 150px; border-radius: 50%;
-            pointer-events: none;
+            display: none;
         }
         .render-modal .rm-icon {
-            width: 50px; height: 50px; margin: 0 auto 12px;
+            width: 50px; height: 50px; margin: 0 auto 14px;
             border-radius: 12px; display: flex; align-items: center; justify-content: center;
             font-size: 24px;
         }
         .render-modal .rm-header h2 {
-            font-size: 20px; font-weight: 800; color: #fff; margin: 0 0 6px; line-height: 1.25;
+            font-size: 22px; font-weight: 800; color: #fff; margin: 0 0 10px; line-height: 1.3;
         }
         .render-modal .rm-header p {
-            font-size: 13px; color: rgba(255,255,255,0.5); margin: 0; line-height: 1.4;
+            font-size: 13.5px; color: rgba(255,255,255,0.45); margin: 0; line-height: 1.5;
         }
         .render-modal .close {
-            position: absolute; top: 12px; right: 14px; z-index: 2;
+            position: absolute; top: 14px; right: 16px; z-index: 2;
             width: auto; height: auto; border-radius: 0;
             background: none;
-            color: rgba(255,255,255,0.5); font-size: 20px;
+            color: rgba(255,255,255,0.4); font-size: 22px;
             display: flex; align-items: center; justify-content: center;
+            cursor: pointer; transition: color 0.15s;
         }
+        .render-modal .close:hover { color: rgba(255,255,255,0.8); }
 
         /* Modal body (white) */
         .render-modal .rm-body {
-            background: #fff; padding: 24px 28px 22px; text-align: center;
+            background: #fff; padding: 32px 36px 28px; text-align: center;
         }
         .render-modal .rm-price {
-            display: flex; align-items: baseline; justify-content: center; gap: 6px;
-            margin-bottom: 18px;
+            display: flex; align-items: baseline; justify-content: center; gap: 8px;
+            margin-bottom: 28px;
         }
         .render-modal .rm-price .old { font-size: 20px; color: #bbb; text-decoration: line-through; }
-        .render-modal .rm-price .new { font-size: 44px; font-weight: 800; color: var(--ink); letter-spacing: -1px; }
-        .render-modal .rm-price .per { font-size: 16px; color: var(--muted); }
+        .render-modal .rm-price .new { font-size: 48px; font-weight: 800; color: var(--ink); letter-spacing: -1.5px; }
+        .render-modal .rm-price .per { font-size: 17px; color: var(--muted); }
 
         /* Benefits with icon badges */
         .render-modal .rm-benefits {
-            list-style: none; padding: 0; margin: 0 0 20px; text-align: left;
+            list-style: none; padding: 0; margin: 0 auto 28px; text-align: left;
+            max-width: 280px;
         }
         .render-modal .rm-benefits li {
-            display: flex; align-items: center; gap: 10px;
-            font-size: 13px; color: #444; padding: 2px 0;
+            display: flex; align-items: center; gap: 12px;
+            font-size: 14px; color: #444; padding: 7px 0;
         }
         .render-modal .rm-benefits .bi {
-            width: 22px; height: 22px; border-radius: 50%;
+            width: 26px; height: 26px; border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
-            font-size: 9px; flex-shrink: 0;
+            font-size: 10px; flex-shrink: 0;
         }
 
         /* CTA */
         .render-modal .rm-cta {
-            display: block; width: 100%; padding: 14px; border-radius: 9px;
-            font-size: 15px; font-weight: 700; text-align: center;
-            box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+            display: block; width: 100%; padding: 16px; border-radius: 10px;
+            font-size: 16px; font-weight: 700; text-align: center;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.12);
         }
         .render-modal .rm-trust {
             display: flex; align-items: center; justify-content: center;
-            gap: 12px; margin-top: 12px; font-size: 11px; color: #bbb;
+            gap: 12px; margin-top: 16px; font-size: 11.5px; color: #bbb;
         }
-        .render-modal .rm-trust i { font-size: 9px; }
+        .render-modal .rm-trust i { font-size: 10px; }
         .render-modal .dismiss {
-            display: block; margin-top: 12px; font-size: 12px; color: #aaa; text-align: center;
+            display: block; margin-top: 14px; font-size: 12.5px; color: #aaa; text-align: center;
         }
 
         /* Timed modal — cyan accent */
@@ -668,7 +669,7 @@
                     <div class="render-modal timed">
                         <div class="rm-header">
                             <span class="close">&times;</span>
-                            <img src="assets/images/shark_logo.jpeg" alt="The Shark Tank Blog" style="width:130px;margin:0 auto 8px;display:block;border-radius:8px;">
+                            <img src="assets/images/shark_logo.jpeg" alt="The Shark Tank Blog" style="width:120px;margin:0 auto 16px;display:block;border-radius:6px;">
                             <h2>Reading Without Interruptions?</h2>
                             <p>That's less than a single Shark Tank deal gone wrong.</p>
                         </div>
