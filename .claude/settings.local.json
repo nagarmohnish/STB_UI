@@ -19,7 +19,12 @@
       "Bash(do curl:*)",
       "Bash(curl -s http://localhost:8080/login.html)",
       "Bash(curl -s http://localhost:8080/subscription.html)",
-      "Bash(gh api:*)"
+      "Bash(gh api:*)",
+      "Bash(xargs grep:*)",
+      "Bash(find \"C:\\\\Personal\\\\Projects\\\\global_startups\" -name \".git\" -type d -exec bash -c 'cd \"{}\" && cd .. && pwd && git remote -v' \\\\;)",
+      "WebFetch(domain:staging.sharktankblog.com)",
+      "Bash(xargs sed:*)",
+      "Bash(ls -d */)"
     ]
   }
 }

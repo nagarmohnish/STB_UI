@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" \"https://nagarmohnish.github.io/LH2_Assets_UI/sharktank2/\")",
+      "Bash(find \"c:\\\\Library\\\\Projects\\\\LH2_Assests_UI\\\\vintage-aviation-news\" -name \"*.html\" -exec grep -l \"go-ad\\\\|go ad\\\\|ads-free\\\\|ad-free\" {} \\\\;)",
+      "Bash(grep -rn 'contact.html.*Contact Us' index.html pages/*.html)",
+      "Bash(grep -l 'Go Ad-Free.*bb361b' *.html)",
+      "Bash(grep -rn 'bb361b.*Go Ad-Free' *.html)",
+      "Bash(grep -rn 'support\\\\.html\\\\|Support Us\\\\|support/\\\\|floating-support\\\\|Support.*Blog\\\\|Support.*Aviation\\\\|support-btn\\\\|support\\\\.html' shark-tank-blog/*.html sharktank2/*.html vintage-aviation-news/index.html --include=\"*.html\")",
+      "Bash(xargs -0 sed -i 's|href=\"support.html\"|href=\"go-ads-free.html\"|g')",
+      "Bash(xargs -0 sed -i -e 's|>Support Us<|>Go Ad-Free<|g' -e 's|>Support us<|>Go Ad-Free<|g' -e 's|>Back This Blog<|>Go Ad-Free<|g' -e 's|>Back Us<|>Go Ad-Free<|g' -e 's|>Support Shark Tank Blog<|>Go Ad-Free<|g' -e 's|support the coverage|go ad-free|g' -e 's|support the blog|go ad-free|g' -e 's|support from \\\\$3/mo|go ad-free for \\\\$2/mo|g' -e 's|Support from \\\\$3/mo|Go Ad-Free for \\\\$2/mo|g' -e 's|>Support the Blog<|>Go Ad-Free<|g' -e 's|Certificate of Support|Subscription Confirmation|g' -e 's|is a proud supporter of|is an ad-free subscriber of|g' -e 's|Official Supporter of|Ad-Free Subscriber of|g' -e 's|Invest in SharkTankBlog|Go Ad-Free|g')",
+      "Bash(grep -rn 'support\\\\.html' shark-tank-blog/*.html sharktank2/*.html)",
+      "Bash(xargs -0 sed -i -e 's|>support\\\\.html<|>go-ads-free.html<|g' -e 's|support\\\\.html + go-ads-free\\\\.html|go-ads-free.html|g' -e 's|go-ads-free\\\\.html + support\\\\.html|go-ads-free.html|g')"
+    ]
+  }
+}
