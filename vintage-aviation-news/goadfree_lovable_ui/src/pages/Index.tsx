@@ -11,66 +11,96 @@ const goToPayment = () => {
   window.location.hash = "#/payment";
 };
 
-/* ─── VAN Site Header ─── */
+/* ─── VAN Site Header (matches homepage exactly) ─── */
 const VANHeader = () => (
-  <>
-    <header style={{background:"#fff",borderBottom:"1px solid #e0e0e0"}}>
-      <div style={{maxWidth:1280,margin:"0 auto",padding:"16px 20px",display:"flex",alignItems:"center",justifyContent:"space-between"}}>
-        <div style={{display:"flex",gap:12,alignItems:"center"}}>
-          <a href="../index.html" style={{color:"#666",fontSize:14}}><i className="fab fa-facebook-f"></i></a>
-          <a href="#" style={{color:"#666",fontSize:14}}><i className="fab fa-twitter"></i></a>
-          <a href="#" style={{color:"#666",fontSize:14}}><i className="fab fa-youtube"></i></a>
-          <a href="#" style={{color:"#666",fontSize:14}}><i className="fab fa-instagram"></i></a>
-        </div>
-        <div>
-          <a href="../index.html" style={{fontFamily:"'Merriweather',Georgia,serif",fontSize:22,fontWeight:700,color:"#1a1a1a",textDecoration:"none"}}>
-            Vintage Aviation News
-          </a>
-        </div>
-        <div style={{display:"flex",alignItems:"center",gap:8,border:"1px solid #e0e0e0",borderRadius:4,padding:"6px 12px"}}>
-          <input type="text" placeholder="Search Headlines, News..." style={{border:"none",outline:"none",fontSize:13,width:180,fontFamily:"Inter,sans-serif"}} />
-          <i className="fas fa-arrow-circle-right" style={{color:"#999",fontSize:14}}></i>
-        </div>
+  <div dangerouslySetInnerHTML={{ __html: `
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <header class="site-header">
+    <div class="container header-top">
+      <div class="social-icons">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-youtube"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
       </div>
-    </header>
-    <nav style={{background:"#fff",borderBottom:"2px solid #e0e0e0",position:"sticky",top:0,zIndex:100}}>
-      <div style={{maxWidth:1280,margin:"0 auto",padding:"0 20px",display:"flex",alignItems:"center",justifyContent:"center",gap:0}}>
-        {["Home","Restorations","Warbirds News","Vintage","Articles","Aviation Museum News","Sponsors"].map(item => (
-          <a key={item} href={item === "Home" ? "../index.html" : `../pages/${item.toLowerCase().replace(/\s+/g,"-")}.html`} style={{padding:"14px 18px",fontSize:14,fontWeight:600,color:"#333",textDecoration:"none",fontFamily:"Inter,sans-serif",transition:"color 0.15s"}}>{item}</a>
-        ))}
-        <a href="../go-ad-free/" style={{padding:"8px 18px",fontSize:13,fontWeight:700,color:"#fff",background:CTA_COLOR,borderRadius:4,textDecoration:"none",marginLeft:8,fontFamily:"Inter,sans-serif"}}>Go Ad-Free</a>
+      <div class="site-logo">
+        <a href="../../index.html">
+          <img src="../../assets/van-logo.png" alt="Vintage Aviation News" style="height:90px;">
+        </a>
       </div>
-    </nav>
-  </>
+      <div class="header-search">
+        <input type="text" placeholder="Search Headlines, News...">
+        <button><i class="fas fa-arrow-circle-right"></i></button>
+      </div>
+    </div>
+  </header>
+  <nav class="main-nav">
+    <div class="container">
+      <ul class="nav-list">
+        <li><a href="../../index.html">Home</a></li>
+        <li><a href="../../pages/restorations.html">Restorations</a></li>
+        <li><a href="../../pages/warbirds-news.html">Warbirds News</a></li>
+        <li><a href="../../pages/vintage.html">Vintage</a></li>
+        <li><a href="../../pages/articles.html">Articles</a></li>
+        <li><a href="../../pages/museum-news.html">Aviation Museum News</a></li>
+        <li><a href="#">Sponsors</a></li>
+        <li><a href="../../go-ad-free/" style="background:#bb361b;color:#fff;padding:6px 16px;border-radius:4px;font-weight:700;font-size:13px">Go Ad-Free</a></li>
+      </ul>
+    </div>
+  </nav>
+  `}} />
 );
 
-/* ─── VAN Site Footer ─── */
+/* ─── VAN Site Footer (matches homepage exactly) ─── */
 const VANFooter = () => (
-  <footer style={{background:"#1a1a1a",color:"#ccc",padding:"48px 0 32px",fontFamily:"Inter,sans-serif"}}>
-    <div style={{maxWidth:1280,margin:"0 auto",padding:"0 20px"}}>
-      <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:32,paddingBottom:24,borderBottom:"1px solid #333"}}>
-        <span style={{fontFamily:"'Merriweather',Georgia,serif",fontSize:18,fontWeight:700,color:"#fff"}}>Vintage Aviation News</span>
-        <div style={{display:"flex",gap:14}}>
-          {["facebook-f","twitter","youtube","instagram"].map(icon => (
-            <a key={icon} href="#" style={{width:36,height:36,borderRadius:"50%",border:"1px solid #555",display:"flex",alignItems:"center",justifyContent:"center",color:"#aaa",fontSize:14,textDecoration:"none"}}><i className={`fab fa-${icon}`}></i></a>
-          ))}
+  <div dangerouslySetInnerHTML={{ __html: `
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top-row">
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <div class="logo-text" style="width:70px;height:70px;">
+              <span class="vintage" style="font-size:7px;">Vintage</span>
+              <span class="aviation" style="font-size:16px;">Aviation</span>
+              <span class="news" style="font-size:8px;">News</span>
+            </div>
+          </div>
+        </div>
+        <div class="footer-social">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-youtube"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
         </div>
       </div>
-      <div style={{display:"grid",gridTemplateColumns:"2fr 1fr 1fr",gap:40}}>
-        <p style={{fontSize:13,lineHeight:1.7,color:"#888",fontStyle:"italic"}}>Vintage Aviation News is a company founded by a group of passionate aviation enthusiasts who love the history and technology Aviation and Flying Museums preserve for the public. It is our intention to play a role in safeguarding the heritage of these beautiful machines by providing increased awareness and education through the use of internet based digital media.</p>
-        <div style={{display:"flex",flexDirection:"column",gap:10}}>
-          {["Home","Restorations","Vintage Aviation","Aviation Museum News","Articles"].map(l => (
-            <a key={l} href="#" style={{color:"#999",fontSize:13,textDecoration:"none"}}>{l}</a>
-          ))}
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <p><em>Vintage Aviation News is a company founded by a group of passionate aviation enthusiasts who love the history and technology Aviation and Flying Museums preserve for the public. It is our intention to play a role in safeguarding the heritage of these beautiful machines by providing increased awareness and education through the use of internet based digital media.</em></p>
         </div>
-        <div style={{display:"flex",flexDirection:"column",gap:10}}>
-          {["Privacy Policy","Terms of Service","Newsletter","About Us","Contact Us","Ethics Policy"].map(l => (
-            <a key={l} href="#" style={{color:"#999",fontSize:13,textDecoration:"none"}}>{l}</a>
-          ))}
+        <div class="footer-links">
+          <ul>
+            <li><a href="../../index.html">Home</a></li>
+            <li><a href="../../pages/restorations.html">Restorations</a></li>
+            <li><a href="../../pages/vintage.html">Vintage Aviation</a></li>
+            <li><a href="../../pages/museum-news.html">Aviation Museum News</a></li>
+            <li><a href="../../pages/articles.html">Articles</a></li>
+            <li><a href="#">Today in Aviation History</a></li>
+          </ul>
+        </div>
+        <div class="footer-links">
+          <ul>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+            <li><a href="#">Newsletter</a></li>
+            <li><a href="#">About Us</a></li>
+            <li><a href="../../pages/contact.html">Contact Us</a></li>
+            <li><a href="#">Ethics-Policy</a></li>
+          </ul>
         </div>
       </div>
     </div>
   </footer>
+  `}} />
 );
 
 /* ─── Sticky Bottom CTA (Mobile) ─── */
@@ -131,13 +161,7 @@ const StickyHeader = () => {
 /* ─── Hero ─── */
 const Hero = () => (
   <section className="relative min-h-[90vh] flex items-center overflow-hidden">
-    <img
-      src={heroBg}
-      alt=""
-      className="absolute inset-0 w-full h-full object-cover"
-      width={1920}
-      height={1080}
-    />
+    <img src={heroBg} alt="" className="absolute inset-0 w-full h-full object-cover" width={1920} height={1080} />
     <div className="absolute inset-0 bg-gradient-to-r from-background via-background/85 to-background/40" />
     <div className="relative max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center py-24">
       <div className="space-y-6">
@@ -177,33 +201,6 @@ const WhyWeExist = () => (
   </section>
 );
 
-const MidScrollTrigger = () => {
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const onScroll = () => {
-      const scrollPercent = window.scrollY / (document.body.scrollHeight - window.innerHeight);
-      setVisible(scrollPercent > 0.3 && scrollPercent < 0.6);
-    };
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  if (!visible) return null;
-
-  return (
-    <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-40 bg-card border border-border rounded-xl shadow-2xl p-8 max-w-md w-[90vw] text-center space-y-4 animate-in fade-in zoom-in-95 duration-300">
-      <p className="text-lg font-serif font-semibold text-foreground">
-        Enjoying this? Read the rest without interruptions.
-      </p>
-      <button onClick={goToPayment} style={{padding:"14px 32px",background:CTA_COLOR,color:"#fff",border:"none",borderRadius:10,fontSize:15,fontWeight:700,cursor:"pointer",fontFamily:"Inter,sans-serif",width:"100%"}}>
-        Remove Ads — $2/month (was $3)
-      </button>
-      <p className="text-xs text-muted-foreground">Cancel anytime. Takes seconds.</p>
-    </div>
-  );
-};
-
 /* ─── Before / After Comparison ─── */
 const Comparison = () => (
   <section className="py-16 md:py-24 bg-secondary/40">
@@ -216,24 +213,13 @@ const Comparison = () => (
           Same article. Same content. One lets you actually read it.
         </p>
       </div>
-      <img
-        src={comparisonImg}
-        alt="Side-by-side: ad-filled article vs clean ad-free version"
-        className="rounded-lg shadow-xl w-full mx-auto"
-        loading="lazy"
-        width={1024}
-        height={640}
-        style={{ objectFit: 'cover' }}
-      />
+      <img src={comparisonImg} alt="Side-by-side: ad-filled article vs clean ad-free version" className="rounded-lg shadow-xl w-full mx-auto" loading="lazy" width={1024} height={640} style={{ objectFit: 'cover' }} />
       <div className="grid grid-cols-2 gap-4 md:gap-8 px-4 pt-2">
         <div className="space-y-3">
           <p className="font-serif font-semibold text-destructive text-sm md:text-base">With Ads</p>
           <ul className="space-y-2 text-xs md:text-sm text-muted-foreground">
             {["Broken reading flow", "Slower pages", "Constant distractions"].map((t) => (
-              <li key={t} className="flex items-start gap-2">
-                <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-destructive shrink-0" />
-                {t}
-              </li>
+              <li key={t} className="flex items-start gap-2"><span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-destructive shrink-0" />{t}</li>
             ))}
           </ul>
         </div>
@@ -241,10 +227,7 @@ const Comparison = () => (
           <p className="font-serif font-semibold text-accent text-sm md:text-base">Ad-Free</p>
           <ul className="space-y-2 text-xs md:text-sm text-muted-foreground">
             {["Uninterrupted reading", "Faster load times", "Full focus on the story"].map((t) => (
-              <li key={t} className="flex items-start gap-2">
-                <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-accent shrink-0" />
-                {t}
-              </li>
+              <li key={t} className="flex items-start gap-2"><span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-accent shrink-0" />{t}</li>
             ))}
           </ul>
         </div>
@@ -257,9 +240,7 @@ const Comparison = () => (
 const Pricing = () => (
   <section id="pricing" className="py-24">
     <div className="max-w-lg mx-auto px-6 text-center space-y-8">
-      <h2 className="text-2xl md:text-3xl font-serif font-semibold text-foreground">
-        One plan. No surprises.
-      </h2>
+      <h2 className="text-2xl md:text-3xl font-serif font-semibold text-foreground">One plan. No surprises.</h2>
       <div className="bg-card rounded-lg shadow-lg p-10 space-y-6 border border-border">
         <p className="text-sm font-medium uppercase tracking-wide" style={{color:CTA_COLOR}}>Today only</p>
         <p className="text-lg font-serif font-medium text-foreground">Ad-Free Access</p>
@@ -270,15 +251,8 @@ const Pricing = () => (
         </div>
         <p className="text-sm text-muted-foreground">That's less than $0.50/week. Cancel anytime.</p>
         <ul className="text-sm text-muted-foreground space-y-2 text-left max-w-xs mx-auto">
-          {[
-            "Every article, no interruptions",
-            "No banners, popups, or video ads",
-            "Faster, lighter pages",
-          ].map((item) => (
-            <li key={item} className="flex items-center gap-2">
-              <span className="h-1 w-1 rounded-full bg-accent shrink-0" />
-              {item}
-            </li>
+          {["Every article, no interruptions","No banners, popups, or video ads","Faster, lighter pages"].map((item) => (
+            <li key={item} className="flex items-center gap-2"><span className="h-1 w-1 rounded-full bg-accent shrink-0" />{item}</li>
           ))}
         </ul>
         <button onClick={goToPayment} style={{width:"100%",padding:"16px",background:CTA_COLOR,color:"#fff",border:"none",borderRadius:10,fontSize:16,fontWeight:700,cursor:"pointer",fontFamily:"Inter,sans-serif"}}>
@@ -293,10 +267,7 @@ const Pricing = () => (
 /* ─── End-of-Page CTA ─── */
 const EndCTA = () => (
   <section className="relative py-28">
-    <div
-      className="absolute inset-0 bg-cover bg-center opacity-10"
-      style={{ backgroundImage: `url(${aircraftImg})` }}
-    />
+    <div className="absolute inset-0 bg-cover bg-center opacity-10" style={{ backgroundImage: `url(${aircraftImg})` }} />
     <div className="relative max-w-2xl mx-auto px-6 text-center space-y-6">
       <p className="text-xl font-serif text-foreground leading-relaxed">
         You've read this far — now read every article without interruptions.
