@@ -191,7 +191,7 @@ const Pricing = () => (
           <span className="text-5xl font-serif font-bold text-foreground ml-2">$2</span>
           <span className="text-muted-foreground ml-1">/ month</span>
         </div>
-        <p className="text-sm text-muted-foreground">That's less than $0.50/week. Cancel anytime.</p>
+        <p className="text-sm text-muted-foreground">Just $2/month. Cancel anytime.</p>
         <ul className="text-sm text-muted-foreground space-y-2 text-left max-w-xs mx-auto">
           {["Every article, no interruptions","No banners, popups, or video ads","Faster, lighter pages"].map(item=>(<li key={item} className="flex items-center gap-2"><span className="h-1 w-1 rounded-full bg-accent shrink-0"/>{item}</li>))}
         </ul>
@@ -208,7 +208,7 @@ const EndCTA = () => (
     <div className="absolute inset-0 bg-cover bg-center opacity-10" style={{backgroundImage:`url(${aircraftImg})`}} />
     <div className="relative max-w-2xl mx-auto px-6 text-center space-y-6">
       <p className="text-xl font-serif text-foreground leading-relaxed">You've read this far — now read every article without interruptions.</p>
-      <button onClick={goToPayment} style={{padding:"16px 40px",background:CTA_COLOR,color:"#fff",border:"none",borderRadius:10,fontSize:16,fontWeight:700,cursor:"pointer",boxShadow:"0 4px 16px rgba(187,54,27,0.3)"}}>Read Without Ads — less than $0.50/week</button>
+      <button onClick={goToPayment} style={{padding:"16px 40px",background:CTA_COLOR,color:"#fff",border:"none",borderRadius:10,fontSize:16,fontWeight:700,cursor:"pointer",boxShadow:"0 4px 16px rgba(187,54,27,0.3)"}}>Read Without Ads — $2/month</button>
       <p className="text-sm text-muted-foreground">Cancel anytime. Takes seconds.</p>
     </div>
   </section>
