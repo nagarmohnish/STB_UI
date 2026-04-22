@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Go Ad-Free — Shark Tank Blog</title>
+  <meta name="description" content="Read Shark Tank Blog without ads. Every pitch, every deal, every update — uninterrupted. $2/month.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&family=Roboto+Slab:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    :root {
+      --cyan: #117fb0;
+      --cyan-hover: #1592cc;
+      --nav-bg: #191c20;
+      --dark: #0e0f12;
+      --text-primary: #222;
+      --text-secondary: #555;
+      --text-light: #888;
+      --bg: #fff;
+      --bg-light: #f8f8f8;
+      --border: #e0e0e0;
+      --accent: #10b981;
+      --destructive: #ef4444;
+      --font-body: 'Open Sans', -apple-system, sans-serif;
+      --font-heading: 'Roboto Slab', Georgia, serif;
+      --max-width: 1100px;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: var(--font-body); color: var(--text-primary); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; display: block; }
+    button { font-family: inherit; cursor: pointer; border: none; }
+    .container { max-width: var(--max-width); margin: 0 auto; padding: 0 20px; }
+
+    /* ===== NAV ===== */
+    .main-nav { background: var(--nav-bg); position: sticky; top: 0; z-index: 100; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 64px; max-width: var(--max-width); margin: 0 auto; padding: 0 20px; }
+    .nav-left { display: flex; align-items: center; gap: 25px; }
+    .nav-logo { display: flex; align-items: center; gap: 8px; }
+    .nav-logo img { height: 42px; border-radius: 4px; }
+    .nav-menu { list-style: none; display: flex; align-items: center; gap: 0; }
+    .nav-menu li a { color: #fff; font-size: 13.5px; font-weight: 600; padding: 18px 14px; display: block; transition: color 0.2s; white-space: nowrap; }
+    .nav-menu li a:hover, .nav-menu li a.active { color: var(--cyan); }
+    .nav-right { display: flex; align-items: center; gap: 12px; }
+    .nav-cta-btn { background: var(--cyan); color: #fff; padding: 8px 18px; border-radius: 4px; font-size: 13px; font-weight: 700; transition: background 0.2s; }
+    .nav-cta-btn:hover { background: var(--cyan-hover); color: #fff; }
+    .nav-login-btn { color: #fff; padding: 7px 16px; border: 1.5px solid rgba(255,255,255,0.2); border-radius: 6px; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; transition: all 0.2s; }
+    .nav-login-btn:hover { background: var(--cyan); border-color: var(--cyan); color: #fff; }
+
+    /* ===== STICKY HEADER (appears on scroll) ===== */
+    .sticky-header { position: fixed; top: 0; left: 0; right: 0; z-index: 200; background: rgba(14,15,18,0.95); backdrop-filter: blur(8px); border-bottom: 1px solid rgba(17,127,176,0.3); transform: translateY(-100%); transition: transform 0.3s; }
+    .sticky-header.visible { transform: translateY(0); }
+    .sticky-header-inner { max-width: var(--max-width); margin: 0 auto; padding: 10px 20px; display: flex; align-items: center; justify-content: space-between; }
+    .sticky-header-logo { font-family: var(--font-heading); font-weight: 700; color: #fff; font-size: 15px; display: flex; align-items: center; gap: 8px; }
+    .sticky-header-logo span { font-size: 18px; }
+    .sticky-cta { padding: 8px 20px; background: var(--cyan); color: #fff; border-radius: 6px; font-size: 13px; font-weight: 700; }
+    .sticky-cta:hover { background: var(--cyan-hover); }
+
+    /* ===== HERO ===== */
+    .hero { position: relative; min-height: 88vh; display: flex; align-items: center; overflow: hidden; background: linear-gradient(135deg, #0e0f12 0%, #1a2742 100%); }
+    .hero::before { content: ''; position: absolute; top: -120px; right: -120px; width: 380px; height: 380px; border-radius: 50%; background: radial-gradient(circle, rgba(17,127,176,0.25), transparent 70%); }
+    .hero::after { content: ''; position: absolute; bottom: -80px; left: -80px; width: 260px; height: 260px; border-radius: 50%; background: radial-gradient(circle, rgba(17,127,176,0.15), transparent 70%); }
+    .hero-inner { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 96px 24px; display: grid; grid-template-columns: 1.1fr 1fr; gap: 48px; align-items: center; }
+    .hero-badge { display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px; background: rgba(17,127,176,0.15); border: 1px solid rgba(17,127,176,0.3); border-radius: 20px; color: var(--cyan); font-size: 12px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 20px; }
+    .hero-badge i { font-size: 10px; }
+    .hero-text h1 { font-family: var(--font-heading); font-size: 52px; font-weight: 700; line-height: 1.1; color: #fff; margin-bottom: 22px; letter-spacing: -0.5px; }
+    .hero-text h1 .accent { color: var(--cyan); }
+    .hero-text p { font-size: 18px; color: rgba(255,255,255,0.65); line-height: 1.6; max-width: 480px; margin-bottom: 32px; }
+    .hero-cta { display: inline-block; padding: 16px 40px; background: var(--cyan); color: #fff; border-radius: 10px; font-size: 16px; font-weight: 700; box-shadow: 0 4px 20px rgba(17,127,176,0.45); transition: all 0.15s; }
+    .hero-cta:hover { background: var(--cyan-hover); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(17,127,176,0.55); }
+    .hero-pricing { font-size: 14px; color: rgba(255,255,255,0.5); margin-top: 14px; }
+    .hero-pricing .strike { text-decoration: line-through; opacity: 0.6; }
+    .hero-pricing .highlight { font-weight: 600; color: rgba(255,255,255,0.85); }
+    .hero-visual { position: relative; text-align: center; }
+    .hero-shark { font-size: 180px; line-height: 1; filter: drop-shadow(0 20px 60px rgba(17,127,176,0.6)); animation: heroFloat 4s ease-in-out infinite; }
+    @keyframes heroFloat { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+
+    /* ===== VALUE STRIP ===== */
+    .value-strip { background: var(--bg-light); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 24px 20px; }
+    .value-strip-inner { max-width: 900px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .value-item { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center; }
+    .value-item i { color: var(--cyan); font-size: 22px; }
+    .value-item span { font-size: 13px; font-weight: 700; color: var(--text-primary); }
+    .value-divider { width: 1px; height: 40px; background: var(--border); flex-shrink: 0; }
+
+    /* ===== SECTIONS ===== */
+    .section { padding: 80px 20px; }
+    .section-heading { text-align: center; margin-bottom: 40px; }
+    .section-heading h2 { font-family: var(--font-heading); font-size: 36px; font-weight: 700; color: var(--text-primary); margin-bottom: 12px; }
+    .section-heading p { color: var(--text-light); font-size: 17px; max-width: 600px; margin: 0 auto; }
+
+    /* ===== COMPARISON ===== */
+    .comparison { background: #fafafa; }
+    .compare-img { max-width: 1000px; margin: 0 auto; border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.1); overflow: hidden; height: 420px; }
+    .compare-img-placeholder { display: grid; grid-template-columns: 1fr 1fr; width: 100%; height: 100%; }
+    .compare-img-side { padding: 40px; display: flex; flex-direction: column; justify-content: space-between; }
+    .compare-img-side.with-ads { background: linear-gradient(180deg, #fef2f2, #fee2e2); }
+    .compare-img-side.ad-free { background: linear-gradient(180deg, #f0f9ff, #dbeafe); }
+    .compare-img-label { font-family: var(--font-heading); font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; }
+    .with-ads .compare-img-label { color: var(--destructive); }
+    .ad-free .compare-img-label { color: var(--cyan); }
+    .compare-mock-headline { font-family: var(--font-heading); font-size: 22px; font-weight: 700; color: var(--text-primary); margin-bottom: 12px; line-height: 1.25; }
+    .compare-mock-line { height: 8px; border-radius: 4px; margin-bottom: 8px; }
+    .with-ads .compare-mock-line { background: rgba(239,68,68,0.2); }
+    .ad-free .compare-mock-line { background: rgba(17,127,176,0.2); }
+    .compare-mock-ad { background: #fde68a; padding: 14px; text-align: center; font-size: 11px; font-weight: 700; color: #92400e; border-radius: 4px; margin: 12px 0; text-transform: uppercase; letter-spacing: 1px; }
+
+    .compare-lists { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; max-width: 1000px; margin: 32px auto 0; padding: 0 20px; }
+    .compare-list h3 { font-family: var(--font-heading); font-size: 16px; font-weight: 700; margin-bottom: 12px; }
+    .compare-list.bad h3 { color: var(--destructive); }
+    .compare-list.good h3 { color: var(--cyan); }
+    .compare-list ul { list-style: none; }
+    .compare-list li { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: var(--text-secondary); padding: 6px 0; }
+    .compare-list li::before { content: ''; width: 6px; height: 6px; border-radius: 50%; margin-top: 8px; flex-shrink: 0; }
+    .compare-list.bad li::before { background: var(--destructive); }
+    .compare-list.good li::before { background: var(--cyan); }
+
+    /* ===== PRICING ===== */
+    .pricing { background: #fff; padding: 96px 20px; }
+    .pricing-card { max-width: 440px; margin: 40px auto 0; background: #fff; border: 1px solid var(--border); border-radius: 14px; box-shadow: 0 12px 32px rgba(0,0,0,0.08); padding: 44px; text-align: center; }
+    .pricing-tag { display: inline-block; padding: 4px 14px; background: rgba(17,127,176,0.1); color: var(--cyan); border-radius: 20px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
+    .pricing-name { font-family: var(--font-heading); font-size: 18px; color: var(--text-primary); margin-bottom: 20px; }
+    .pricing-amount { margin-bottom: 10px; display: flex; align-items: baseline; justify-content: center; gap: 8px; }
+    .pricing-amount .strike { font-family: var(--font-heading); font-size: 22px; color: var(--text-light); text-decoration: line-through; opacity: 0.6; }
+    .pricing-amount .main { font-family: var(--font-heading); font-size: 60px; font-weight: 700; color: var(--text-primary); letter-spacing: -2px; line-height: 1; }
+    .pricing-amount .per { color: var(--text-light); font-size: 16px; }
+    .pricing-note { font-size: 13px; color: var(--text-light); margin-bottom: 28px; }
+    .pricing-features { list-style: none; text-align: left; max-width: 280px; margin: 0 auto 28px; }
+    .pricing-features li { display: flex; align-items: center; gap: 10px; font-size: 14px; color: var(--text-secondary); padding: 8px 0; }
+    .pricing-features li i { color: var(--cyan); font-size: 14px; width: 20px; }
+    .pricing-btn { display: block; width: 100%; padding: 16px; background: var(--cyan); color: #fff; font-size: 16px; font-weight: 700; border-radius: 10px; transition: all 0.15s; }
+    .pricing-btn:hover { background: var(--cyan-hover); }
+    .pricing-cancel { font-size: 12px; color: var(--text-light); margin-top: 12px; }
+
+    /* ===== TESTIMONIAL / WHY ===== */
+    .why { padding: 80px 20px; background: #0e0f12; color: #fff; }
+    .why-inner { max-width: 720px; margin: 0 auto; text-align: center; }
+    .why-shark { font-size: 56px; margin-bottom: 16px; }
+    .why h2 { font-family: var(--font-heading); font-size: 32px; font-weight: 700; color: #fff; margin-bottom: 20px; }
+    .why p { font-family: var(--font-heading); font-style: italic; font-size: 18px; line-height: 1.7; color: rgba(255,255,255,0.65); }
+
+    /* ===== END CTA ===== */
+    .end-cta { position: relative; padding: 112px 20px; text-align: center; background: linear-gradient(135deg, #f8f8f8, #eef2f7); overflow: hidden; }
+    .end-cta::before { content: '🦈'; position: absolute; font-size: 400px; right: -80px; top: 50%; transform: translateY(-50%); opacity: 0.05; }
+    .end-cta-inner { position: relative; max-width: 640px; margin: 0 auto; }
+    .end-cta p { font-family: var(--font-heading); font-size: 22px; color: var(--text-primary); line-height: 1.5; margin-bottom: 28px; }
+    .end-cta-btn { display: inline-block; padding: 16px 40px; background: var(--cyan); color: #fff; border-radius: 10px; font-size: 16px; font-weight: 700; box-shadow: 0 4px 20px rgba(17,127,176,0.35); transition: all 0.15s; }
+    .end-cta-btn:hover { background: var(--cyan-hover); transform: translateY(-2px); }
+    .end-cta-note { font-size: 14px; color: var(--text-light); margin-top: 14px; }
+
+    /* ===== FAQ ===== */
+    .faq { padding: 80px 20px; background: #fff; }
+    .faq-list { max-width: 720px; margin: 40px auto 0; }
+    .faq-item { border-bottom: 1px solid var(--border); padding: 20px 0; cursor: pointer; }
+    .faq-item summary { font-family: var(--font-heading); font-size: 17px; font-weight: 700; color: var(--text-primary); list-style: none; display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
+    .faq-item summary::-webkit-details-marker { display: none; }
+    .faq-item summary::after { content: '+'; font-size: 24px; color: var(--cyan); font-weight: 400; transition: transform 0.2s; }
+    .faq-item[open] summary::after { transform: rotate(45deg); }
+    .faq-item p { margin-top: 12px; font-size: 15px; color: var(--text-secondary); line-height: 1.7; }
+
+    /* ===== FOOTER ===== */
+    .site-footer { background: var(--nav-bg); padding: 48px 0 32px; color: #ccc; }
+    .footer-inner { max-width: var(--max-width); margin: 0 auto; padding: 0 20px; }
+    .footer-grid { display: grid; grid-template-columns: 1.5fr 0.8fr 1.2fr; gap: 40px; }
+    .footer-logo { display: flex; align-items: center; gap: 10px; margin-bottom: 18px; }
+    .footer-logo img { width: 50px; height: auto; border-radius: 4px; }
+    .footer-logo-text { font-family: var(--font-heading); font-size: 18px; font-weight: 700; color: #fff; }
+    .footer-about p { font-size: 13px; line-height: 1.7; color: #999; margin-bottom: 20px; }
+    .footer-social { display: flex; gap: 14px; }
+    .footer-social a { color: #888; font-size: 16px; transition: color 0.2s; }
+    .footer-social a:hover { color: var(--cyan); }
+    .footer-menu h4 { color: #fff; font-family: var(--font-heading); font-size: 16px; margin-bottom: 18px; }
+    .footer-menu ul { list-style: none; }
+    .footer-menu ul li { margin-bottom: 10px; }
+    .footer-menu ul li a { color: #999; font-size: 14px; transition: color 0.2s; }
+    .footer-menu ul li a:hover { color: var(--cyan); }
+
+    /* ===== STICKY BOTTOM CTA ===== */
+    .sticky-bottom { position: fixed; bottom: 0; left: 0; right: 0; z-index: 50; background: rgba(14,15,18,0.96); backdrop-filter: blur(8px); border-top: 1px solid rgba(17,127,176,0.3); transform: translateY(100%); transition: transform 0.3s; }
+    .sticky-bottom.visible { transform: translateY(0); }
+    .sticky-bottom-inner { max-width: 1024px; margin: 0 auto; padding: 12px 20px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .sticky-bottom-text { color: #fff; font-size: 14px; font-weight: 600; }
+    .sticky-bottom-text .strike { text-decoration: line-through; opacity: 0.5; font-weight: 400; margin-right: 4px; }
+    .sticky-bottom-text .per { color: rgba(255,255,255,0.5); font-weight: 400; margin-left: 4px; }
+
+    /* ===== LOGIN MODAL ===== */
+    .login-overlay { position: fixed; inset: 0; z-index: 99999; background: rgba(0,0,0,0.55); display: none; align-items: center; justify-content: center; padding: 16px; }
+    .login-overlay.active { display: flex; }
+    .login-modal { background: #fff; border-radius: 12px; max-width: 440px; width: 100%; padding: 36px 36px 32px; position: relative; box-shadow: 0 28px 70px rgba(0,0,0,0.3); }
+    .login-close { position: absolute; top: 14px; right: 16px; background: #f0f0f0; width: 32px; height: 32px; border-radius: 6px; font-size: 18px; color: #333; display: flex; align-items: center; justify-content: center; }
+    .login-modal h2 { font-family: var(--font-heading); font-size: 22px; font-weight: 700; color: var(--text-primary); text-align: center; margin-bottom: 24px; }
+    .google-btn { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; padding: 12px 20px; background: #fff; border: 1px solid #ddd; border-radius: 8px; font-size: 14px; font-weight: 600; color: #444; margin-bottom: 20px; transition: background 0.15s; }
+    .google-btn:hover { background: #fafafa; }
+    .divider { display: flex; align-items: center; gap: 14px; margin: 20px 0; }
+    .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: #eee; }
+    .divider span { font-size: 12px; color: #bbb; font-weight: 600; letter-spacing: 0.5px; }
+    .login-modal h3 { font-family: var(--font-heading); font-size: 15px; font-weight: 700; color: var(--text-primary); text-align: center; margin-bottom: 14px; }
+    .login-modal label { display: block; font-size: 12px; font-weight: 700; color: #555; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.4px; }
+    .login-modal input { width: 100%; padding: 12px 14px; border: 1.5px solid #e0e0e0; border-radius: 8px; font-size: 14px; outline: none; font-family: inherit; margin-bottom: 14px; }
+    .login-modal input:focus { border-color: var(--cyan); }
+    .magic-link-btn { width: 100%; padding: 13px; background: var(--cyan); color: #fff; border-radius: 8px; font-size: 15px; font-weight: 700; }
+    .magic-link-btn:hover { background: var(--cyan-hover); }
+    .login-helper { font-size: 12px; color: var(--text-light); text-align: center; margin-top: 12px; line-height: 1.5; }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .nav-menu { display: none; }
+      .nav-inner { height: 56px; }
+      .hero-inner { grid-template-columns: 1fr; gap: 24px; padding: 48px 24px; text-align: center; }
+      .hero-text p { margin-left: auto; margin-right: auto; }
+      .hero-text h1 { font-size: 36px; }
+      .hero-shark { font-size: 120px; }
+      .section { padding: 56px 20px; }
+      .section-heading h2 { font-size: 28px; }
+      .compare-img { height: auto; }
+      .compare-img-placeholder { grid-template-columns: 1fr; }
+      .compare-lists { grid-template-columns: 1fr; gap: 24px; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .pricing-card { padding: 28px 20px; }
+      .pricing-amount .main { font-size: 48px; }
+      .end-cta p { font-size: 18px; }
+      .value-strip-inner { flex-wrap: wrap; justify-content: center; }
+      .value-divider { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="main-nav">
+    <div class="nav-inner">
+      <div class="nav-left">
+        <a href="#" class="nav-logo"><img src="https://nagarmohnish.github.io/LH2_Assets_UI/shark-tank-blog/assets/images/shark_logo.jpeg" alt="Shark Tank Blog"></a>
+        <ul class="nav-menu">
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Episodes</a></li>
+          <li><a href="#">Products</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Startup List</a></li>
+        </ul>
+      </div>
+      <div class="nav-right">
+        <a href="#" class="nav-cta-btn">Go Ad-Free</a>
+        <a href="#" class="nav-login-btn"><i class="fas fa-user"></i> Login</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- STICKY HEADER -->
+  <header class="sticky-header" id="stickyHeader">
+    <div class="sticky-header-inner">
+      <span class="sticky-header-logo"><span>🦈</span> Shark Tank Blog</span>
+      <button class="sticky-cta" onclick="openLogin()">Remove All Ads</button>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-text">
+        <div class="hero-badge"><i class="fas fa-bolt"></i> Today only</div>
+        <h1>Every pitch. Every deal. <span class="accent">Uninterrupted.</span></h1>
+        <p>No ads. No popups. No video preroll. Read every Shark Tank recap, product update, and startup story the way it was meant to be read.</p>
+        <button class="hero-cta" onclick="openLogin()">Remove All Ads</button>
+        <p class="hero-pricing"><span class="strike">$3/month</span> <span class="highlight">$2/month — today only.</span> Cancel anytime.</p>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-shark">🦈</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VALUE STRIP -->
+  <div class="value-strip">
+    <div class="value-strip-inner">
+      <div class="value-item"><i class="fas fa-eye-slash"></i><span>Zero ads</span></div>
+      <div class="value-divider"></div>
+      <div class="value-item"><i class="fas fa-bolt"></i><span>2x faster pages</span></div>
+      <div class="value-divider"></div>
+      <div class="value-item"><i class="fas fa-check-circle"></i><span>Cancel anytime</span></div>
+      <div class="value-divider"></div>
+      <div class="value-item"><i class="fas fa-lock"></i><span>Secure payment</span></div>
+    </div>
+  </div>
+
+  <!-- COMPARISON -->
+  <section class="section comparison">
+    <div class="section-heading">
+      <h2>The difference is immediate</h2>
+      <p>Same article. Same content. One lets you actually read it.</p>
+    </div>
+    <div class="compare-img">
+      <div class="compare-img-placeholder">
+        <div class="compare-img-side with-ads">
+          <div>
+            <div class="compare-img-label">With Ads</div>
+            <div class="compare-mock-headline">Bombas Socks Makes $300M After Shark Tank</div>
+            <div class="compare-mock-line" style="width:90%"></div>
+            <div class="compare-mock-line" style="width:75%"></div>
+          </div>
+          <div class="compare-mock-ad">Advertisement</div>
+          <div>
+            <div class="compare-mock-line" style="width:85%"></div>
+            <div class="compare-mock-line" style="width:70%"></div>
+          </div>
+        </div>
+        <div class="compare-img-side ad-free">
+          <div>
+            <div class="compare-img-label">Ad-Free</div>
+            <div class="compare-mock-headline">Bombas Socks Makes $300M After Shark Tank</div>
+            <div class="compare-mock-line" style="width:90%"></div>
+            <div class="compare-mock-line" style="width:75%"></div>
+            <div class="compare-mock-line" style="width:85%"></div>
+            <div class="compare-mock-line" style="width:70%"></div>
+            <div class="compare-mock-line" style="width:88%"></div>
+            <div class="compare-mock-line" style="width:72%"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="compare-lists">
+      <div class="compare-list bad">
+        <h3>With Ads</h3>
+        <ul>
+          <li>Broken reading flow</li>
+          <li>Slower pages</li>
+          <li>Constant distractions</li>
+        </ul>
+      </div>
+      <div class="compare-list good">
+        <h3>Ad-Free</h3>
+        <ul>
+          <li>Uninterrupted reading</li>
+          <li>Faster load times</li>
+          <li>Full focus on the story</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="pricing">
+    <div class="section-heading">
+      <h2>One plan. No surprises.</h2>
+    </div>
+    <div class="pricing-card">
+      <span class="pricing-tag">Today only</span>
+      <p class="pricing-name">Ad-Free Reading</p>
+      <div class="pricing-amount">
+        <span class="strike">$3</span>
+        <span class="main">$2</span>
+        <span class="per">/ month</span>
+      </div>
+      <p class="pricing-note">That's less than a single Shark Tank deal gone wrong.</p>
+      <ul class="pricing-features">
+        <li><i class="fas fa-check"></i> Every article, no interruptions</li>
+        <li><i class="fas fa-check"></i> No banners, popups, or video ads</li>
+        <li><i class="fas fa-check"></i> Faster, lighter pages</li>
+        <li><i class="fas fa-check"></i> Fund independent coverage</li>
+      </ul>
+      <button class="pricing-btn" onclick="openLogin()">Remove All Ads</button>
+      <p class="pricing-cancel"><i class="fas fa-lock" style="font-size:10px"></i> Secure payment &bull; Cancel anytime</p>
+    </div>
+  </section>
+
+  <!-- WHY -->
+  <section class="why">
+    <div class="why-inner">
+      <div class="why-shark">🦈</div>
+      <h2>Built for the real fans</h2>
+      <p>You don't just watch Shark Tank — you follow the deals, track the companies, and remember which products actually made it. Ads are fine. But when you're reading about a pitch that made history, you deserve to finish the story without interruption.</p>
+    </div>
+  </section>
+
+  <!-- END CTA -->
+  <section class="end-cta">
+    <div class="end-cta-inner">
+      <p>You've scrolled this far — now read every pitch without interruptions.</p>
+      <button class="end-cta-btn" onclick="openLogin()">Remove All Ads — $2/month</button>
+      <p class="end-cta-note">Cancel anytime. Takes seconds.</p>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq">
+    <div class="section-heading">
+      <h2>Frequently asked</h2>
+    </div>
+    <div class="faq-list">
+      <details class="faq-item">
+        <summary>What does ad-free include?</summary>
+        <p>All display ads, banner ads, sponsored content blocks, and video preroll are removed across every page on Shark Tank Blog. You still see article images, author info, and related content — just no ads in between.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Can I cancel anytime?</summary>
+        <p>Yes. Cancel from your account page in two clicks — no questions asked, no retention calls. You'll keep ad-free access until the end of your current billing period.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Will prices go up later?</summary>
+        <p>As long as you're subscribed, you lock in $2/month forever. If prices change for new subscribers, yours stays the same.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Is my payment secure?</summary>
+        <p>Payments are processed by Stripe — the same provider used by Shopify, Amazon, and Google. We never see or store your card details.</p>
+      </details>
+      <details class="faq-item">
+        <summary>What if I already have an account?</summary>
+        <p>Sign in when prompted and your ad-free access will activate immediately on the account you're logged into.</p>
+      </details>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div class="footer-about">
+          <div class="footer-logo">
+            <img src="https://nagarmohnish.github.io/LH2_Assets_UI/shark-tank-blog/assets/images/shark_logo.jpeg" alt="Shark Tank Blog">
+            <span class="footer-logo-text">The Shark Tank Blog</span>
+          </div>
+          <p>Shark Tank Blog is independent of and not affiliated or endorsed by ABC, Sony, the producers or any other company associated with the television show, Shark Tank. Views expressed on this blog are solely owned by the author individually.</p>
+          <div class="footer-social">
+            <a href="#"><i class="fab fa-pinterest-p"></i></a>
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-x-twitter"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
+        <div class="footer-menu">
+          <h4>Menu</h4>
+          <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Episodes</a></li>
+            <li><a href="#">Products</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Businesses</a></li>
+          </ul>
+        </div>
+        <div class="footer-menu">
+          <h4>Account</h4>
+          <ul>
+            <li><a href="#">Login</a></li>
+            <li><a href="#">My Profile</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Use</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- STICKY BOTTOM -->
+  <div class="sticky-bottom" id="stickyBottom">
+    <div class="sticky-bottom-inner">
+      <div class="sticky-bottom-text">🦈 <span class="strike">$3</span> $2<span class="per">/month — today only</span></div>
+      <button class="sticky-cta" onclick="openLogin()">Remove All Ads</button>
+    </div>
+  </div>
+
+  <!-- LOGIN MODAL -->
+  <div class="login-overlay" id="loginOverlay" onclick="if(event.target===this)closeLogin()">
+    <div class="login-modal">
+      <button class="login-close" onclick="closeLogin()" aria-label="Close">&times;</button>
+      <h2>Sign In to Shark Tank Blog</h2>
+      <button class="google-btn" onclick="handleLogin('Google User')">
+        <svg width="18" height="18" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 12.955 4 4 12.955 4 24s8.955 20 20 20 20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z"/><path fill="#FF3D00" d="M6.306 14.691l6.571 4.819C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 16.318 4 9.656 8.337 6.306 14.691z"/><path fill="#4CAF50" d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238A11.91 11.91 0 0124 36c-5.202 0-9.619-3.317-11.283-7.946l-6.522 5.025C9.505 39.556 16.227 44 24 44z"/><path fill="#1976D2" d="M43.611 20.083H42V20H24v8h11.303a12.04 12.04 0 01-4.087 5.571l.003-.002 6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z"/></svg>
+        Continue with Google
+      </button>
+      <div class="divider"><span>OR</span></div>
+      <h3>Sign in with Magic Link</h3>
+      <form onsubmit="event.preventDefault();handleMagicLink();">
+        <label for="loginEmail">Email Address</label>
+        <input type="email" id="loginEmail" placeholder="you@example.com" required>
+        <button type="submit" class="magic-link-btn">Send Magic Link</button>
+        <p class="login-helper">We'll send a secure login link to your email. No password needed.</p>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const stickyHeader = document.getElementById('stickyHeader');
+    const stickyBottom = document.getElementById('stickyBottom');
+    window.addEventListener('scroll', function() {
+      if (window.scrollY > 500) stickyHeader.classList.add('visible'); else stickyHeader.classList.remove('visible');
+      if (window.scrollY > 300) stickyBottom.classList.add('visible'); else stickyBottom.classList.remove('visible');
+    }, { passive: true });
+
+    function openLogin() {
+      if (localStorage.getItem('stb_user')) { alert('Redirecting to payment...'); return; }
+      document.getElementById('loginOverlay').classList.add('active');
+    }
+    function closeLogin() { document.getElementById('loginOverlay').classList.remove('active'); }
+    function handleLogin(name) {
+      localStorage.setItem('stb_user', JSON.stringify({ name: name, ts: Date.now() }));
+      closeLogin();
+      setTimeout(function() { alert('Logged in as ' + name + '. Redirecting to payment...'); }, 200);
+    }
+    function handleMagicLink() {
+      const email = document.getElementById('loginEmail').value;
+      if (email) handleLogin(email.split('@')[0]);
+    }
+    document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeLogin(); });
+  </script>
+</body>
+</html>
