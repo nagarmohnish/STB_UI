@@ -36,9 +36,12 @@ button{font-family:inherit;cursor:pointer;border:none}
 .summary-price .cur{font-family:var(--font-serif);font-size:24px;color:var(--text-muted);font-weight:500}
 .summary-price .big{font-family:var(--font-serif);font-size:56px;font-weight:600;color:var(--text);line-height:1;letter-spacing:-2px}
 .summary-price .per{font-size:14px;color:var(--text-muted)}
-.summary-features{list-style:none}
-.summary-features li{display:flex;align-items:flex-start;gap:10px;font-size:14px;color:var(--text-sec);padding:6px 0;line-height:1.55}
-.summary-features li i{color:var(--green);font-size:12px;margin-top:5px;flex-shrink:0}
+.summary-features{list-style:none;display:flex;flex-direction:column;gap:16px;margin-top:4px}
+.pillar{display:flex;gap:14px;padding:0}
+.pillar-icon{width:36px;height:36px;border-radius:8px;background:rgba(17,127,176,0.08);border:1px solid rgba(17,127,176,0.18);color:var(--cyan);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.pillar-text{flex:1;min-width:0}
+.pillar-title{font-family:var(--font-serif);font-size:15px;font-weight:600;color:var(--text);margin-bottom:3px;line-height:1.3}
+.pillar-desc{font-size:13px;color:var(--text-muted);line-height:1.55}
 .summary-trust{margin-top:28px;padding-top:24px;border-top:1px solid var(--border);display:flex;flex-direction:column;gap:10px}
 .summary-trust-row{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--text-muted)}
 .summary-trust-row i{color:var(--text-muted);width:14px;text-align:center}
@@ -156,20 +159,54 @@ button{font-family:inherit;cursor:pointer;border:none}
     <!-- LEFT: ORDER SUMMARY -->
     <aside class="summary">
       <div class="summary-head">Your Order</div>
-      <div class="summary-title">Ad-Free Lifetime Access</div>
+      <div class="summary-title">Lifetime Supporter Membership</div>
       <div class="summary-subtitle">Shark Tank Blog</div>
       <div class="summary-price">
         <span class="cur">$</span>
         <span class="big">10</span>
-        <span class="per">one-time</span>
+        <span class="per">one-time &middot; lifetime</span>
       </div>
-      <h4 style="font-size:11px;font-weight:700;color:var(--text-muted);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:14px">What's included</h4>
-      <ul class="summary-features">
-        <li><i class="fas fa-check"></i>Every ad removed across Shark Tank Blog</li>
-        <li><i class="fas fa-check"></i>Lifetime access &mdash; no expiry, no renewal</li>
-        <li><i class="fas fa-check"></i>Works on any device (sign in with email)</li>
-        <li><i class="fas fa-check"></i>Supports independent Shark Tank coverage</li>
-      </ul>
+
+      <h4 style="font-size:11px;font-weight:700;color:var(--text-muted);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:18px">Three things included</h4>
+
+      <div class="summary-features">
+        <div class="pillar">
+          <div class="pillar-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+            </svg>
+          </div>
+          <div class="pillar-text">
+            <div class="pillar-title">Support independent coverage</div>
+            <div class="pillar-desc">Back writer-run, reader-supported Shark Tank journalism. Keeps us independent.</div>
+          </div>
+        </div>
+
+        <div class="pillar">
+          <div class="pillar-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><path d="M1 1l22 22"/>
+            </svg>
+          </div>
+          <div class="pillar-text">
+            <div class="pillar-title">Ad-free, forever</div>
+            <div class="pillar-desc">Every banner, popup, and video ad removed across the site &mdash; for life.</div>
+          </div>
+        </div>
+
+        <div class="pillar">
+          <div class="pillar-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 4h16c1.1 0 2 0.9 2 2v12c0 1.1-0.9 2-2 2H4c-1.1 0-2-0.9-2-2V6c0-1.1 0.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
+            </svg>
+          </div>
+          <div class="pillar-text">
+            <div class="pillar-title">Ad-free newsletter</div>
+            <div class="pillar-desc">Weekly subscriber-only recap &mdash; clean, ad-free, and exclusive deep-dives.</div>
+          </div>
+        </div>
+      </div>
+
       <div class="summary-trust">
         <div class="summary-trust-row"><i class="fab fa-stripe-s"></i> Secure checkout via Stripe</div>
         <div class="summary-trust-row"><i class="fas fa-undo"></i> 7-day refund window</div>
