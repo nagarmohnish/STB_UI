@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Go Ad-Free — Support Human-Written Shark Tank Coverage</title>
+    <meta name="description" content="Every Shark Tank story is researched and written by a real person. Support human-written, AI-free coverage for $1/month.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600;6..72,700&family=Open+Sans:wght@300;400;600;700&family=Roboto+Slab:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --cyan: #117fb0;
+            --cyan-light: #1592cc;
+            --cyan-glow: rgba(17,127,176,0.25);
+            --nav-bg: #191c20;
+            --bg-dark: #0e1116;
+            --bg-darker: #070a0e;
+            --bg-card: #161a20;
+            --border-dark: rgba(255,255,255,0.08);
+            --border-darker: rgba(255,255,255,0.05);
+            --text-white: #fff;
+            --text-muted: rgba(255,255,255,0.62);
+            --text-dim: rgba(255,255,255,0.38);
+            --font-body: 'Open Sans', -apple-system, sans-serif;
+            --font-serif: 'Newsreader', Georgia, serif;
+            --font-heading: 'Roboto Slab', Georgia, serif;
+            --max-width: 1100px;
+        }
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: var(--font-body); color: var(--text-white); background: var(--bg-dark); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+        a { color: inherit; text-decoration: none; }
+        img { max-width: 100%; display: block; }
+        ul { list-style: none; }
+        button { font-family: inherit; cursor: pointer; border: none; }
+
+        /* ===== NAV ===== */
+        .main-nav { background: var(--nav-bg); position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid var(--border-dark); }
+        .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 60px; max-width: var(--max-width); margin: 0 auto; padding: 0 20px; }
+        .nav-left { display: flex; align-items: center; gap: 25px; }
+        .logo img { height: 45px; border-radius: 4px; }
+        .nav-menu { display: flex; align-items: center; }
+        .nav-menu li a { color: #fff; font-size: 13.5px; font-weight: 600; padding: 18px 14px; display: block; transition: color 0.2s; white-space: nowrap; }
+        .nav-menu li a:hover { color: var(--cyan); }
+        .nav-right { display: flex; align-items: center; gap: 12px; }
+        .btn-contact { background: var(--cyan); color: #fff !important; padding: 7px 18px; border-radius: 4px; font-size: 13px; font-weight: 600; transition: background 0.2s; white-space: nowrap; }
+        .btn-contact:hover { background: var(--cyan-light); }
+
+        .container { max-width: var(--max-width); margin: 0 auto; padding: 0 24px; }
+
+        /* ===== HERO (with human-written / typewriter backdrop) ===== */
+        .hero { position: relative; padding: 140px 24px 120px; text-align: center; overflow: hidden; background: var(--bg-dark); }
+        .hero-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; z-index: 0; filter: grayscale(30%); }
+        .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(10,13,18,0.65) 0%, rgba(10,13,18,0.82) 60%, rgba(10,13,18,0.96) 100%); z-index: 1; }
+        .hero-overlay::after { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at center top, rgba(17,127,176,0.16), transparent 65%); pointer-events: none; }
+        .hero-inner { position: relative; z-index: 2; max-width: 720px; margin: 0 auto; }
+        .hero-eyebrow { display: inline-block; font-size: 12px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--cyan); margin-bottom: 20px; padding: 6px 14px; background: rgba(17,127,176,0.12); border: 1px solid rgba(17,127,176,0.25); border-radius: 20px; }
+        .hero h1 { font-family: var(--font-serif); font-size: 56px; font-weight: 600; line-height: 1.1; letter-spacing: -0.02em; color: #fff; margin-bottom: 8px; }
+        .hero h1 .accent { color: var(--cyan); font-style: italic; font-weight: 500; }
+        .hero-sub { font-size: 18px; line-height: 1.65; color: var(--text-muted); max-width: 620px; margin: 28px auto 36px; }
+        .hero-cta { display: inline-flex; align-items: center; gap: 10px; padding: 16px 36px; background: var(--cyan); color: #fff; border-radius: 8px; font-size: 15px; font-weight: 700; letter-spacing: 0.2px; transition: all 0.15s; box-shadow: 0 6px 24px var(--cyan-glow); }
+        .hero-cta:hover { background: var(--cyan-light); transform: translateY(-1px); box-shadow: 0 10px 32px rgba(17,127,176,0.4); }
+        .hero-meta { font-size: 13px; color: var(--text-dim); margin-top: 16px; }
+        .hero-meta .sep { margin: 0 8px; opacity: 0.5; }
+
+        /* ===== COMPARISON BAR (human vs AI) ===== */
+        .compare-bar { background: var(--bg-darker); border-top: 1px solid var(--border-darker); border-bottom: 1px solid var(--border-darker); padding: 28px 24px; }
+        .compare-bar-inner { max-width: 860px; margin: 0 auto; display: grid; grid-template-columns: 1fr auto 1fr; gap: 32px; align-items: center; }
+        .compare-side { display: flex; align-items: center; gap: 16px; }
+        .compare-side-icon { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+        .compare-side.bad .compare-side-icon { background: rgba(239,68,68,0.12); color: #ef4444; }
+        .compare-side.good .compare-side-icon { background: rgba(16,185,129,0.12); color: #10b981; }
+        .compare-side.good { justify-content: flex-end; text-align: right; flex-direction: row-reverse; }
+        .compare-side .label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--text-dim); margin-bottom: 3px; }
+        .compare-side.bad .label { color: #ef4444; }
+        .compare-side.good .label { color: #10b981; }
+        .compare-side .text { font-family: var(--font-serif); font-size: 16px; color: #fff; font-weight: 500; line-height: 1.35; }
+        .compare-vs { font-family: var(--font-serif); font-size: 14px; font-weight: 600; color: var(--text-dim); font-style: italic; letter-spacing: 1px; }
+
+        /* ===== BENEFITS ===== */
+        .benefits { padding: 96px 24px; background: var(--bg-dark); }
+        .benefits-inner { max-width: 1040px; margin: 0 auto; }
+        .benefits-intro { text-align: center; margin-bottom: 64px; }
+        .benefits-intro h2 { font-family: var(--font-serif); font-size: 34px; font-weight: 600; color: #fff; margin-bottom: 12px; line-height: 1.2; }
+        .benefits-intro h2 .accent { color: var(--cyan); font-style: italic; font-weight: 500; }
+        .benefits-intro p { font-size: 16px; color: var(--text-muted); max-width: 560px; margin: 0 auto; }
+        .benefits-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+        .benefit { padding: 8px; }
+        .benefit-icon { width: 48px; height: 48px; border-radius: 10px; background: rgba(17,127,176,0.12); color: var(--cyan); display: flex; align-items: center; justify-content: center; font-size: 20px; margin-bottom: 20px; }
+        .benefit h3 { font-family: var(--font-serif); font-size: 20px; font-weight: 600; color: #fff; margin-bottom: 12px; letter-spacing: -0.01em; }
+        .benefit p { font-size: 15px; line-height: 1.65; color: var(--text-muted); }
+
+        /* ===== CONTEXT (editorial quote section) ===== */
+        .context { position: relative; padding: 120px 24px; overflow: hidden; }
+        .context-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; filter: grayscale(40%); }
+        .context-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(10,13,18,0.78) 0%, rgba(10,13,18,0.92) 100%); z-index: 1; }
+        .context-inner { position: relative; z-index: 2; max-width: 680px; margin: 0 auto; text-align: center; }
+        .context-quote-mark { font-family: var(--font-serif); font-size: 72px; line-height: 1; color: var(--cyan); opacity: 0.4; margin-bottom: 12px; }
+        .context h2 { font-family: var(--font-serif); font-size: 36px; font-weight: 600; color: #fff; line-height: 1.2; margin-bottom: 20px; letter-spacing: -0.01em; }
+        .context h2 .accent { color: var(--cyan); font-style: italic; font-weight: 500; }
+        .context p { font-family: var(--font-serif); font-size: 17px; line-height: 1.75; color: rgba(255,255,255,0.72); font-style: italic; max-width: 600px; margin: 0 auto 20px; }
+        .context-attribution { font-size: 13px; color: var(--text-dim); font-style: normal; letter-spacing: 0.5px; text-transform: uppercase; font-family: var(--font-body); }
+
+        /* ===== PRICING ===== */
+        .pricing { padding: 96px 24px; background: var(--bg-dark); }
+        .pricing-inner { max-width: 520px; margin: 0 auto; }
+        .pricing-intro { text-align: center; margin-bottom: 40px; }
+        .pricing-intro h2 { font-family: var(--font-serif); font-size: 32px; font-weight: 600; color: #fff; margin-bottom: 10px; }
+        .pricing-intro p { font-size: 15px; color: var(--text-muted); }
+        .price-card { background: var(--bg-card); border: 1px solid var(--border-dark); border-radius: 14px; padding: 40px 32px; }
+        .price-card h3 { font-family: var(--font-serif); font-size: 22px; font-weight: 600; color: #fff; text-align: center; margin-bottom: 24px; }
+
+        .billing-toggle { display: flex; background: rgba(255,255,255,0.05); border-radius: 8px; padding: 4px; margin-bottom: 28px; gap: 4px; }
+        .billing-toggle button { flex: 1; padding: 10px 14px; background: transparent; color: var(--text-muted); font-size: 13px; font-weight: 600; border-radius: 6px; transition: all 0.15s; font-family: inherit; }
+        .billing-toggle button.active { background: rgba(17,127,176,0.18); color: var(--cyan); box-shadow: 0 1px 2px rgba(0,0,0,0.2); }
+        .billing-toggle button .save { font-size: 10px; margin-left: 4px; opacity: 0.8; }
+
+        .price-amount { text-align: center; margin-bottom: 8px; display: flex; align-items: baseline; justify-content: center; gap: 4px; }
+        .price-amount .currency { font-family: var(--font-serif); font-size: 28px; color: var(--text-muted); font-weight: 500; }
+        .price-amount .value { font-family: var(--font-serif); font-size: 64px; font-weight: 600; color: #fff; letter-spacing: -2px; line-height: 1; }
+        .price-amount .period { font-size: 15px; color: var(--text-muted); }
+        .price-alt { text-align: center; font-size: 13px; color: var(--text-dim); margin-bottom: 28px; }
+
+        .price-benefits { margin-bottom: 32px; padding-top: 24px; border-top: 1px solid var(--border-dark); }
+        .price-benefit { display: flex; align-items: flex-start; gap: 12px; padding: 8px 0; }
+        .price-benefit i { color: var(--cyan); font-size: 12px; margin-top: 5px; flex-shrink: 0; }
+        .price-benefit span { font-size: 14.5px; color: var(--text-muted); line-height: 1.55; }
+
+        .price-cta { width: 100%; padding: 15px; background: var(--cyan); color: #fff; border-radius: 10px; font-size: 15px; font-weight: 700; transition: background 0.15s; }
+        .price-cta:hover { background: var(--cyan-light); }
+
+        .trust { margin-top: 20px; text-align: center; }
+        .trust-row { display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 10px; flex-wrap: wrap; }
+        .trust-row svg { height: 20px; width: auto; opacity: 0.55; filter: grayscale(100%); }
+        .trust-note { font-size: 11.5px; color: var(--text-dim); display: inline-flex; align-items: center; gap: 5px; }
+        .trust-note i { font-size: 10px; color: var(--text-dim); }
+
+        /* ===== AUTHOR STRIP ===== */
+        .authors { padding: 96px 24px; background: var(--bg-darker); border-top: 1px solid var(--border-darker); border-bottom: 1px solid var(--border-darker); }
+        .authors-inner { max-width: 720px; margin: 0 auto; text-align: center; }
+        .authors h2 { font-family: var(--font-serif); font-size: 30px; font-weight: 600; color: #fff; margin-bottom: 14px; }
+        .authors h2 .accent { color: var(--cyan); font-style: italic; font-weight: 500; }
+        .authors-sub { font-size: 15px; color: var(--text-muted); margin-bottom: 40px; max-width: 520px; margin-left: auto; margin-right: auto; }
+        .authors-grid { display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; }
+        .author-chip { display: flex; align-items: center; gap: 12px; padding: 12px 18px 12px 12px; background: var(--bg-card); border: 1px solid var(--border-dark); border-radius: 40px; }
+        .author-avatar { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, var(--cyan), #0e5f85); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; }
+        .author-info { text-align: left; }
+        .author-name { font-size: 14px; font-weight: 600; color: #fff; line-height: 1.2; }
+        .author-role { font-size: 11px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px; }
+
+        /* ===== FAQ ===== */
+        .faq { padding: 96px 24px; background: var(--bg-dark); border-top: 1px solid var(--border-darker); }
+        .faq-inner { max-width: 720px; margin: 0 auto; }
+        .faq-intro { text-align: center; margin-bottom: 48px; }
+        .faq-intro h2 { font-family: var(--font-serif); font-size: 32px; font-weight: 600; color: #fff; margin-bottom: 10px; }
+        .faq-intro p { font-size: 15px; color: var(--text-muted); }
+        .faq-list { display: flex; flex-direction: column; gap: 0; }
+        .faq-item { border-bottom: 1px solid var(--border-dark); }
+        .faq-item:first-child { border-top: 1px solid var(--border-dark); }
+        .faq-item summary { padding: 22px 8px; font-family: var(--font-serif); font-size: 18px; font-weight: 500; color: #fff; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 16px; list-style: none; }
+        .faq-item summary::-webkit-details-marker { display: none; }
+        .faq-item summary::after { content: '+'; font-size: 22px; color: var(--cyan); font-weight: 300; transition: transform 0.2s; flex-shrink: 0; line-height: 1; }
+        .faq-item[open] summary::after { transform: rotate(45deg); }
+        .faq-item p { padding: 0 8px 22px; font-size: 15px; line-height: 1.7; color: var(--text-muted); max-width: 600px; }
+
+        /* ===== FOOTER ===== */
+        .site-footer { background: var(--nav-bg); padding: 50px 0 40px; color: #ccc; }
+        .footer-inner { max-width: var(--max-width); margin: 0 auto; padding: 0 24px; }
+        .footer-grid { display: grid; grid-template-columns: 1.5fr 0.8fr 1.2fr; gap: 40px; }
+        .footer-logo { display: flex; align-items: center; gap: 10px; margin-bottom: 18px; }
+        .footer-logo img { width: 60px; border-radius: 4px; }
+        .footer-logo-text { font-family: var(--font-heading); font-size: 18px; font-weight: 700; color: #fff; }
+        .footer-about p { font-size: 13px; line-height: 1.7; color: #999; margin-bottom: 20px; }
+        .social-icons { display: flex; gap: 14px; }
+        .social-icons a { color: #888; font-size: 16px; transition: color 0.2s; }
+        .social-icons a:hover { color: var(--cyan); }
+        .footer-menu h4, .footer-newsletter h4 { color: #fff; font-family: var(--font-heading); font-size: 16px; margin-bottom: 18px; }
+        .footer-menu ul li { margin-bottom: 10px; }
+        .footer-menu ul li a { color: #999; font-size: 14px; transition: color 0.2s; }
+        .footer-menu ul li a:hover { color: var(--cyan); }
+        .newsletter-form { display: flex; max-width: 300px; }
+        .newsletter-form input { flex: 1; padding: 10px 14px; border: 1px solid #444; background: #2a2d33; color: #fff; font-size: 14px; border-radius: 4px 0 0 4px; outline: none; font-family: inherit; }
+        .newsletter-form button { padding: 10px 20px; background: var(--cyan); color: #fff; font-size: 14px; font-weight: 600; border-radius: 0 4px 4px 0; font-family: inherit; }
+        .footer-bottom-bar { background: #121418; color: #777; text-align: center; padding: 14px 20px; font-size: 11.5px; }
+
+        /* ===== LOGIN MODAL ===== */
+        .login-overlay { position: fixed; inset: 0; z-index: 99999; background: rgba(0,0,0,0.7); backdrop-filter: blur(4px); display: none; align-items: center; justify-content: center; padding: 16px; }
+        .login-overlay.active { display: flex; }
+        .login-modal { background: #fff; border-radius: 12px; max-width: 440px; width: 100%; padding: 36px; position: relative; color: #222; font-family: var(--font-body); }
+        .login-close { position: absolute; top: 14px; right: 16px; background: #f0f0f0; width: 32px; height: 32px; border-radius: 6px; font-size: 18px; color: #333; display: flex; align-items: center; justify-content: center; }
+        .login-modal h2 { font-family: var(--font-serif); font-size: 22px; font-weight: 600; text-align: center; margin-bottom: 24px; color: #1a1a1a; }
+        .google-btn { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; padding: 12px 20px; background: #fff; border: 1px solid #ddd; border-radius: 8px; font-size: 14px; font-weight: 600; color: #444; margin-bottom: 20px; }
+        .google-btn:hover { background: #fafafa; }
+        .divider { display: flex; align-items: center; gap: 14px; margin: 20px 0; }
+        .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: #eee; }
+        .divider span { font-size: 12px; color: #bbb; font-weight: 600; letter-spacing: 0.5px; }
+        .login-modal h3 { font-family: var(--font-serif); font-size: 15px; font-weight: 600; text-align: center; margin-bottom: 14px; color: #1a1a1a; }
+        .login-modal label { display: block; font-size: 12px; font-weight: 700; color: #555; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.4px; }
+        .login-modal input { width: 100%; padding: 12px 14px; border: 1.5px solid #e0e0e0; border-radius: 8px; font-size: 14px; outline: none; font-family: inherit; margin-bottom: 14px; }
+        .login-modal input:focus { border-color: var(--cyan); }
+        .magic-link-btn { width: 100%; padding: 13px; background: var(--cyan); color: #fff; border-radius: 8px; font-size: 15px; font-weight: 700; }
+        .magic-link-btn:hover { background: var(--cyan-light); }
+        .login-helper { font-size: 12px; color: #999; text-align: center; margin-top: 12px; line-height: 1.5; }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 992px) {
+            .nav-menu { display: none; }
+            .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+            .benefits-grid { grid-template-columns: 1fr; gap: 40px; }
+            .hero { padding: 80px 24px 72px; }
+            .hero h1 { font-size: 42px; }
+            .compare-bar-inner { grid-template-columns: 1fr; gap: 16px; text-align: center; }
+            .compare-side, .compare-side.good { justify-content: center; flex-direction: row; text-align: center; }
+            .compare-vs { margin: 4px 0; }
+        }
+        @media (max-width: 640px) {
+            .hero h1 { font-size: 34px; }
+            .hero-sub { font-size: 16px; }
+            .benefits-intro h2, .pricing-intro h2, .faq-intro h2, .context h2, .authors h2 { font-size: 26px; }
+            .price-card { padding: 28px 20px; }
+            .price-amount .value { font-size: 52px; }
+            .benefits, .pricing, .faq, .context, .authors { padding: 72px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Nav -->
+    <nav class="main-nav">
+        <div class="nav-inner">
+            <div class="nav-left">
+                <a href="#" class="logo"><img src="https://nagarmohnish.github.io/LH2_Assets_UI/shark-tank-blog/assets/images/shark_logo.jpeg" alt="The Shark Tank Blog"></a>
+                <ul class="nav-menu">
+                    <li><a href="index-support.html">Home</a></li>
+                    <li><a href="#">Shark Tank Episodes</a></li>
+                    <li><a href="#">Shark Tank Products</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Shark Tank Startup List</a></li>
+                </ul>
+            </div>
+            <div class="nav-right">
+                <a href="#" class="btn-contact" onclick="event.preventDefault();openLogin()">Go Ad-Free</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+        <img src="https://images.unsplash.com/photo-1455390582262-044cdead277a?w=1920&q=80&auto=format&fit=crop" alt="" class="hero-bg" loading="eager">
+        <div class="hero-overlay"></div>
+        <div class="hero-inner">
+            <span class="hero-eyebrow">Human-Written · Independent · Unfiltered</span>
+            <h1>Real writers. Real research.<br><span class="accent">Every single story.</span></h1>
+            <p class="hero-sub">Every Shark Tank recap, deal update, and product breakdown here is researched and written by a real person — not generated by AI. If you value that, consider going ad-free for just $1/month. It helps us keep writing.</p>
+            <button class="hero-cta" onclick="openLogin()">Go Ad-Free — $1/month</button>
+            <p class="hero-meta">Cancel anytime <span class="sep">·</span> No hidden fees</p>
+        </div>
+    </section>
+
+    <!-- COMPARISON BAR -->
+    <section class="compare-bar">
+        <div class="compare-bar-inner">
+            <div class="compare-side bad">
+                <div class="compare-side-icon"><i class="fas fa-robot"></i></div>
+                <div>
+                    <div class="label">AI-generated content</div>
+                    <div class="text">Recycled press releases. Generic summaries. No context.</div>
+                </div>
+            </div>
+            <div class="compare-vs">vs</div>
+            <div class="compare-side good">
+                <div class="compare-side-icon"><i class="fas fa-pen-nib"></i></div>
+                <div>
+                    <div class="label">Shark Tank Blog</div>
+                    <div class="text">Human writers. Real research. Original reporting.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BENEFITS -->
+    <section class="benefits">
+        <div class="benefits-inner">
+            <div class="benefits-intro">
+                <h2>Written by <span class="accent">people who actually watch the show.</span></h2>
+                <p>The internet is drowning in AI-generated recaps and SEO filler. This blog isn't. Here's what makes our coverage different.</p>
+            </div>
+            <div class="benefits-grid">
+                <div class="benefit">
+                    <div class="benefit-icon"><i class="fas fa-pen-nib"></i></div>
+                    <h3>Written by Real People</h3>
+                    <p>Every article is researched, drafted, and edited by a human writer who watches every episode, tracks every deal, and verifies every detail before it hits the page.</p>
+                </div>
+                <div class="benefit">
+                    <div class="benefit-icon"><i class="fas fa-search"></i></div>
+                    <h3>Dedicated Shark Tank Research</h3>
+                    <p>We don't recycle press releases or paraphrase AI summaries. We follow up on deal closures, track founders years later, and add context that only comes from covering this show for years.</p>
+                </div>
+                <div class="benefit">
+                    <div class="benefit-icon"><i class="fas fa-shield-alt"></i></div>
+                    <h3>Independent, Not Automated</h3>
+                    <p>No content farms. No AI pipelines. No auto-generated recaps posted before the episode even airs. Just editors who care about getting the story right.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTEXT QUOTE -->
+    <section class="context">
+        <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=1920&q=80&auto=format&fit=crop" alt="" class="context-bg" loading="lazy">
+        <div class="context-overlay"></div>
+        <div class="context-inner">
+            <div class="context-quote-mark">&ldquo;</div>
+            <h2>Written by humans, <span class="accent">for readers who notice the difference.</span></h2>
+            <p>The web is drowning in AI-generated content. Shark Tank Blog isn't. Every story here is written by someone who actually watches the pitches, tracks the founders, and cares enough to get the details right. Your subscription helps us keep it that way.</p>
+            <div class="context-attribution">— The Editorial Team</div>
+        </div>
+    </section>
+
+    <!-- AUTHORS STRIP -->
+    <section class="authors">
+        <div class="authors-inner">
+            <h2>The people <span class="accent">behind the blog.</span></h2>
+            <p class="authors-sub">Every article carries a byline. Every byline is a real person who actually did the work.</p>
+            <div class="authors-grid">
+                <div class="author-chip">
+                    <div class="author-avatar">RM</div>
+                    <div class="author-info">
+                        <div class="author-name">Rob Merlino</div>
+                        <div class="author-role">Founding Editor</div>
+                    </div>
+                </div>
+                <div class="author-chip">
+                    <div class="author-avatar">HP</div>
+                    <div class="author-info">
+                        <div class="author-name">Hiedi Pratap</div>
+                        <div class="author-role">Senior Writer</div>
+                    </div>
+                </div>
+                <div class="author-chip">
+                    <div class="author-avatar">UG</div>
+                    <div class="author-info">
+                        <div class="author-name">Upneet Grover</div>
+                        <div class="author-role">Contributing Writer</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRICING -->
+    <section class="pricing">
+        <div class="pricing-inner">
+            <div class="pricing-intro">
+                <h2>Support the people doing the work.</h2>
+                <p>Same plan, two billing options. Cancel anytime.</p>
+            </div>
+            <div class="price-card">
+                <h3>Ad-Free Access</h3>
+
+                <div class="billing-toggle" role="tablist">
+                    <button class="active" data-plan="monthly" onclick="setPlan('monthly')">Monthly</button>
+                    <button data-plan="yearly" onclick="setPlan('yearly')">Yearly <span class="save">· save 17%</span></button>
+                </div>
+
+                <div class="price-amount">
+                    <span class="currency">$</span>
+                    <span class="value" id="priceValue">1</span>
+                    <span class="period" id="pricePeriod">/ month</span>
+                </div>
+                <p class="price-alt" id="priceAlt">or $10/year (save 17%)</p>
+
+                <div class="price-benefits">
+                    <div class="price-benefit"><i class="fas fa-check"></i><span>Human-written coverage of every episode</span></div>
+                    <div class="price-benefit"><i class="fas fa-check"></i><span>No ads, banners, popups, or video rolls</span></div>
+                    <div class="price-benefit"><i class="fas fa-check"></i><span>Faster, lighter pages on any device</span></div>
+                    <div class="price-benefit"><i class="fas fa-check"></i><span>Keeps real writers covering the show</span></div>
+                </div>
+
+                <button class="price-cta" onclick="openLogin()">Go Ad-Free</button>
+
+                <div class="trust">
+                    <div class="trust-row" aria-label="Accepted payment methods">
+                        <svg viewBox="0 0 48 16"><text x="0" y="13" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="currentColor">VISA</text></svg>
+                        <svg viewBox="0 0 34 20"><circle cx="12" cy="10" r="8" fill="currentColor" opacity="0.6"/><circle cx="22" cy="10" r="8" fill="currentColor" opacity="0.4"/></svg>
+                        <svg viewBox="0 0 42 16"><text x="0" y="13" font-family="Arial, sans-serif" font-size="11" font-weight="700" fill="currentColor">AMEX</text></svg>
+                        <svg viewBox="0 0 46 16"><text x="0" y="13" font-family="-apple-system, Arial" font-size="11" font-weight="600" fill="currentColor">&#63743; Pay</text></svg>
+                        <svg viewBox="0 0 56 16"><text x="0" y="13" font-family="Arial, sans-serif" font-size="11" font-weight="600" fill="currentColor">G Pay</text></svg>
+                    </div>
+                    <p class="trust-note"><i class="fas fa-lock"></i> Secured by Stripe &middot; Cancel anytime</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq">
+        <div class="faq-inner">
+            <div class="faq-intro">
+                <h2>Questions, answered.</h2>
+                <p>Everything you might want to know before subscribing.</p>
+            </div>
+            <div class="faq-list">
+                <details class="faq-item">
+                    <summary>How do I know the articles are actually human-written?</summary>
+                    <p>You can read them. Real writers bring voice, context, and judgment that AI can't fake. Every article is credited to a named author who's accountable for the work. If something's wrong, there's a person you can email.</p>
+                </details>
+                <details class="faq-item">
+                    <summary>Do you use AI tools at all?</summary>
+                    <p>We use the same tools any writer uses — spell checkers, grammar helpers, search engines. But research, reporting, analysis, and writing is done by people. We don't use AI to generate articles or draft recaps.</p>
+                </details>
+                <details class="faq-item">
+                    <summary>Why pay when other Shark Tank sites are free?</summary>
+                    <p>Most "free" Shark Tank sites are increasingly AI-generated — the same few press releases rewritten a dozen ways. Your subscription helps us stay human-written and independent. It's optional, but it's what keeps real writers on this beat.</p>
+                </details>
+                <details class="faq-item">
+                    <summary>What happens if I cancel?</summary>
+                    <p>You keep access until the end of your billing period, then ads come back. No questions asked, no retention calls, no guilt trips.</p>
+                </details>
+                <details class="faq-item">
+                    <summary>How is my payment handled?</summary>
+                    <p>Securely through Stripe — the same payment processor used by Shopify, Lyft, and thousands of other businesses. We never see or store your card details.</p>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="footer-grid">
+                <div class="footer-about">
+                    <div class="footer-logo">
+                        <img src="https://nagarmohnish.github.io/LH2_Assets_UI/shark-tank-blog/assets/images/shark_logo.jpeg" alt="The Shark Tank Blog">
+                        <span class="footer-logo-text">The Shark Tank Blog</span>
+                    </div>
+                    <p>Shark Tank Blog is independent, human-written, and not affiliated with ABC, Sony, or the show's producers. Every article is written by a named author — not by AI.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-pinterest-p"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-x-twitter"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-menu">
+                    <h4>Menu</h4>
+                    <ul>
+                        <li><a href="index-support.html">Home</a></li>
+                        <li><a href="#">Shark Tank Episodes</a></li>
+                        <li><a href="#">Shark Tank Products</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="go-ads-free-support.html">Go Ad-Free</a></li>
+                    </ul>
+                </div>
+                <div class="footer-newsletter">
+                    <h4>Subscribe to our Newsletter</h4>
+                    <div class="newsletter-form">
+                        <input type="email" placeholder="Enter your email">
+                        <button>Subscribe</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <div class="footer-bottom-bar"><p><a href="#">Terms of Content Use</a></p></div>
+
+    <!-- LOGIN MODAL -->
+    <div class="login-overlay" id="loginOverlay" onclick="if(event.target===this)closeLogin()">
+        <div class="login-modal">
+            <button class="login-close" onclick="closeLogin()" aria-label="Close">&times;</button>
+            <h2>Sign In to Shark Tank Blog</h2>
+            <button class="google-btn" onclick="handleLogin('Google User')">
+                <svg width="18" height="18" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 12.955 4 4 12.955 4 24s8.955 20 20 20 20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z"/><path fill="#FF3D00" d="M6.306 14.691l6.571 4.819C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 16.318 4 9.656 8.337 6.306 14.691z"/><path fill="#4CAF50" d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238A11.91 11.91 0 0124 36c-5.202 0-9.619-3.317-11.283-7.946l-6.522 5.025C9.505 39.556 16.227 44 24 44z"/><path fill="#1976D2" d="M43.611 20.083H42V20H24v8h11.303a12.04 12.04 0 01-4.087 5.571l.003-.002 6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z"/></svg>
+                Continue with Google
+            </button>
+            <div class="divider"><span>OR</span></div>
+            <h3>Sign in with Magic Link</h3>
+            <form onsubmit="event.preventDefault();handleMagicLink();">
+                <label for="loginEmail">Email Address</label>
+                <input type="email" id="loginEmail" placeholder="you@example.com" required>
+                <button type="submit" class="magic-link-btn">Send Magic Link</button>
+                <p class="login-helper">We'll send a secure login link to your email. No password needed.</p>
+            </form>
+        </div>
+    </div>
+
+    <script>
+    function setPlan(plan) {
+        var buttons = document.querySelectorAll('.billing-toggle button');
+        buttons.forEach(function(b) { b.classList.toggle('active', b.dataset.plan === plan); });
+        var value = document.getElementById('priceValue');
+        var period = document.getElementById('pricePeriod');
+        var alt = document.getElementById('priceAlt');
+        if (plan === 'yearly') {
+            value.textContent = '10';
+            period.textContent = '/ year';
+            alt.textContent = 'Billed annually. Works out to $0.83/month.';
+        } else {
+            value.textContent = '1';
+            period.textContent = '/ month';
+            alt.textContent = 'or $10/year (save 17%)';
+        }
+    }
+    function openLogin() {
+        if (localStorage.getItem('stb_user')) { alert('Redirecting to Stripe checkout...'); return; }
+        document.getElementById('loginOverlay').classList.add('active');
+    }
+    function closeLogin() { document.getElementById('loginOverlay').classList.remove('active'); }
+    function handleLogin(name) {
+        localStorage.setItem('stb_user', JSON.stringify({ name: name, ts: Date.now() }));
+        closeLogin();
+        setTimeout(function() { alert('Logged in as ' + name + '. Redirecting to Stripe checkout...'); }, 200);
+    }
+    function handleMagicLink() {
+        var email = document.getElementById('loginEmail').value;
+        if (email) handleLogin(email.split('@')[0]);
+    }
+    document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeLogin(); });
+    </script>
+</body>
+</html>

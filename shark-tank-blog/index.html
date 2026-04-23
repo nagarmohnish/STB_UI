@@ -326,12 +326,12 @@
     <!-- Top Promo Strip -->
     <div class="promo-strip" id="promoStrip">
         <div class="promo-strip-inner">
-            <span class="promo-emoji">🦈</span>
+            <span class="promo-emoji">✍️</span>
             <span class="promo-text">
-                <strong>Tired of ads circling your screen?</strong>
-                <span class="promo-sub">Swim past them for just $2/month.</span>
+                <strong>Written by real people, not AI.</strong>
+                <span class="promo-sub">Support human-written Shark Tank coverage for $1/month.</span>
             </span>
-            <a href="go-ads-free.html" class="promo-cta">Go Ad-Free <i class="fas fa-arrow-right"></i></a>
+            <a href="go-ads-free-human.html" class="promo-cta">See how &rarr;</a>
             <button class="promo-close" onclick="document.getElementById('promoStrip').style.display='none'" aria-label="Close">&times;</button>
         </div>
     </div>
@@ -339,8 +339,8 @@
         .promo-strip { background: linear-gradient(90deg, #0a1628 0%, #132d4f 50%, #0a1628 100%); border-bottom: 1px solid rgba(17,127,176,0.3); position: relative; overflow: hidden; }
         .promo-strip::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at center, rgba(17,127,176,0.15), transparent 70%); pointer-events: none; }
         .promo-strip-inner { max-width: var(--max-width); margin: 0 auto; padding: 10px 48px 10px 20px; display: flex; align-items: center; justify-content: center; gap: 16px; position: relative; z-index: 1; }
-        .promo-emoji { font-size: 18px; animation: promoWiggle 3s ease-in-out infinite; display: inline-block; }
-        @keyframes promoWiggle { 0%,100% { transform: rotate(0deg); } 25% { transform: rotate(-8deg); } 75% { transform: rotate(8deg); } }
+        .promo-emoji { font-size: 18px; animation: promoTilt 4s ease-in-out infinite; display: inline-block; transform-origin: bottom left; }
+        @keyframes promoTilt { 0%,100% { transform: rotate(0deg); } 50% { transform: rotate(-6deg); } }
         .promo-text { color: #fff; font-size: 13.5px; font-family: var(--font-body); display: flex; align-items: baseline; gap: 6px; flex-wrap: wrap; justify-content: center; }
         .promo-text strong { font-weight: 700; letter-spacing: 0.2px; }
         .promo-sub { color: rgba(255,255,255,0.55); font-size: 12.5px; font-style: italic; }
