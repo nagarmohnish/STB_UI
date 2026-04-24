@@ -71,27 +71,33 @@ button{font-family:inherit;cursor:pointer;border:none}
 .article-body h2{font-family:var(--font-heading);font-size:28px;font-weight:700;color:var(--text);margin:40px 0 18px}
 .article-body a{color:var(--cyan);border-bottom:1px solid rgba(17,127,176,0.3)}
 
-.inline-ad{margin:32px 0;padding:24px;background:#f8f9fa;border:1px solid #e5e7eb;border-radius:8px;text-align:center}
+.inline-ad{margin:32px 0;padding:14px;background:#f8f9fa;border:1px solid #e5e7eb;border-radius:8px;text-align:center;position:relative}
 .inline-ad-label{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:#bbb;font-weight:700;margin-bottom:6px;font-family:var(--font-body)}
 .inline-ad-box{padding:40px 20px;background:linear-gradient(135deg,#e5e7eb,#d1d5db);border-radius:4px;font-size:13px;color:#9ca3af;font-weight:600}
+.inline-ad-adfree{margin-top:10px;display:flex;align-items:center;justify-content:center;gap:10px;padding:8px 14px;background:rgba(17,127,176,0.06);border:1px dashed rgba(17,127,176,0.3);border-radius:6px;font-size:12.5px;color:var(--text-sec)}
+.inline-ad-adfree strong{color:var(--text);font-weight:600}
+.inline-ad-adfree a{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;background:var(--cyan);color:#fff;border-radius:5px;font-size:12px;font-weight:700;transition:background 0.15s}
+.inline-ad-adfree a:hover{background:var(--cyan-light)}
 
-/* Inline Support CTA */
-.inline-support{margin:40px 0;padding:28px 32px;background:linear-gradient(135deg,#0e1116,#131720);border:1px solid rgba(17,127,176,0.2);border-radius:12px;color:#fff;display:flex;align-items:center;gap:24px;position:relative;overflow:hidden}
-.inline-support::before{content:'';position:absolute;top:-50%;right:-10%;width:280px;height:280px;background:radial-gradient(circle,rgba(17,127,176,0.15),transparent 70%);pointer-events:none}
-.inline-support-copy{position:relative;flex:1}
-.inline-support-copy h3{font-family:var(--font-serif);font-size:22px;font-weight:600;color:#fff;margin-bottom:6px}
-.inline-support-copy h3 .accent{color:var(--cyan);font-style:italic;font-weight:500}
-.inline-support-copy p{font-size:14px;color:rgba(255,255,255,0.6);line-height:1.55;margin:0}
-.inline-support-cta{position:relative;display:inline-flex;align-items:center;gap:8px;padding:12px 22px;background:var(--cyan);color:#fff;font-size:14px;font-weight:700;border-radius:8px;white-space:nowrap;transition:all 0.15s;flex-shrink:0}
-.inline-support-cta:hover{background:var(--cyan-light);color:#fff;transform:translateY(-1px)}
-
-.end-support{margin-top:56px;padding:40px 32px;background:#f8f9fa;border-radius:12px;text-align:center}
-.end-support-icon{width:56px;height:56px;border-radius:14px;background:rgba(17,127,176,0.1);color:var(--cyan);display:inline-flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:16px}
-.end-support h3{font-family:var(--font-serif);font-size:24px;font-weight:600;color:var(--text);margin-bottom:10px}
-.end-support p{font-size:15px;color:var(--text-sec);line-height:1.6;max-width:480px;margin:0 auto 24px}
-.end-support-cta{display:inline-flex;align-items:center;gap:8px;padding:13px 28px;background:var(--cyan);color:#fff;font-size:14px;font-weight:700;border-radius:8px;transition:all 0.15s;box-shadow:0 4px 16px rgba(17,127,176,0.25)}
-.end-support-cta:hover{background:var(--cyan-light);color:#fff;transform:translateY(-1px)}
-.end-support-note{font-size:12px;color:var(--text-light);margin-top:12px}
+/* Exit-intent modal */
+.exit-overlay{position:fixed;inset:0;background:rgba(6,8,12,0.75);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;z-index:99999;padding:20px;animation:fadeIn 0.25s ease-out}
+.exit-overlay.active{display:flex}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.exit-modal{background:#0e1116;color:#fff;border:1px solid rgba(17,127,176,0.25);border-radius:14px;max-width:460px;width:100%;padding:32px 28px 28px;text-align:center;position:relative;animation:slideUp 0.3s cubic-bezier(0.34,1.56,0.64,1)}
+@keyframes slideUp{from{opacity:0;transform:translateY(20px) scale(0.97)}to{opacity:1;transform:translateY(0) scale(1)}}
+.exit-close{position:absolute;top:12px;right:12px;background:none;border:none;color:rgba(255,255,255,0.4);cursor:pointer;width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:all 0.15s}
+.exit-close:hover{color:#fff;background:rgba(255,255,255,0.06)}
+.exit-kick{display:inline-block;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--cyan);margin-bottom:12px}
+.exit-modal h3{font-family:var(--font-serif);font-size:26px;font-weight:600;color:#fff;margin-bottom:10px;line-height:1.25;letter-spacing:-0.3px}
+.exit-modal h3 .accent{color:var(--cyan);font-style:italic;font-weight:500}
+.exit-modal p{font-size:14px;color:rgba(255,255,255,0.65);line-height:1.6;margin-bottom:22px;max-width:360px;margin-left:auto;margin-right:auto}
+.exit-pillars{display:flex;gap:8px;margin-bottom:22px;justify-content:center;flex-wrap:wrap}
+.exit-pillar{display:inline-flex;align-items:center;gap:6px;padding:6px 11px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:20px;font-size:11.5px;color:rgba(255,255,255,0.75);font-weight:500}
+.exit-pillar i{color:var(--cyan);font-size:10px}
+.exit-cta{display:inline-flex;align-items:center;gap:10px;padding:13px 28px;background:var(--cyan);color:#fff;border-radius:8px;font-size:14.5px;font-weight:700;margin-bottom:12px;transition:all 0.15s;box-shadow:0 6px 20px rgba(17,127,176,0.3)}
+.exit-cta:hover{background:var(--cyan-light);transform:translateY(-1px)}
+.exit-dismiss{display:block;background:none;border:none;color:rgba(255,255,255,0.4);font-size:12.5px;font-family:inherit;cursor:pointer;padding:6px;margin:0 auto;transition:color 0.15s}
+.exit-dismiss:hover{color:rgba(255,255,255,0.7)}
 
 .site-footer{background:var(--nav-bg);padding:50px 0 40px;color:#ccc;margin-top:60px}
 .footer-grid{display:grid;grid-template-columns:1.5fr 0.8fr 1.2fr;gap:40px;max-width:var(--max);margin:0 auto;padding:0 20px}
@@ -218,10 +224,14 @@ button{font-family:inherit;cursor:pointer;border:none}
 
     <p>Season 16 Episode 15 aired on April 11, 2025, and featured a lineup that spanned food tech, sustainable apparel, smart home accessories, and a wellness product that caught the attention of every Shark on the panel.</p>
 
-    <!-- Ad placeholder -->
+    <!-- Ad placeholder w/ Go Ad-Free button -->
     <div class="inline-ad">
       <div class="inline-ad-label">Advertisement</div>
       <div class="inline-ad-box">728 × 90 Banner Ad</div>
+      <div class="inline-ad-adfree">
+        <span>Tired of ads? <strong>Go ad-free for $1/month.</strong></span>
+        <a href="payment.html">Go Ad-Free <i class="fas fa-arrow-right"></i></a>
+      </div>
     </div>
 
     <h2>The First Pitch: A Food Tech Play</h2>
@@ -229,39 +239,75 @@ button{font-family:inherit;cursor:pointer;border:none}
 
     <p>Mark Cuban passed early. Daymond John followed. But Barbara Corcoran saw something the others missed and made an offer that shifted the room.</p>
 
-    <!-- Inline Supporter CTA -->
-    <div class="inline-support">
-      <div class="inline-support-copy">
-        <h3>Enjoying this story? <span class="accent">Become a monthly supporter.</span></h3>
-        <p>For just $1 a month, you get ad-free reading, our exclusive subscriber newsletter, and you keep independent Shark Tank coverage alive. Cancel anytime.</p>
-      </div>
-      <a href="payment.html" class="inline-support-cta">Subscribe · $1/mo <i class="fas fa-arrow-right"></i></a>
-    </div>
-
     <h2>Round Two: Sustainable Apparel</h2>
     <p>The second entrepreneur's pitch centered on a closed-loop textile process with real traction — $1.2M in sales over 18 months, mostly direct-to-consumer. The Sharks leaned in. Daymond, who has more experience in apparel than anyone on the panel, took the lead on questions.</p>
 
-    <!-- Ad placeholder -->
+    <!-- Ad placeholder w/ Go Ad-Free button -->
     <div class="inline-ad">
       <div class="inline-ad-label">Advertisement</div>
       <div class="inline-ad-box">300 × 250 Rectangle Ad</div>
+      <div class="inline-ad-adfree">
+        <span>Tired of ads? <strong>Go ad-free for $1/month.</strong></span>
+        <a href="payment.html">Go Ad-Free <i class="fas fa-arrow-right"></i></a>
+      </div>
     </div>
 
     <h2>The Wellness Product That Surprised Everyone</h2>
     <p>By far the most unexpected moment of the episode came during the third pitch. A husband-and-wife team presented a wellness product that, on paper, sounded niche — but the demo landed in a way that clearly moved the Sharks. Within three minutes, three Sharks were actively bidding.</p>
 
     <p>For more episode recaps, subscribe to our newsletter or browse the <a href="#">Season 16 archive</a>.</p>
-
-    <!-- END OF ARTICLE SUPPORTER CTA -->
-    <div class="end-support">
-      <div class="end-support-icon"><i class="fas fa-heart"></i></div>
-      <h3>Enjoyed the recap?</h3>
-      <p>Become a monthly supporter for just $1/month. You'll get ad-free reading across every page, our exclusive subscriber-only newsletter, and you'll help keep independent Shark Tank coverage alive.</p>
-      <a href="payment.html" class="end-support-cta">Subscribe · $1/month <i class="fas fa-arrow-right"></i></a>
-      <p class="end-support-note">$1 a month. Cancel anytime.</p>
-    </div>
   </article>
 </div>
+
+<!-- Exit-intent popup -->
+<div class="exit-overlay" id="exitOverlay" onclick="if(event.target===this)closeExit()">
+  <div class="exit-modal">
+    <button class="exit-close" onclick="closeExit()" aria-label="Close">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M6 18L18 6"/></svg>
+    </button>
+    <div class="exit-kick">Wait &middot; Before you go</div>
+    <h3>Read Shark Tank Blog <span class="accent">ad-free</span> for $1/month.</h3>
+    <p>Support independent coverage, skip every ad, and get our exclusive subscriber newsletter. Cancel anytime.</p>
+    <div class="exit-pillars">
+      <span class="exit-pillar"><i class="fas fa-eye-slash"></i> Ad-free</span>
+      <span class="exit-pillar"><i class="fas fa-envelope-open-text"></i> Newsletter</span>
+      <span class="exit-pillar"><i class="fas fa-heart"></i> Support</span>
+    </div>
+    <a href="payment.html" class="exit-cta">Subscribe · $1/month <i class="fas fa-arrow-right"></i></a>
+    <button class="exit-dismiss" onclick="closeExit()">No thanks, keep showing ads</button>
+  </div>
+</div>
+
+<script>
+(function(){
+  var shown = false;
+  var dismissed = sessionStorage.getItem('stb_exit_dismissed') === '1';
+  function showExit(){
+    if(shown || dismissed) return;
+    if(new URLSearchParams(location.search).get('loggedIn') === '1') return;
+    shown = true;
+    document.getElementById('exitOverlay').classList.add('active');
+  }
+  window.closeExit = function(){
+    document.getElementById('exitOverlay').classList.remove('active');
+    sessionStorage.setItem('stb_exit_dismissed','1');
+  };
+  // Desktop: trigger on mouseleave toward top
+  document.addEventListener('mouseleave', function(e){
+    if(e.clientY <= 0) showExit();
+  });
+  // Mobile: trigger on fast upward scroll after reading for >8s
+  var startedAt = Date.now(), lastY = window.scrollY, lastT = Date.now();
+  window.addEventListener('scroll', function(){
+    var now = Date.now(), y = window.scrollY;
+    var dy = lastY - y, dt = now - lastT;
+    if(now - startedAt > 8000 && dy > 60 && dt < 200 && y > 200) showExit();
+    lastY = y; lastT = now;
+  }, {passive:true});
+  // Esc to close
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeExit(); });
+})();
+</script>
 
 <!-- FOOTER -->
 <footer class="site-footer">
