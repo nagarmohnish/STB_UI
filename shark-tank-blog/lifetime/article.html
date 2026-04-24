@@ -31,24 +31,28 @@ button{font-family:inherit;cursor:pointer;border:none}
 .btn-contact{background:var(--cyan);color:#fff !important;padding:8px 20px;border-radius:4px;font-size:13px;font-weight:600;transition:background 0.2s}
 .btn-contact:hover{background:var(--cyan-light)}
 
-/* PROMO STRIP — three-card sticky banner */
-.promo-strip{background:#fff;border-bottom:1px solid #e2e8f0;box-shadow:0 2px 14px rgba(0,0,0,0.05);position:sticky;top:60px;z-index:1000}
-.promo-strip-inner{max-width:var(--max);margin:0 auto;padding:12px 52px 12px 24px;display:flex;align-items:center;gap:16px;position:relative}
-.promo-lead{flex:0 0 auto;padding-right:16px;border-right:1px solid #e2e8f0}
+/* PROMO STRIP — three-card sticky banner (dark) */
+.promo-strip{background:#0a0d12;border-top:1px solid rgba(255,255,255,0.06);border-bottom:1px solid rgba(255,255,255,0.08);box-shadow:0 2px 14px rgba(0,0,0,0.25);position:sticky;top:60px;z-index:1000}
+.promo-strip-inner{max-width:var(--max);margin:0 auto;padding:10px 52px 12px 24px;position:relative}
+.promo-tagline{text-align:center;font-family:var(--font-serif);font-size:12.5px;color:rgba(255,255,255,0.65);line-height:1;margin-bottom:10px;letter-spacing:0.1px;padding-top:2px}
+.promo-tagline .accent{color:var(--cyan);font-style:italic;font-weight:500}
+.promo-tagline .dot{color:rgba(255,255,255,0.2);margin:0 8px}
+.promo-row{display:flex;align-items:center;gap:16px}
+.promo-lead{flex:0 0 auto;padding-right:16px;border-right:1px solid rgba(255,255,255,0.1)}
 .promo-lead-kick{font-size:9.5px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--cyan);margin-bottom:2px;line-height:1}
-.promo-lead-big{font-family:var(--font-serif);font-size:22px;font-weight:600;color:#1e293b;line-height:1;letter-spacing:-0.5px}
-.promo-lead-big small{font-size:12px;color:#64748b;font-weight:500;margin-left:4px;letter-spacing:0}
+.promo-lead-big{font-family:var(--font-serif);font-size:22px;font-weight:600;color:#fff;line-height:1;letter-spacing:-0.5px}
+.promo-lead-big small{font-size:12px;color:rgba(255,255,255,0.5);font-weight:500;margin-left:4px;letter-spacing:0}
 .promo-cards{flex:1;display:flex;gap:8px;min-width:0}
-.promo-card{flex:1;padding:8px 12px;border:1px solid #e2e8f0;border-radius:6px;display:flex;align-items:center;gap:10px;transition:all 0.15s;min-width:0}
-.promo-card:hover{border-color:var(--cyan);background:rgba(17,127,176,0.03)}
-.promo-card-icon{width:26px;height:26px;border-radius:6px;background:rgba(17,127,176,0.08);color:var(--cyan);display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0}
+.promo-card{flex:1;padding:8px 12px;border:1px solid rgba(255,255,255,0.1);border-radius:6px;display:flex;align-items:center;gap:10px;transition:all 0.15s;min-width:0;background:rgba(255,255,255,0.02)}
+.promo-card:hover{border-color:rgba(17,127,176,0.6);background:rgba(17,127,176,0.06)}
+.promo-card-icon{width:26px;height:26px;border-radius:6px;background:rgba(17,127,176,0.14);color:var(--cyan);display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0}
 .promo-card-text{display:flex;flex-direction:column;gap:1px;min-width:0}
-.promo-card-text strong{font-size:12px;font-weight:600;color:#1e293b;line-height:1.15}
-.promo-card-text span{font-size:10.5px;color:#64748b;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.promo-card-text strong{font-size:12px;font-weight:600;color:#fff;line-height:1.15}
+.promo-card-text span{font-size:10.5px;color:rgba(255,255,255,0.55);line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .promo-cta{padding:11px 22px;background:var(--cyan);color:#fff !important;border-radius:6px;font-size:13px;font-weight:700;flex-shrink:0;transition:background 0.15s}
 .promo-cta:hover{background:var(--cyan-light)}
-.promo-close{position:absolute;top:50%;right:16px;transform:translateY(-50%);background:none;border:none;color:#94a3b8;cursor:pointer;padding:6px;border-radius:4px;transition:all 0.15s;display:flex;align-items:center;justify-content:center}
-.promo-close:hover{color:#1e293b;background:#f1f5f9}
+.promo-close{position:absolute;top:14px;right:16px;background:none;border:none;color:rgba(255,255,255,0.35);cursor:pointer;padding:6px;border-radius:4px;transition:all 0.15s;display:flex;align-items:center;justify-content:center}
+.promo-close:hover{color:#fff;background:rgba(255,255,255,0.06)}
 
 /* ARTICLE */
 .article-wrap{max-width:860px;margin:0 auto;padding:0 20px}
@@ -135,28 +139,33 @@ button{font-family:inherit;cursor:pointer;border:none}
   </div>
 </nav>
 
-<!-- STICKY PROMO STRIP — Three-Card Grid -->
+<!-- STICKY PROMO STRIP — Three-Card Grid (Dark) -->
 <div class="promo-strip" id="promoStrip">
   <div class="promo-strip-inner">
-    <div class="promo-lead">
-      <div class="promo-lead-kick">Lifetime</div>
-      <div class="promo-lead-big">$10<small>once</small></div>
+    <div class="promo-tagline">
+      Become a <span class="accent">lifetime supporter</span> of The Shark Tank Blog <span class="dot">&middot;</span> Keep our coverage independent, writer-run, and ad-free.
     </div>
-    <div class="promo-cards">
-      <div class="promo-card">
-        <div class="promo-card-icon"><i class="fas fa-eye-slash"></i></div>
-        <div class="promo-card-text"><strong>Ad-free</strong><span>Every page, forever</span></div>
+    <div class="promo-row">
+      <div class="promo-lead">
+        <div class="promo-lead-kick">Lifetime</div>
+        <div class="promo-lead-big">$10<small>once</small></div>
       </div>
-      <div class="promo-card">
-        <div class="promo-card-icon"><i class="fas fa-envelope-open-text"></i></div>
-        <div class="promo-card-text"><strong>Newsletter</strong><span>Subscriber-only weekly</span></div>
+      <div class="promo-cards">
+        <div class="promo-card">
+          <div class="promo-card-icon"><i class="fas fa-eye-slash"></i></div>
+          <div class="promo-card-text"><strong>Ad-free</strong><span>Every page, forever</span></div>
+        </div>
+        <div class="promo-card">
+          <div class="promo-card-icon"><i class="fas fa-envelope-open-text"></i></div>
+          <div class="promo-card-text"><strong>Newsletter</strong><span>Subscriber-only weekly</span></div>
+        </div>
+        <div class="promo-card">
+          <div class="promo-card-icon"><i class="fas fa-heart"></i></div>
+          <div class="promo-card-text"><strong>Support</strong><span>Independent coverage</span></div>
+        </div>
       </div>
-      <div class="promo-card">
-        <div class="promo-card-icon"><i class="fas fa-heart"></i></div>
-        <div class="promo-card-text"><strong>Support</strong><span>Independent coverage</span></div>
-      </div>
+      <a href="payment.html" class="promo-cta">Subscribe</a>
     </div>
-    <a href="payment.html" class="promo-cta">Subscribe</a>
     <button class="promo-close" onclick="document.getElementById('promoStrip').style.display='none'" aria-label="Dismiss">
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M6 18L18 6"/></svg>
     </button>
