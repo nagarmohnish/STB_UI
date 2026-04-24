@@ -58,7 +58,7 @@ function initAuthUI() {
             });
         }
     } else {
-        // Not logged in: Go Ads-Free button already in HTML, no injection needed
+        // Not logged in: Go Ad-Free button already in HTML, no injection needed
     }
 }
 

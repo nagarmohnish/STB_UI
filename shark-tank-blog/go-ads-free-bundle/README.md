@@ -1,6 +1,6 @@
-# Go Ads-Free Landing Page Bundle
+# Go Ad-Free Landing Page Bundle
 
-A self-contained HTML/CSS/JS bundle for the Shark Tank Blog "Go Ads-Free" landing page.
+A self-contained HTML/CSS/JS bundle for the Shark Tank Blog "Go Ad-Free" landing page.
 
 ## Structure
 
@@ -29,7 +29,7 @@ go-ads-free-bundle/
 
 ### Landing page sections (in order)
 
-1. **Top Nav** — Logo + "Go Ads-Free" CTA
+1. **Top Nav** — Logo + "Go Ad-Free" CTA
 2. **Hero** — Full-screen stage image, headline, primary CTA, strikethrough pricing
 3. **Value Strip** — 3 icons (No ads, Faster pages, No interruptions)
 4. **Comparison** — Side-by-side article mockups (With Ads vs Ad-Free) + bullet comparison

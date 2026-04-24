@@ -228,7 +228,7 @@ function scanAds(){
 function injectBar(ad){
   var bar = document.createElement('div');
   bar.className = 'gaf-bar';
-  bar.innerHTML = '<span class="gaf-bar-cta">Go Ads-Free <svg viewBox="0 0 12 12"><path d="M4.5 2L8.5 6L4.5 10" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>';
+  bar.innerHTML = '<span class="gaf-bar-cta">Go Ad-Free <svg viewBox="0 0 12 12"><path d="M4.5 2L8.5 6L4.5 10" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>';
   bar.addEventListener('click', function(e){e.stopPropagation();openPopup()});
   ad.parentNode.insertBefore(bar, ad);
 }
