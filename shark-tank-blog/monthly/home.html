@@ -128,35 +128,40 @@ button{font-family:inherit;cursor:pointer;border:none}
   .promo-card{padding:7px 10px}
   .promo-close{top:12px;right:14px}
 }
-/* Mobile-only stack — hidden on desktop */
+/* Mobile-only row — hidden on desktop */
 .promo-mobile-single{display:none}
-/* MOBILE BANNER: vertical stack — price, kick, pills, CTA */
+/* MOBILE BANNER: horizontal row — price | pills | Subscribe */
 @media (max-width:720px){
-  .promo-strip-inner{padding:10px 34px 12px 14px}
+  .promo-strip-inner{padding:9px 32px 9px 12px}
   .promo-tagline{display:none}
   .promo-row{display:none}
-  .promo-mobile-single{display:flex;flex-direction:column;align-items:center;gap:6px}
-  .promo-mobile-price{display:flex;flex-direction:column;align-items:center;gap:1px}
-  .promo-mobile-price .big{font-family:var(--font-serif);font-size:24px;font-weight:700;color:#fff;line-height:1;letter-spacing:-0.3px}
-  .promo-mobile-price .big small{font-size:13px;color:rgba(255,255,255,0.55);margin-left:1px;font-weight:500}
-  .promo-mobile-price .kick{font-size:9.5px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--cyan);margin-top:2px}
-  .promo-mobile-msg{display:flex;align-items:center;justify-content:center;gap:6px;flex-wrap:wrap}
-  .mm-pill{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;background:rgba(17,127,176,0.12);border:1px solid rgba(17,127,176,0.22);color:rgba(255,255,255,0.82);border-radius:12px;font-size:10.5px;font-weight:500;line-height:1.2}
-  .mm-pill i{color:var(--cyan);font-size:9px}
-  .promo-mobile-cta{padding:10px 28px;background:var(--cyan);color:#fff !important;border-radius:6px;font-size:13.5px;font-weight:700;white-space:nowrap;text-decoration:none !important;display:inline-flex;align-items:center;gap:8px;transition:background 0.15s;margin-top:2px}
+  .promo-mobile-single{display:flex;align-items:center;gap:10px}
+  .promo-mobile-price{flex:0 0 auto}
+  .promo-mobile-price .big{font-family:var(--font-serif);font-size:20px;font-weight:700;color:#fff;line-height:1;letter-spacing:-0.3px}
+  .promo-mobile-price .big small{font-size:11px;color:rgba(255,255,255,0.55);margin-left:1px;font-weight:500}
+  .promo-mobile-price .kick{display:none}
+  .promo-mobile-msg{flex:1;min-width:0;display:flex;align-items:center;justify-content:center;gap:4px;flex-wrap:wrap}
+  .mm-pill{display:inline-flex;align-items:center;gap:3px;padding:3px 8px;background:rgba(17,127,176,0.12);border:1px solid rgba(17,127,176,0.22);color:rgba(255,255,255,0.85);border-radius:10px;font-size:10px;font-weight:500;line-height:1.2;white-space:nowrap}
+  .mm-pill i{color:var(--cyan);font-size:8px}
+  .promo-mobile-cta{flex:0 0 auto;padding:8px 14px;background:var(--cyan);color:#fff !important;border-radius:6px;font-size:12.5px;font-weight:700;white-space:nowrap;text-decoration:none !important;display:inline-flex;align-items:center;gap:5px;transition:background 0.15s}
   .promo-mobile-cta:hover{background:var(--cyan-light);color:#fff !important}
-  .promo-mobile-cta i{font-size:11px}
-  .promo-close{top:8px;right:10px;padding:3px}
+  .promo-mobile-cta i{font-size:9px}
+  .promo-close{top:50%;right:8px;transform:translateY(-50%);padding:3px}
 }
-@media (max-width:380px){
-  .promo-strip-inner{padding:9px 30px 11px 12px}
-  .promo-mobile-single{gap:5px}
-  .promo-mobile-price .big{font-size:22px}
-  .promo-mobile-price .big small{font-size:12px}
-  .promo-mobile-price .kick{font-size:9px;letter-spacing:1.5px}
-  .mm-pill{font-size:10px;padding:2px 8px;gap:3px}
-  .mm-pill i{font-size:8.5px}
-  .promo-mobile-cta{padding:9px 22px;font-size:13px}
+@media (max-width:480px){
+  .promo-strip-inner{padding:8px 26px 8px 10px}
+  .promo-mobile-single{gap:7px}
+  .promo-mobile-price .big{font-size:18px}
+  .promo-mobile-price .big small{font-size:10px}
+  .promo-mobile-msg{gap:3px}
+  .mm-pill{font-size:9.5px;padding:2px 6px;gap:2px}
+  .mm-pill i{display:none}
+  .promo-mobile-cta{padding:7px 11px;font-size:12px;gap:4px}
+  .promo-mobile-cta i{display:none}
+}
+@media (max-width:360px){
+  .mm-pill{font-size:9px;padding:2px 5px}
+  .promo-mobile-price .big{font-size:17px}
 }
 
 /* Exit-intent modal */
@@ -207,11 +212,10 @@ button{font-family:inherit;cursor:pointer;border:none}
     <div class="promo-tagline">
       Become a <span class="accent">monthly supporter</span> of The Shark Tank Blog <span class="dot">&middot;</span> Keep our coverage independent, writer-run, and ad-free.
     </div>
-    <!-- Mobile-only: vertical stack — price, kick, pills, Subscribe -->
+    <!-- Mobile-only: horizontal row — price | pills | Subscribe -->
     <div class="promo-mobile-single">
       <div class="promo-mobile-price">
-        <span class="big">$1<small>/month</small></span>
-        <span class="kick">Monthly</span>
+        <span class="big">$1<small>/mo</small></span>
       </div>
       <div class="promo-mobile-msg">
         <span class="mm-pill"><i class="fas fa-heart"></i> Support</span>
