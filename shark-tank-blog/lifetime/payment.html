@@ -6,504 +6,360 @@
 <title>Subscribe — Lifetime Supporter Membership</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Open+Sans:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <style>
-:root{--cyan:#117fb0;--cyan-light:#1592cc;--stripe:#635bff;--nav-bg:#191c20;--bg:#f7f8fa;--bg-card:#fff;--border:#e5e7eb;--text:#1e293b;--text-sec:#475569;--text-muted:#64748b;--text-dim:#94a3b8;--green:#10b981;--amber:#f59e0b;--font-body:'Open Sans',sans-serif;--font-serif:'Newsreader',Georgia,serif;--font-mono:'JetBrains Mono',monospace}
+:root {
+  --stripe-blue: #635bff;
+  --stripe-pay-blue: #1a7fe3;
+  --link-green: #00d664;
+  --amazon-yellow: #ffcc01;
+  --cashapp-green: #00d54b;
+  --text:#30313d;
+  --text-sec:#6d7175;
+  --text-dim:#a5acb8;
+  --border:#e6e6e6;
+  --border-strong:#c0c0c0;
+  --bg-page:#fff;
+  --bg-left:#f6f9fc;
+  --radius:6px;
+  --font:'Open Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+}
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-body{font-family:var(--font-body);background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased;min-height:100vh;display:flex;flex-direction:column}
+body{font-family:var(--font);background:var(--bg-page);color:var(--text);font-size:14px;line-height:1.45;-webkit-font-smoothing:antialiased;min-height:100vh}
 a{color:inherit;text-decoration:none}
-button{font-family:inherit;cursor:pointer;border:none}
+button{font-family:inherit;cursor:pointer;border:none;background:none}
 
-.demo-strip{background:#0a0d12;color:#fff;padding:8px 20px;text-align:center;font-size:12px}
+.demo-strip{background:#0a0d12;color:#fff;padding:7px 20px;text-align:center;font-size:11.5px}
 .demo-strip a{color:#7bc7e8;font-weight:600;margin-left:6px}
-.demo-strip .tag{display:inline-block;padding:2px 8px;background:rgba(17,127,176,0.2);border:1px solid rgba(17,127,176,0.4);border-radius:10px;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#7bc7e8;margin-right:8px}
+.demo-strip .tag{display:inline-block;padding:2px 8px;background:rgba(17,127,176,0.2);border:1px solid rgba(17,127,176,0.4);border-radius:10px;font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#7bc7e8;margin-right:8px}
 
-.main-nav{background:var(--nav-bg);border-bottom:1px solid rgba(255,255,255,0.05)}
-.nav-inner{display:flex;align-items:center;justify-content:space-between;height:56px;max-width:1100px;margin:0 auto;padding:0 20px}
-.logo img{height:36px;border-radius:4px}
-.nav-inner a{color:rgba(255,255,255,0.6);font-size:13px;display:inline-flex;align-items:center;gap:6px}
-.nav-inner a:hover{color:#fff}
+/* Main page - two columns like Stripe Checkout */
+.checkout{display:grid;grid-template-columns:1fr 1fr;min-height:calc(100vh - 28px)}
 
-.page{flex:1;padding:40px 20px}
-.page-inner{max-width:960px;margin:0 auto;display:grid;grid-template-columns:1fr 1.3fr;gap:40px}
+/* LEFT SIDE - order summary */
+.left{background:var(--bg-left);padding:56px 56px 40px;display:flex;flex-direction:column}
+.left-inner{max-width:420px;margin-left:auto;width:100%}
+.back-link{display:flex;align-items:center;gap:12px;color:var(--text-sec);margin-bottom:32px}
+.back-arrow{width:18px;height:18px;display:flex;align-items:center;justify-content:center;color:var(--text-sec);cursor:pointer}
+.back-arrow:hover{color:var(--text)}
+.merchant-row{display:flex;align-items:center;gap:10px}
+.merchant-logo{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#117fb0,#0e5f85);display:flex;align-items:center;justify-content:center;overflow:hidden}
+.merchant-logo img{width:100%;height:100%;object-fit:cover}
+.merchant-name{font-size:15px;font-weight:600;color:var(--text)}
 
-/* LEFT: Order summary — refined card layout */
-.summary{position:sticky;top:20px}
+.product-head{margin-top:20px;margin-bottom:8px}
+.product-desc{font-size:15px;color:var(--text-sec);line-height:1.4;margin-bottom:6px}
+.product-price{display:flex;align-items:flex-end;gap:8px}
+.price-big{font-size:38px;font-weight:500;color:var(--text);letter-spacing:-1.5px;line-height:1}
+.price-unit{font-size:13px;color:var(--text-sec);line-height:1.3;padding-bottom:4px;display:flex;flex-direction:column}
+.price-unit span{display:block}
 
-/* Brand row */
-.brand-row{display:flex;align-items:center;gap:10px;padding-bottom:18px;border-bottom:1px solid var(--border);margin-bottom:22px}
-.brand-row img{width:34px;height:34px;border-radius:6px}
-.brand-row-text{display:flex;flex-direction:column;gap:0}
-.brand-row-name{font-family:var(--font-serif);font-size:13.5px;font-weight:600;color:var(--text);letter-spacing:-0.01em;line-height:1.1}
-.brand-row-meta{font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:1.2px;font-weight:700;margin-top:3px}
+.currency-toggle{display:flex;gap:8px;margin-top:20px;max-width:400px}
+.currency-btn{flex:1;display:flex;align-items:center;justify-content:center;gap:8px;padding:11px 14px;background:#fff;border:1px solid var(--border);border-radius:var(--radius);font-size:14px;font-weight:500;color:var(--text);transition:all 0.15s;cursor:pointer}
+.currency-btn.active{border-color:var(--text);border-width:2px;padding:10px 13px}
+.currency-btn:hover:not(.active){background:#fafafa}
+.currency-btn .flag{font-size:17px;line-height:1}
 
-/* Product header */
-.product-head{margin-bottom:22px}
-.product-badges{display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap}
-.product-badge{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;background:rgba(17,127,176,0.08);border:1px solid rgba(17,127,176,0.18);border-radius:20px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:var(--cyan)}
-.product-badge.lifetime{background:rgba(16,185,129,0.08);border-color:rgba(16,185,129,0.22);color:var(--green)}
-.product-title{font-family:var(--font-serif);font-size:24px;font-weight:600;color:var(--text);margin-bottom:6px;line-height:1.25;letter-spacing:-0.01em}
-.product-tagline{font-size:13.5px;color:var(--text-muted);line-height:1.55}
+.exchange-note{font-size:12.5px;color:var(--text-sec);margin-top:10px;line-height:1.4}
 
-/* Price card */
-.price-card{background:linear-gradient(180deg,#fff,#fafbfc);border:1px solid var(--border);border-radius:10px;padding:18px 20px;display:flex;align-items:baseline;justify-content:space-between;margin-bottom:24px}
-.price-card-left .price-label{font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;line-height:1}
-.price-card-left .price-main{font-family:var(--font-serif);font-size:42px;font-weight:600;color:var(--text);letter-spacing:-1.5px;line-height:1;display:inline-flex;align-items:baseline;gap:3px}
-.price-card-left .price-cur{font-size:22px;color:var(--text-muted);font-weight:500}
-.price-card-right{text-align:right;font-size:11.5px;color:var(--text-muted);line-height:1.5}
-.price-card-right strong{display:block;color:var(--green);font-weight:700;font-size:11px;letter-spacing:0.8px;text-transform:uppercase;margin-bottom:2px}
+.items-list{margin-top:40px}
+.item-row{display:flex;justify-content:space-between;align-items:flex-start;padding:4px 0}
+.item-info{flex:1}
+.item-name{font-size:14px;font-weight:500;color:var(--text);margin-bottom:2px}
+.item-sub{font-size:13px;color:var(--text-sec)}
+.item-price{font-size:14px;font-weight:500;color:var(--text);margin-left:12px;white-space:nowrap}
 
-/* Pillars — tight rows with left-accent */
-.pillars-label{font-size:11px;font-weight:700;color:var(--text-muted);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:14px}
-.pillars{display:flex;flex-direction:column;gap:2px}
-.pillar{display:flex;gap:14px;padding:12px 14px;border-radius:8px;transition:background 0.15s}
-.pillar:hover{background:rgba(17,127,176,0.03)}
-.pillar-icon{width:32px;height:32px;border-radius:8px;background:rgba(17,127,176,0.08);color:var(--cyan);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.pillar-text{flex:1;min-width:0}
-.pillar-title{font-family:var(--font-serif);font-size:14.5px;font-weight:600;color:var(--text);margin-bottom:2px;line-height:1.3;letter-spacing:-0.005em}
-.pillar-desc{font-size:12.5px;color:var(--text-muted);line-height:1.5}
+.divider-h{height:1px;background:var(--border);margin:18px 0}
+.totals{display:flex;flex-direction:column;gap:8px}
+.total-line{display:flex;justify-content:space-between;font-size:14px;color:var(--text-sec)}
+.total-line.final{font-weight:600;color:var(--text);margin-top:8px;padding-top:12px;border-top:1px solid var(--border);font-size:15px}
+.total-line.final span:last-child{font-size:17px}
 
-/* Total row */
-.total-row{display:flex;justify-content:space-between;align-items:center;padding:16px 0 14px;margin-top:22px;border-top:1px solid var(--border)}
-.total-label{font-size:14px;font-weight:600;color:var(--text)}
-.total-amount{font-family:var(--font-serif);font-size:20px;font-weight:600;color:var(--text);letter-spacing:-0.5px}
-.total-amount .sub{font-size:11px;color:var(--text-muted);font-weight:400;margin-left:4px;letter-spacing:0}
+/* RIGHT SIDE - payment */
+.right{padding:56px 56px 40px;background:#fff}
+.right-inner{max-width:400px;margin-right:auto;width:100%}
 
-/* Trust chips — compact horizontal */
-.trust-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
-.trust-chip{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;background:#fff;border:1px solid var(--border);border-radius:6px;font-size:11.5px;font-weight:500;color:var(--text-sec)}
-.trust-chip i{font-size:11px;color:var(--text-muted)}
-.trust-chip.stripe i{color:var(--stripe)}
+/* Wallet buttons (top) */
+.wallets{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.wallet-btn{display:flex;align-items:center;justify-content:center;height:44px;border-radius:var(--radius);font-weight:600;font-size:15px;transition:filter 0.15s;cursor:pointer;gap:6px}
+.wallet-btn:hover{filter:brightness(0.95)}
+.wallet-btn.link{background:var(--link-green);color:#011e0f}
+.wallet-btn.link .link-icon{display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;background:#011e0f;color:var(--link-green);border-radius:50%;font-size:10px;font-weight:700}
+.wallet-btn.amazon{background:var(--amazon-yellow);color:#232f3e;font-family:'Helvetica Neue','Arial',sans-serif}
+.wallet-btn.amazon .smile{font-size:13px;font-style:italic;font-weight:400;display:inline-flex;align-items:flex-end;gap:1px}
+.wallet-btn.amazon .smile::after{content:'';width:22px;height:10px;border:1.5px solid #232f3e;border-top:none;border-radius:0 0 22px 22px;margin-left:2px;transform:translateY(-1px)}
 
-/* RIGHT: Checkout card */
-.checkout{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:32px;box-shadow:0 4px 24px rgba(0,0,0,0.04)}
+.or-divider{display:flex;align-items:center;gap:12px;margin:18px 0;font-size:13px;color:var(--text-dim);letter-spacing:0.3px}
+.or-divider::before,.or-divider::after{content:'';flex:1;height:1px;background:var(--border)}
 
-/* STEP INDICATOR */
-.step-indicator{display:flex;align-items:center;gap:0;margin-bottom:28px}
-.step{display:flex;align-items:center;gap:8px;flex:1}
-.step-num{width:24px;height:24px;border-radius:50%;background:#e2e8f0;color:#94a3b8;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;transition:all 0.3s}
-.step.active .step-num{background:var(--cyan);color:#fff;box-shadow:0 0 0 3px rgba(17,127,176,0.15)}
-.step.done .step-num{background:var(--green);color:#fff}
-.step-label{font-size:12px;font-weight:600;color:var(--text-muted);transition:color 0.3s}
-.step.active .step-label{color:var(--text)}
-.step.done .step-label{color:var(--green)}
-.step-line{flex:1;height:2px;background:#e2e8f0;margin:0 8px;border-radius:1px;transition:background 0.3s}
-.step-line.done{background:var(--green)}
+/* Sections */
+.section-label{font-size:14.5px;font-weight:500;color:var(--text);margin-bottom:8px}
 
-/* SECTION TITLES */
-.section-heading{font-family:var(--font-serif);font-size:18px;font-weight:600;color:var(--text);margin-bottom:4px}
-.section-sub{font-size:13px;color:var(--text-muted);margin-bottom:18px}
+/* Contact info field */
+.contact-field{background:#f6f9fc;border:1px solid var(--border);border-radius:var(--radius);padding:12px 14px;display:flex;align-items:center;gap:0;margin-bottom:22px}
+.contact-field-label{font-size:14px;color:var(--text-sec);width:100px;flex-shrink:0}
+.contact-field-value{font-size:14px;color:var(--text);font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 
-/* EMAIL STEP */
-.email-step{display:block}
-.email-step.hidden{display:none}
+/* Payment methods */
+.pm-group{display:flex;flex-direction:column;gap:10px;margin-top:8px}
+.pm-card{border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:border-color 0.15s}
+.pm-card.active{border-color:var(--text);border-width:2px}
 
-.field{margin-bottom:14px}
-.field label{display:block;font-size:12px;font-weight:600;color:var(--text-sec);margin-bottom:6px}
-.field input{width:100%;padding:12px 14px;background:#fff;border:1.5px solid var(--border);border-radius:6px;color:var(--text);font-size:14.5px;font-family:inherit;outline:none;transition:all 0.15s}
-.field input:focus{border-color:var(--cyan);box-shadow:0 0 0 3px rgba(17,127,176,0.08)}
-.field input.valid{border-color:var(--green);padding-right:38px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2310b981' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6L9 17l-5-5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center}
-.field-help{font-size:12px;color:var(--text-muted);margin-top:6px;line-height:1.5;display:flex;align-items:flex-start;gap:5px}
-.field-help i{color:var(--text-dim);margin-top:3px;font-size:10px}
+.pm-head{display:flex;align-items:center;gap:14px;padding:13px 16px;cursor:pointer}
+.pm-card.active .pm-head{padding:12px 15px}
+.pm-radio{width:16px;height:16px;border-radius:50%;border:1.5px solid var(--border-strong);position:relative;flex-shrink:0}
+.pm-card.active .pm-radio{border-color:var(--text);border-width:5px;background:#fff}
+.pm-icon{display:flex;align-items:center;justify-content:center;width:28px;flex-shrink:0;color:var(--text)}
+.pm-icon-card{background:var(--text);color:#fff;border-radius:3px;padding:3px 5px}
+.pm-icon-cashapp{background:var(--cashapp-green);color:#fff;border-radius:5px;width:24px;height:24px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px}
+.pm-icon-bank{color:var(--text-sec)}
+.pm-label{font-size:14px;font-weight:500;color:var(--text);flex:1}
 
-.btn-primary{width:100%;padding:14px;background:var(--text);color:#fff;border-radius:8px;font-size:14.5px;font-weight:700;margin-top:12px;transition:background 0.15s;display:flex;align-items:center;justify-content:center;gap:8px}
-.btn-primary:hover{background:#334155}
-.btn-primary.loading{background:#64748b;cursor:not-allowed}
-.btn-primary.loading::before{content:'';width:14px;height:14px;border:2px solid rgba(255,255,255,0.4);border-top-color:#fff;border-radius:50%;animation:spin 0.6s linear infinite}
+.pm-body{padding:0 16px 16px;display:none}
+.pm-card.active .pm-body{display:block;padding:0 15px 15px}
+.pm-form-label{font-size:13px;font-weight:500;color:var(--text);margin:12px 0 6px}
+.pm-input{width:100%;padding:11px 14px;border:1px solid var(--border);border-radius:var(--radius);font-size:14px;font-family:inherit;color:var(--text);outline:none;transition:all 0.15s;background:#fff}
+.pm-input:focus{border-color:var(--stripe-blue);box-shadow:0 0 0 1px var(--stripe-blue)}
+.pm-input::placeholder{color:var(--text-dim)}
+
+.card-num-wrap{position:relative}
+.card-num-wrap .pm-input{padding-right:130px}
+.card-brands{position:absolute;right:10px;top:50%;transform:translateY(-50%);display:flex;gap:3px;align-items:center}
+.card-brands .brand{height:18px;padding:0 5px;border-radius:3px;display:flex;align-items:center;font-size:9px;font-weight:700;letter-spacing:0.3px}
+.card-brand-visa{background:#1a1f71;color:#fff}
+.card-brand-mc{background:#eb001b;color:#fff;position:relative}
+.card-brand-amex{background:#006fcf;color:#fff}
+.card-brand-jcb{background:linear-gradient(90deg,#00aef4 33%,#de1e27 33% 66%,#009e5f 66%);color:#fff}
+
+.card-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.card-row .pm-input{padding-right:38px}
+.cvc-wrap{position:relative}
+.cvc-wrap::after{content:'';position:absolute;right:10px;top:50%;transform:translateY(-50%);width:22px;height:14px;background:linear-gradient(180deg,#fff 0%,#fff 35%,#a5acb8 35%,#a5acb8 60%,#fff 60%);border:1px solid var(--border-strong);border-radius:2px;pointer-events:none;background-image:linear-gradient(90deg,transparent 3px,#a5acb8 3px,#a5acb8 6px,transparent 6px,transparent 9px,#a5acb8 9px,#a5acb8 12px,transparent 12px);background-size:14px 14px;background-repeat:no-repeat;background-position:center}
+
+.pm-select{position:relative}
+.pm-select select{width:100%;padding:11px 14px;padding-right:36px;border:1px solid var(--border);border-radius:var(--radius);font-size:14px;font-family:inherit;color:var(--text);background:#fff;appearance:none;outline:none;cursor:pointer}
+.pm-select::after{content:'';position:absolute;right:12px;top:50%;transform:translateY(-50%) rotate(45deg);width:6px;height:6px;border-right:1.5px solid var(--text-sec);border-bottom:1.5px solid var(--text-sec);pointer-events:none;margin-top:-3px}
+
+/* Save my info */
+.save-info{display:flex;gap:10px;padding:14px 16px;border:1px solid var(--border);border-radius:var(--radius);margin-top:16px}
+.save-info-check{width:18px;height:18px;border:1.5px solid var(--border-strong);border-radius:3px;cursor:pointer;flex-shrink:0;margin-top:1px;background:#fff;position:relative;transition:all 0.15s}
+.save-info-check.checked{background:var(--stripe-blue);border-color:var(--stripe-blue)}
+.save-info-check.checked::after{content:'';position:absolute;left:5px;top:2px;width:5px;height:9px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg)}
+.save-info-text{font-size:13.5px;line-height:1.45}
+.save-info-text strong{color:var(--text);font-weight:600;display:block;margin-bottom:2px;font-size:14px}
+.save-info-text span{color:var(--text-sec)}
+.save-info-text span u{text-decoration:underline;font-weight:500}
+
+/* Subscribe button */
+.subscribe-btn{width:100%;padding:13px;background:var(--stripe-pay-blue);color:#fff;border-radius:var(--radius);font-size:15px;font-weight:600;margin-top:22px;transition:background 0.15s}
+.subscribe-btn:hover{background:#176ac3}
+.subscribe-btn.loading{background:#6ba4d9;cursor:not-allowed;display:flex;align-items:center;justify-content:center;gap:8px}
+.subscribe-btn.loading::before{content:'';width:14px;height:14px;border:2px solid rgba(255,255,255,0.4);border-top-color:#fff;border-radius:50%;animation:spin 0.6s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 
-/* BLOCKED BANNER (duplicate email) */
-.blocked-banner{background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.25);border-radius:10px;padding:14px 16px;display:flex;align-items:flex-start;gap:12px;margin-bottom:18px}
-.blocked-banner i{color:var(--amber);font-size:16px;margin-top:2px;flex-shrink:0}
-.blocked-banner .blocked-text{font-size:13.5px;color:var(--text-sec);line-height:1.5}
-.blocked-banner strong{color:var(--text);font-weight:600;display:block;margin-bottom:2px;font-size:14px}
-.blocked-actions{display:flex;flex-direction:column;gap:10px}
-.btn-send-link{width:100%;padding:13px;background:var(--cyan);color:#fff;border-radius:8px;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:8px;transition:background 0.15s}
-.btn-send-link:hover{background:var(--cyan-light)}
-.btn-reset{width:100%;padding:11px;background:transparent;border:1px solid var(--border);color:var(--text-sec);border-radius:8px;font-size:13px;font-weight:600;transition:all 0.15s}
-.btn-reset:hover{border-color:var(--cyan);color:var(--cyan)}
+.subscribe-legal{font-size:12.5px;color:var(--text-sec);line-height:1.5;text-align:center;margin-top:14px}
+.subscribe-legal strong{color:var(--text);font-weight:500}
 
-/* PAYMENT STEP */
-.payment-step{display:none}
-.payment-step.active{display:block}
+/* Footer */
+.checkout-foot{display:flex;align-items:center;justify-content:center;gap:14px;margin-top:28px;font-size:12.5px;color:var(--text-dim)}
+.checkout-foot .powered{display:flex;align-items:center;gap:4px}
+.checkout-foot .powered strong{color:#5469d4;font-weight:600;letter-spacing:-0.3px;font-size:13px}
+.checkout-foot .divider-v{width:1px;height:14px;background:var(--border)}
+.checkout-foot a:hover{color:var(--text)}
 
-.verified-email{background:rgba(16,185,129,0.06);border:1px solid rgba(16,185,129,0.2);border-radius:8px;padding:10px 14px;display:flex;align-items:center;gap:10px;margin-bottom:22px}
-.verified-email i{color:var(--green);font-size:13px}
-.verified-email .label{font-size:11px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;color:var(--green);flex-shrink:0}
-.verified-email .addr{font-size:13px;color:var(--text);font-weight:600;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.verified-email button{background:none;color:var(--text-muted);font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;padding:4px 10px;border-radius:4px;transition:all 0.15s}
-.verified-email button:hover{color:var(--cyan);background:rgba(17,127,176,0.05)}
-
-.express{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
-.express-btn{display:flex;align-items:center;justify-content:center;height:44px;background:#fff;border:1.5px solid var(--border);border-radius:8px;font-family:inherit;font-weight:600;font-size:13.5px;color:#000;transition:all 0.15s;gap:8px}
-.express-btn:hover{border-color:var(--text);background:#fafbfd}
-.express-btn.apple{background:#000;color:#fff;border-color:#000}
-.express-btn.gpay{background:#fff}
-.express-btn.link{background:#00d664;color:#000;border-color:#00d664}
-.express-btn.paypal{background:#ffc439;color:#003087;border-color:#ffc439;font-weight:700}
-
-.express-divider{display:flex;align-items:center;gap:14px;margin:18px 0;font-size:11px;color:var(--text-dim);font-weight:600;text-transform:uppercase;letter-spacing:1px}
-.express-divider::before,.express-divider::after{content:'';flex:1;height:1px;background:var(--border)}
-
-.field-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.card-input-wrap{position:relative}
-.card-input-wrap input{padding-right:70px}
-.card-brand-logo{position:absolute;right:10px;top:50%;transform:translateY(-50%);padding:2px 6px;background:#f1f5f9;border-radius:3px;font-size:9px;font-weight:700;color:#64748b;letter-spacing:0.3px}
-
-.pay-btn{width:100%;padding:15px;background:var(--text);color:#fff;border-radius:8px;font-size:15px;font-weight:700;margin-top:18px;transition:background 0.15s;display:flex;align-items:center;justify-content:center;gap:8px}
-.pay-btn:hover{background:#334155}
-.pay-btn.loading{background:#64748b;cursor:not-allowed}
-.pay-btn.loading::before{content:'';width:14px;height:14px;border:2px solid rgba(255,255,255,0.4);border-top-color:#fff;border-radius:50%;animation:spin 0.6s linear infinite}
-
-.stripe-foot{text-align:center;margin-top:16px;font-size:11.5px;color:var(--text-dim);display:flex;align-items:center;justify-content:center;gap:4px}
-.stripe-foot strong{color:var(--stripe);font-weight:700}
-
-/* TOGGLE for demo — floating pill */
-.state-toggle{position:fixed;bottom:20px;left:20px;background:#0f172a;color:#fff;border-radius:24px;padding:5px;display:flex;gap:4px;z-index:99;box-shadow:0 8px 24px rgba(0,0,0,0.2);font-size:11px;font-weight:600}
-.state-toggle button{padding:7px 14px;background:transparent;color:rgba(255,255,255,0.5);border-radius:20px;transition:all 0.15s;font-family:inherit}
-.state-toggle button.active{background:var(--cyan);color:#fff}
-.state-toggle-label{padding:7px 6px 7px 14px;color:rgba(255,255,255,0.4);font-size:10px;text-transform:uppercase;letter-spacing:1px;font-weight:700}
-
-@media (max-width:820px){
-  .page-inner{grid-template-columns:1fr;gap:24px}
-  .summary{background:#fff;padding:24px;border-radius:12px;border:1px solid var(--border)}
-  .summary-price .big{font-size:44px}
+/* Responsive */
+@media (max-width:900px){
+  .checkout{grid-template-columns:1fr}
+  .left{padding:32px 24px;background:#fff;border-bottom:1px solid var(--border)}
+  .right{padding:32px 24px}
+  .left-inner,.right-inner{max-width:100%;margin:0 auto}
+  .back-link{margin-bottom:20px}
 }
 </style>
 </head>
 <body>
 
-<div class="demo-strip"><span class="tag">Demo</span>Step 3 of 5 &mdash; Checkout: email verification + payment on one page. <a href="index.html">← Overview</a></div>
+<div class="demo-strip"><span class="tag">Demo</span>Subscribe &mdash; Stripe Checkout replica for Shark Tank Blog. <a href="index.html">← Architecture overview</a></div>
 
-<nav class="main-nav">
-  <div class="nav-inner">
-    <a href="home.html" class="logo"><img src="https://nagarmohnish.github.io/LH2_Assets_UI/shark-tank-blog/assets/images/shark_logo.jpeg" alt="STB"></a>
-    <a href="home.html"><i class="fas fa-arrow-left"></i> Back to home</a>
-  </div>
-</nav>
+<div class="checkout">
 
-<main class="page">
-  <div class="page-inner">
-
-    <!-- LEFT: ORDER SUMMARY (refined) -->
-    <aside class="summary">
-
-      <!-- Brand row -->
-      <div class="brand-row">
-        <img src="https://nagarmohnish.github.io/LH2_Assets_UI/shark-tank-blog/assets/images/shark_logo.jpeg" alt="STB">
-        <div class="brand-row-text">
-          <span class="brand-row-name">The Shark Tank Blog</span>
-          <span class="brand-row-meta">Your Order</span>
+  <!-- LEFT: Order Summary -->
+  <section class="left">
+    <div class="left-inner">
+      <div class="back-link">
+        <a href="home.html" class="back-arrow" aria-label="Back"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></a>
+        <div class="merchant-row">
+          <div class="merchant-logo"><img src="https://nagarmohnish.github.io/LH2_Assets_UI/shark-tank-blog/assets/images/shark_logo.jpeg" alt=""></div>
+          <span class="merchant-name">Shark Tank Blog</span>
         </div>
       </div>
 
-      <!-- Product header -->
       <div class="product-head">
-        <div class="product-badges">
-          <span class="product-badge">Supporter</span>
-          <span class="product-badge lifetime">Lifetime</span>
-        </div>
-        <h2 class="product-title">Lifetime Supporter Membership</h2>
-        <p class="product-tagline">Back independent Shark Tank coverage &mdash; get ad-free reading and exclusive newsletter access, for life.</p>
-      </div>
-
-      <!-- Price card -->
-      <div class="price-card">
-        <div class="price-card-left">
-          <div class="price-label">Pay once</div>
-          <div class="price-main"><span class="price-cur">$</span>10<sup style="font-size:11px;color:var(--text-muted);font-weight:500;vertical-align:top;margin-left:2px;letter-spacing:0">.00</sup></div>
-        </div>
-        <div class="price-card-right">
-          <strong>No renewal</strong>
-          One payment.<br>Lifetime access.
+        <div class="product-desc">Subscribe to Go Ad-Free on Shark Tank Blog</div>
+        <div class="product-price">
+          <span class="price-big">$10.00</span>
+          <span class="price-unit"><span>one-time</span><span>lifetime</span></span>
         </div>
       </div>
 
-      <!-- Pillars -->
-      <div class="pillars-label">What's Included</div>
-      <div class="pillars">
-        <div class="pillar">
-          <div class="pillar-icon">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
-            </svg>
+      <div class="currency-toggle">
+        <button class="currency-btn" onclick="setCurrency('inr',this)"><span class="flag">🇮🇳</span> INR</button>
+        <button class="currency-btn active" onclick="setCurrency('usd',this)"><span class="flag">🇺🇸</span> USD</button>
+      </div>
+      <p class="exchange-note">Exchange rate and fees of your bank may apply</p>
+
+      <div class="items-list">
+        <div class="item-row">
+          <div class="item-info">
+            <div class="item-name">Go Ad-Free on Shark Tank Blog</div>
+            <div class="item-sub">Billed once &middot; Lifetime access</div>
           </div>
-          <div class="pillar-text">
-            <div class="pillar-title">Support independent coverage</div>
-            <div class="pillar-desc">Back writer-run, reader-supported Shark Tank journalism.</div>
-          </div>
+          <div class="item-price">$10.00</div>
         </div>
 
-        <div class="pillar">
-          <div class="pillar-icon">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><path d="M1 1l22 22"/>
-            </svg>
-          </div>
-          <div class="pillar-text">
-            <div class="pillar-title">Ad-free, forever</div>
-            <div class="pillar-desc">No banners, popups, or video ads &mdash; anywhere on the site.</div>
-          </div>
-        </div>
+        <div class="divider-h"></div>
 
-        <div class="pillar">
-          <div class="pillar-icon">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M4 4h16c1.1 0 2 0.9 2 2v12c0 1.1-0.9 2-2 2H4c-1.1 0-2-0.9-2-2V6c0-1.1 0.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
-            </svg>
-          </div>
-          <div class="pillar-text">
-            <div class="pillar-title">Ad-free newsletter access</div>
-            <div class="pillar-desc">Weekly subscriber-only recap and exclusive deep-dives.</div>
-          </div>
+        <div class="totals">
+          <div class="total-line"><span>Subtotal</span><span>$10.00</span></div>
+          <div class="total-line"><span>Tax</span><span>$0.00</span></div>
+          <div class="total-line final"><span>Total due</span><span>$10.00</span></div>
         </div>
       </div>
+    </div>
+  </section>
 
-      <!-- Total row -->
-      <div class="total-row">
-        <span class="total-label">Total today</span>
-        <span class="total-amount">$10.00 <span class="sub">USD</span></span>
+  <!-- RIGHT: Payment -->
+  <section class="right">
+    <div class="right-inner">
+
+      <!-- Wallets -->
+      <div class="wallets">
+        <button class="wallet-btn link">
+          Pay with <span class="link-icon">▶</span><strong style="margin-left:3px">link</strong>
+        </button>
+        <button class="wallet-btn amazon">
+          amazon <span class="smile">pay</span>
+        </button>
       </div>
 
-      <!-- Trust chips -->
-      <div class="trust-chips">
-        <span class="trust-chip stripe"><i class="fab fa-stripe-s"></i> Stripe</span>
-        <span class="trust-chip"><i class="fas fa-lock"></i> Encrypted</span>
-        <span class="trust-chip"><i class="fas fa-undo"></i> 7-day refund</span>
-      </div>
-    </aside>
+      <div class="or-divider">OR</div>
 
-    <!-- RIGHT: CHECKOUT -->
-    <section class="checkout">
-
-      <!-- Step indicator -->
-      <div class="step-indicator">
-        <div class="step active" id="stepA">
-          <div class="step-num" id="numA">1</div>
-          <div class="step-label">Email</div>
-        </div>
-        <div class="step-line" id="lineA"></div>
-        <div class="step" id="stepB">
-          <div class="step-num" id="numB">2</div>
-          <div class="step-label">Payment</div>
-        </div>
+      <!-- Contact -->
+      <div class="section-label">Contact information</div>
+      <div class="contact-field">
+        <span class="contact-field-label">Email</span>
+        <span class="contact-field-value" id="emailShow">mohnish.clive@gmail.com</span>
       </div>
 
-      <!-- STEP 1: EMAIL -->
-      <div class="email-step" id="emailStep">
-        <h3 class="section-heading">Enter your email</h3>
-        <p class="section-sub">We'll email your login link here after payment. Use an email you check &mdash; it's how you'll sign in to activate ad-free on this device.</p>
+      <!-- Payment methods -->
+      <div class="section-label">Payment method</div>
+      <div class="pm-group">
 
-        <!-- BLOCKED BANNER (toggleable for duplicate flow) -->
-        <div class="blocked-banner" id="blockedBanner" style="display:none">
-          <i class="fas fa-info-circle"></i>
-          <div class="blocked-text"><strong>You've already purchased</strong>This email has a lifetime entitlement on file. Send yourself a login link to activate on this device &mdash; no need to pay again.</div>
-        </div>
-
-        <form id="emailForm" onsubmit="event.preventDefault();verifyEmail()">
-          <div class="field">
-            <label for="emailInput">Email address</label>
-            <input type="email" id="emailInput" placeholder="you@example.com" value="reader@example.com" required autocomplete="email">
-            <div class="field-help"><i class="fas fa-lock"></i>We never share your email. Used only to send your login link and receipt.</div>
+        <!-- CARD (active) -->
+        <div class="pm-card active" data-pm="card">
+          <div class="pm-head" onclick="selectPM(this)">
+            <span class="pm-radio"></span>
+            <span class="pm-icon"><span class="pm-icon-card"><i class="fas fa-credit-card" style="font-size:11px"></i></span></span>
+            <span class="pm-label">Card</span>
           </div>
-
-          <!-- New purchase: continue to payment -->
-          <button type="submit" class="btn-primary" id="verifyBtn">
-            <i class="fas fa-lock" style="font-size:11px"></i>
-            Subscribe &mdash; $10 Lifetime
-          </button>
-
-          <!-- Blocked state actions (hidden by default) -->
-          <div class="blocked-actions" id="blockedActions" style="display:none;margin-top:12px">
-            <button type="button" class="btn-send-link" onclick="sendLoginLink()">
-              Email me the login link
-              <i class="fas fa-paper-plane"></i>
-            </button>
-            <button type="button" class="btn-reset" onclick="resetToEmailEntry()">
-              Use a different email
-            </button>
-          </div>
-        </form>
-      </div>
-
-      <!-- STEP 2: PAYMENT -->
-      <div class="payment-step" id="paymentStep">
-        <!-- verified email chip -->
-        <div class="verified-email">
-          <i class="fas fa-check-circle"></i>
-          <span class="label">Email</span>
-          <span class="addr" id="verifiedAddr">reader@example.com</span>
-          <button onclick="editEmail()">Edit</button>
-        </div>
-
-        <h3 class="section-heading">Complete payment</h3>
-        <p class="section-sub">One-time $10 charge. No subscription, no recurring.</p>
-
-        <!-- Express checkout -->
-        <div class="express">
-          <button class="express-btn apple"><i class="fab fa-apple"></i> Pay</button>
-          <button class="express-btn gpay"><span style="color:#4285F4;font-weight:700">G</span> Pay</button>
-          <button class="express-btn link"><strong>Link</strong></button>
-          <button class="express-btn paypal">PayPal</button>
-        </div>
-
-        <div class="express-divider">Or pay with card</div>
-
-        <!-- Payment Element -->
-        <form onsubmit="event.preventDefault();completePayment()">
-          <div class="field">
-            <label>Card number</label>
-            <div class="card-input-wrap">
-              <input type="text" placeholder="1234 1234 1234 1234" value="4242 4242 4242 4242" maxlength="19">
-              <span class="card-brand-logo">VISA</span>
+          <div class="pm-body">
+            <div class="pm-form-label">Card information</div>
+            <div class="card-num-wrap">
+              <input class="pm-input" type="text" placeholder="1234 1234 1234 1234" maxlength="19">
+              <div class="card-brands">
+                <span class="brand card-brand-visa">VISA</span>
+                <span class="brand card-brand-mc" title="Mastercard">MC</span>
+                <span class="brand card-brand-amex">AMEX</span>
+                <span class="brand card-brand-jcb">JCB</span>
+              </div>
+            </div>
+            <div class="card-row">
+              <input class="pm-input" type="text" placeholder="MM / YY" maxlength="7">
+              <div class="cvc-wrap"><input class="pm-input" type="text" placeholder="CVC" maxlength="4"></div>
+            </div>
+            <div class="pm-form-label">Cardholder name</div>
+            <input class="pm-input" type="text" placeholder="Full name on card">
+            <div class="pm-form-label">Country or region</div>
+            <div class="pm-select">
+              <select>
+                <option>India</option>
+                <option>United States</option>
+                <option>United Kingdom</option>
+                <option>Canada</option>
+                <option>Australia</option>
+              </select>
             </div>
           </div>
+        </div>
 
-          <div class="field-row">
-            <div class="field">
-              <label>Expiry</label>
-              <input type="text" placeholder="MM / YY" value="12 / 28" maxlength="7">
-            </div>
-            <div class="field">
-              <label>CVC</label>
-              <input type="text" placeholder="CVC" value="123" maxlength="4">
-            </div>
+        <!-- CASH APP PAY -->
+        <div class="pm-card" data-pm="cashapp">
+          <div class="pm-head" onclick="selectPM(this)">
+            <span class="pm-radio"></span>
+            <span class="pm-icon"><span class="pm-icon-cashapp">$</span></span>
+            <span class="pm-label">Cash App Pay</span>
           </div>
+        </div>
 
-          <div class="field">
-            <label>Country</label>
-            <input type="text" value="United States" readonly>
+        <!-- BANK -->
+        <div class="pm-card" data-pm="bank">
+          <div class="pm-head" onclick="selectPM(this)">
+            <span class="pm-radio"></span>
+            <span class="pm-icon pm-icon-bank"><i class="fas fa-landmark"></i></span>
+            <span class="pm-label">Bank</span>
           </div>
+        </div>
 
-          <button type="submit" class="pay-btn" id="payBtn">
-            <i class="fas fa-lock" style="font-size:11px"></i>
-            Pay $10.00
-          </button>
-
-          <div class="stripe-foot">
-            Powered by <strong>stripe</strong>
-          </div>
-        </form>
       </div>
 
-    </section>
-  </div>
-</main>
+      <!-- Save info -->
+      <div class="save-info">
+        <div class="save-info-check" id="saveCheck" onclick="this.classList.toggle('checked')"></div>
+        <div class="save-info-text">
+          <strong>Save my information for faster checkout</strong>
+          <span>Pay securely at Shark Tank Blog and everywhere <u>Link</u> is accepted.</span>
+        </div>
+      </div>
 
-<!-- Floating demo state toggle -->
-<div class="state-toggle">
-  <span class="state-toggle-label">Demo</span>
-  <button class="active" id="tglNew" onclick="setFlow('new')">New purchase</button>
-  <button id="tglBlocked" onclick="setFlow('blocked')">Duplicate email</button>
+      <!-- Subscribe button -->
+      <button class="subscribe-btn" id="subscribeBtn" onclick="completePayment()">Subscribe</button>
+      <p class="subscribe-legal">By subscribing, you authorize <strong>Shark Tank Blog</strong> to charge you <strong>$10.00 one-time</strong> for lifetime ad-free access. No recurring charges.</p>
+
+      <!-- Footer -->
+      <div class="checkout-foot">
+        <span class="powered">Powered by <strong>stripe</strong></span>
+        <span class="divider-v"></span>
+        <a href="#">Terms</a>
+        <a href="#">Privacy</a>
+      </div>
+    </div>
+  </section>
 </div>
 
 <script>
-var FLOW = 'new'; // 'new' or 'blocked'
-
-function setFlow(f){
-  FLOW = f;
-  document.getElementById('tglNew').classList.toggle('active',f==='new');
-  document.getElementById('tglBlocked').classList.toggle('active',f==='blocked');
-  resetToEmailEntry();
+function setCurrency(c, btn){
+  document.querySelectorAll('.currency-btn').forEach(function(b){b.classList.remove('active')});
+  btn.classList.add('active');
 }
-
-function verifyEmail(){
-  var email = document.getElementById('emailInput').value;
-  if(!email) return;
-
-  var btn = document.getElementById('verifyBtn');
-  btn.classList.add('loading');
-  btn.innerHTML = 'Checking email&hellip;';
-
-  // Simulate server check /adfree/init
-  setTimeout(function(){
-    if(FLOW === 'blocked'){
-      showBlockedState(email);
-    } else {
-      continueToPayment(email);
-    }
-  }, 800);
+function selectPM(head){
+  var card = head.closest('.pm-card');
+  document.querySelectorAll('.pm-card').forEach(function(c){c.classList.remove('active')});
+  card.classList.add('active');
 }
-
-function showBlockedState(email){
-  document.getElementById('blockedBanner').style.display = 'flex';
-  document.getElementById('verifyBtn').style.display = 'none';
-  document.getElementById('blockedActions').style.display = 'flex';
-  document.getElementById('emailInput').classList.add('valid');
-  document.getElementById('emailInput').readOnly = true;
-}
-
-function continueToPayment(email){
-  // Mark step 1 done, step 2 active
-  document.getElementById('stepA').classList.remove('active');
-  document.getElementById('stepA').classList.add('done');
-  document.getElementById('numA').innerHTML = '<i class="fas fa-check" style="font-size:10px"></i>';
-  document.getElementById('lineA').classList.add('done');
-  document.getElementById('stepB').classList.add('active');
-  // Swap panels
-  document.getElementById('emailStep').classList.add('hidden');
-  document.getElementById('paymentStep').classList.add('active');
-  document.getElementById('verifiedAddr').textContent = email;
-}
-
-function editEmail(){
-  // Go back to email step
-  document.getElementById('stepA').classList.add('active');
-  document.getElementById('stepA').classList.remove('done');
-  document.getElementById('numA').innerHTML = '1';
-  document.getElementById('lineA').classList.remove('done');
-  document.getElementById('stepB').classList.remove('active');
-  document.getElementById('emailStep').classList.remove('hidden');
-  document.getElementById('paymentStep').classList.remove('active');
-  // Reset submit button state
-  var btn = document.getElementById('verifyBtn');
-  btn.classList.remove('loading');
-  btn.style.display = 'flex';
-  btn.innerHTML = '<i class="fas fa-lock" style="font-size:11px"></i> Subscribe &mdash; $10 Lifetime';
-  document.getElementById('emailInput').readOnly = false;
-  document.getElementById('emailInput').classList.remove('valid');
-}
-
-function resetToEmailEntry(){
-  document.getElementById('blockedBanner').style.display = 'none';
-  document.getElementById('blockedActions').style.display = 'none';
-  document.getElementById('emailInput').classList.remove('valid');
-  document.getElementById('emailInput').readOnly = false;
-  var btn = document.getElementById('verifyBtn');
-  btn.classList.remove('loading');
-  btn.style.display = 'flex';
-  btn.innerHTML = '<i class="fas fa-lock" style="font-size:11px"></i> Subscribe &mdash; $10 Lifetime';
-  // also reset steps
-  document.getElementById('stepA').classList.add('active');
-  document.getElementById('stepA').classList.remove('done');
-  document.getElementById('numA').innerHTML = '1';
-  document.getElementById('lineA').classList.remove('done');
-  document.getElementById('stepB').classList.remove('active');
-  document.getElementById('emailStep').classList.remove('hidden');
-  document.getElementById('paymentStep').classList.remove('active');
-}
-
-function sendLoginLink(){
-  var email = document.getElementById('emailInput').value;
-  location.href = 'success.html?email=' + encodeURIComponent(email) + '&from=blocked';
-}
-
 function completePayment(){
-  var email = document.getElementById('verifiedAddr').textContent;
-  var btn = document.getElementById('payBtn');
+  var btn = document.getElementById('subscribeBtn');
   btn.classList.add('loading');
-  btn.innerHTML = 'Processing&hellip;';
+  btn.textContent = 'Processing';
   setTimeout(function(){
-    location.href = 'success.html?email=' + encodeURIComponent(email);
-  }, 1000);
+    location.href = 'success.html?email=' + encodeURIComponent(document.getElementById('emailShow').textContent);
+  }, 900);
 }
-
-// Populate email if passed via URL
+// Populate email from URL if provided
 (function(){
   var p = new URLSearchParams(location.search);
   var e = p.get('email');
-  if(e) document.getElementById('emailInput').value = e;
+  if(e) document.getElementById('emailShow').textContent = e;
 })();
 </script>
 
